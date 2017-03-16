@@ -9,9 +9,9 @@ public class Processor
 {
   public static void main(String[] args)
   {
-    String processFileName = args[0];
-    String deviceFileName = args[1];
-    String outputFileName = args[2];
+    String processFileName = "TestProcess.xml"; // args[0];
+    String deviceFileName = "TestDeviceCylindrical.xml"; // args[1];
+    String outputFileName = "output.gcode"; // args[2];
 
     File processFile = new File(processFileName);
     File deviceFile = new File(deviceFileName);
@@ -20,28 +20,39 @@ public class Processor
     Process process = null;
     Device device = null;
 
-    JAXBContext jaxbContext;
+    JAXBContext jaxbContext = null;
+    Unmarshaller jaxbUnmarshaller = null;
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(Process.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      process = (Process) jaxbUnmarshaller.unmarshal(processFile);
+      jaxbContext = JAXBContext.newInstance(Common.xmlClasses);
+      jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     }
-    catch (JAXBException e)
+    catch (JAXBException e1)
     {
-      e.printStackTrace();
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
     }
 
-    try
+    if (jaxbUnmarshaller != null)
     {
-      jaxbContext = JAXBContext.newInstance(Device.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      device = (Device) jaxbUnmarshaller.unmarshal(deviceFile);
-    }
-    catch (JAXBException e)
-    {
-      e.printStackTrace();
+      try
+      {
+        process = (Process) jaxbUnmarshaller.unmarshal(processFile);
+      }
+      catch (JAXBException e)
+      {
+        e.printStackTrace();
+      }
+
+      try
+      {
+        device = (Device) jaxbUnmarshaller.unmarshal(deviceFile);
+      }
+      catch (JAXBException e)
+      {
+        e.printStackTrace();
+      }
     }
 
     if ((process != null) && (device != null))

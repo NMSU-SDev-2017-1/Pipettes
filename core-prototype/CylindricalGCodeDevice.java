@@ -13,12 +13,40 @@ public class CylindricalGCodeDevice extends GCodeDevice
   private double minimumZ;
   private double maximumZ;
 
-  // TODO: Add getters and setters (update radiusSquared when radius is set)
+  public double getRadius()
+  {
+    return radius;
+  }
+  
+  public void setRadius(double radius)
+  {
+    this.radius = radius;
+  }
 
+  public double getMinimumZ()
+  {
+    return minimumZ;
+  }
+  
+  public void setMinimumZ(double minimum)
+  {
+    minimumZ = minimum;
+  }
+
+  public double getMaximumZ()
+  {
+    return maximumZ;
+  }
+  
+  public void setMaximumZ(double maximum)
+  {
+    maximumZ = maximum;
+  }
+  
   @Override
   public Point3D getHomePosition()
   {
-    return new Point3D(0.0f, 0.0f, maximumZ);
+    return new Point3D(0.0, 0.0, maximumZ);
   }
 
   @Override

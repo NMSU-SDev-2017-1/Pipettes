@@ -97,7 +97,7 @@ public abstract class Container
 
   public abstract boolean hasSubcontainers();
 
-  public abstract Iterator<Container> getSubcontainers();
+  public abstract Iterator<Container> getSubcontainerIterator();
 
   public abstract Container getSubcontainer(int index);
 

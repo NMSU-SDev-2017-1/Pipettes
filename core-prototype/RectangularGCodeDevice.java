@@ -18,14 +18,37 @@ public class RectangularGCodeDevice extends GCodeDevice
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   private Point3D maximumExtent = Point3D.ZERO;
 
-  // TODO: Add getters and setters
-
   @Override
   public Point3D getHomePosition()
   {
-    return new Point3D(homePosition.getX(), homePosition.getY(), homePosition.getZ());
+    return Common.newPoint3D(homePosition);
   }
 
+  public void setHomePosition(Point3D homePosition)
+  {
+    this.homePosition = Common.newPoint3D(homePosition);
+  }
+
+  public Point3D getMinimumExtent()
+  {
+    return Common.newPoint3D(minimumExtent);
+  }
+
+  public void setMinimumExtent(Point3D minimumExtent)
+  {
+    this.minimumExtent = Common.newPoint3D(minimumExtent);
+  }
+
+  public Point3D getMaximumExtent()
+  {
+    return Common.newPoint3D(maximumExtent);
+  }
+
+  public void setMaximumExtent(Point3D maximumExtent)
+  {
+    this.maximumExtent = Common.newPoint3D(maximumExtent);
+  }
+  
   @Override
   protected void checkPosition(Point3D position) throws PositioningException
   {

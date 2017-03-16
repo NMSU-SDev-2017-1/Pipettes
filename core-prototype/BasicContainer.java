@@ -110,7 +110,7 @@ public class BasicContainer extends Container
     return false;
   }
 
-  public Iterator<Container> getSubcontainers()
+  public Iterator<Container> getSubcontainerIterator()
   {
     return null;
   }

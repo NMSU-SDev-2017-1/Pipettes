@@ -63,7 +63,7 @@ public class DispenseProcedure extends Procedure
   {
     if (source.hasSubcontainers())
     {
-      Iterator<Container> subcontainers = source.getSubcontainers();
+      Iterator<Container> subcontainers = source.getSubcontainerIterator();
       while (subcontainers.hasNext())
       {
         performRecursively(context, device, subcontainers.next(), destination);
@@ -71,7 +71,7 @@ public class DispenseProcedure extends Procedure
     }
     else if (destination.hasSubcontainers())
     {
-      Iterator<Container> subcontainers = destination.getSubcontainers();
+      Iterator<Container> subcontainers = destination.getSubcontainerIterator();
       while (subcontainers.hasNext())
       {
         performRecursively(context, device, source, subcontainers.next());

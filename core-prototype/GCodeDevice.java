@@ -4,9 +4,7 @@ import java.io.PrintStream;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -16,6 +14,7 @@ public abstract class GCodeDevice extends Device
 {
   private String name;
   private String header;
+  private String footer;
 
   @XmlTransient
   private Point3D position;
@@ -40,12 +39,24 @@ public abstract class GCodeDevice extends Device
   {
     return "G21 ; Set units to millimeters\n"
         + "G90 ; Switch to absolute coordinates\n"
-        + "M83 ; Set extruder to relative mode\n" + "G28 ; Home all axes\n";
+        + "M83 ; Set extruder to relative mode\n" + "G28 ; Home all axes";
+  }
+  
+  public String getDefaultFooter()
+  {
+    return "G28 ; Home all axes";
   }
 
   public String getHeader()
   {
-    return header;
+    if (header == null)
+    {
+      return getDefaultHeader();
+    }
+    else
+    {
+      return header;
+    }
   }
 
   public void setHeader(String header)
@@ -53,6 +64,23 @@ public abstract class GCodeDevice extends Device
     this.header = header;
   }
 
+  public String getFooter()
+  {
+    if (footer == null)
+    {
+      return getDefaultFooter();
+    }
+    else
+    {
+      return footer;
+    }
+  }
+
+  public void setFooter(String footer)
+  {
+    this.footer = footer;
+  }
+  
   public double getExtrudePerVolumeRatio()
   {
     return extrudePerVolume;
@@ -62,23 +90,30 @@ public abstract class GCodeDevice extends Device
   {
     extrudePerVolume = ratio;
   }
+    
+  public double getDispenseExtrudeRatio()
+  {
+    return dispenseExtrudeRatio;
+  }
 
+  public void setDispenseExtrudeRatio(double ratio)
+  {
+    dispenseExtrudeRatio = ratio;
+  }
+  
   public void beginProcess(File outputFile) throws FileNotFoundException
   {
-    if (output != null)
-    {
-      // TODO: Throw exception
-    }
-
     output = new PrintStream(outputFile);
 
-    output.println(header);
+    output.println(getHeader());
 
     position = getHomePosition();
   }
 
   public void endProcess()
   {
+    output.println(getFooter());
+    
     output.flush();
     output.close();
     output = null;
@@ -99,7 +134,7 @@ public abstract class GCodeDevice extends Device
 
   public void setSpeed(double speed)
   {
-    double feedrateMmPerMinute = speed * 60.0f;
+    double feedrateMmPerMinute = speed * 60.0;
     output.printf("G1 F%.2f\n", feedrateMmPerMinute);
   }
 

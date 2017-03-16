@@ -4,9 +4,13 @@ import javafx.geometry.Point2D;
 
 public class ProcessContext
 {
-  // TODO: Populate during construction to include all containers and subcontainers
-  private ArrayList<Container> containers;
+  private ArrayList<Container> containers = new ArrayList<Container>();
 
+  public void addContainer(Container container)
+  {
+    containers.add(container);
+  }
+  
   public double getClearanceHeight(Point2D fromLocation, Point2D toLocation)
   {
     double result = 0;
