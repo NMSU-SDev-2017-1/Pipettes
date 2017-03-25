@@ -1,5 +1,0 @@
-*.class
-/TestDeviceCylindrical.xml
-/TestDeviceRectangular.xml
-/TestProcess.xml
-*.gcode

@@ -1,1 +1,0 @@
-java XmlSerializationTest TestProcess.xml
