@@ -1,12 +1,20 @@
 package pipettes.ui;
 
+import pipettes.core.Container;
+import pipettes.core.Device;
+import pipettes.core.Procedure;
 import pipettes.ui.dashboard.DashboardView;
+
 import com.airhacks.afterburner.injection.Injector;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
+
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -29,6 +37,18 @@ public class App extends Application
     
     // Properties from "configuration.properties" are applied only if no
     // custom properties or system properties apply
+
+    ObjectProperty<Process> activeProcess = new SimpleObjectProperty<Process>();
+    customProperties.put("activeProcess", activeProcess);
+    
+    ObjectProperty<Device> activeDevice = new SimpleObjectProperty<Device>();
+    customProperties.put("activeDevice", activeDevice);
+
+    ObjectProperty<Container> activeContainer = new SimpleObjectProperty<Container>();
+    customProperties.put("activeContainer", activeContainer);
+
+    ObjectProperty<Procedure> activeProcedure = new SimpleObjectProperty<Procedure>();
+    customProperties.put("activeProcedure", activeProcedure);
     
     DashboardView appView = new DashboardView();
     Scene scene = new Scene(appView.getView());
