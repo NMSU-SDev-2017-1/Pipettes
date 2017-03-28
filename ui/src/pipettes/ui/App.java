@@ -1,6 +1,7 @@
 package pipettes.ui;
 
 import pipettes.core.Container;
+import pipettes.core.CylindricalGCodeDevice;
 import pipettes.core.Device;
 import pipettes.core.Procedure;
 import pipettes.ui.dashboard.DashboardView;
@@ -49,6 +50,23 @@ public class App extends Application
 
     ObjectProperty<Procedure> activeProcedure = new SimpleObjectProperty<Procedure>();
     customProperties.put("activeProcedure", activeProcedure);
+
+    // TODO: Load application configuration/preferences
+    
+    // TODO: Load device profiles
+    
+    // TODO: Load container library
+    
+    // TODO: Remove this example when
+    CylindricalGCodeDevice exampleDevice = new CylindricalGCodeDevice();
+    exampleDevice.setName("SeeMeCNC Rostock MAX v2");
+    exampleDevice.setExtrudePerVolume(20.0);
+    exampleDevice.setDispenseExtrudeRatio(1.01);
+    exampleDevice.setRadius(140.0);
+    exampleDevice.setMinimumZ(0.0);
+    exampleDevice.setMaximumZ(375.0);
+    
+    activeDevice.set(exampleDevice);
     
     DashboardView appView = new DashboardView();
     Scene scene = new Scene(appView.getView());
