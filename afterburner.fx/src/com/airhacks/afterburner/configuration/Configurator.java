@@ -51,6 +51,7 @@ public class Configurator {
     private final Properties systemProperties;
     private Function<Object, Object> customConfigurator;
 
+    @SuppressWarnings("unused")
     private Consumer<String> LOG;
 
     public Configurator() {

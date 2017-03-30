@@ -18,6 +18,11 @@ public class CylindricalGCodeDevice extends GCodeDevice
   private DoubleProperty minimumZ = new SimpleDoubleProperty();
   private DoubleProperty maximumZ = new SimpleDoubleProperty();
 
+  public DeviceType getType()
+  {
+    return DeviceType.CylindricalGCode;
+  }
+
   @XmlElement
   public double getRadius()
   {

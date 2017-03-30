@@ -29,6 +29,8 @@ public abstract class Device
     return name;
   }
   
+  public abstract DeviceType getType();
+  
   public abstract void beginProcess(PrintStream output);
 
   public abstract void endProcess();

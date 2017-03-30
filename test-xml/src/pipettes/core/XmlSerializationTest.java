@@ -74,6 +74,7 @@ public class XmlSerializationTest
     process.addProcedure(procedure4);
     
     CylindricalGCodeDevice deviceCylindrical = new CylindricalGCodeDevice();
+    deviceCylindrical.setName("SeeMeCNC Rostock MAX v2");
     deviceCylindrical.setExtrudePerVolume(20.0);
     deviceCylindrical.setDispenseExtrudeRatio(1.01);
     deviceCylindrical.setRadius(140.0);
@@ -81,8 +82,9 @@ public class XmlSerializationTest
     deviceCylindrical.setMaximumZ(375.0);
     
     RectangularGCodeDevice deviceRectangular = new RectangularGCodeDevice();
-    deviceCylindrical.setExtrudePerVolume(20.0);
-    deviceCylindrical.setDispenseExtrudeRatio(1.01);
+    deviceRectangular.setName("MakerBot Replicator");
+    deviceRectangular.setExtrudePerVolume(20.0);
+    deviceRectangular.setDispenseExtrudeRatio(1.01);
     deviceRectangular.setHomePosition(new Point3D(50.0, 75.0, 130.0));
     deviceRectangular.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     deviceRectangular.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));

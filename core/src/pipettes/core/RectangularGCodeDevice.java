@@ -26,6 +26,11 @@ public class RectangularGCodeDevice extends GCodeDevice
   private DoubleProperty maximumExtentY = new SimpleDoubleProperty();
   private DoubleProperty maximumExtentZ = new SimpleDoubleProperty();
   
+  public DeviceType getType()
+  {
+    return DeviceType.RectangularGCode;
+  }
+  
   public double getHomePositionX()
   {
     return homePositionX.get();
