@@ -115,4 +115,9 @@ public class DeviceEditorPresenter implements Initializable
   {
     activeDevice.set(exampleDevice2);
   }
+
+  public void selectNothing()
+  {
+    activeDevice.set(null);
+  }
 }
