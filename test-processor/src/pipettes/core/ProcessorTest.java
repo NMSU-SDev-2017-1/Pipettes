@@ -15,14 +15,17 @@ public class ProcessorTest
     String processFileName = args[0];
     String deviceFileName = args[1];
     String outputFileName = args[2];
+    String logFileName = args[3];
 
     File processFile = new File(processFileName);
     File deviceFile = new File(deviceFileName);
     File outputFile = new File(outputFileName);
+    File logFile = new File(logFileName);
 
     Process process = null;
     Device device = null;
     PrintStream output = null;
+    PrintStream log = null;
     
     JAXBContext jaxbContext;
 
@@ -51,6 +54,7 @@ public class ProcessorTest
     try
     {
       output = new PrintStream(outputFile);
+      log = new PrintStream(logFile);
     }
     catch (FileNotFoundException e)
     {
@@ -61,12 +65,15 @@ public class ProcessorTest
     {
       try
       {
-        Processor.run(process, device, output);
+        Processor.run(process, device, output, log);
       }
       catch (PositioningException e)
       {
         e.printStackTrace();
       }
     }
+    
+    output.close();
+    log.close();
   }
 }

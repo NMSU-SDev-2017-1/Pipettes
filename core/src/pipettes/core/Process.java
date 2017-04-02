@@ -46,9 +46,9 @@ public class Process
   
   // TODO: Initialize with information necessary for procedures to perform
   // their operation
-  public ProcessContext createContext(Device device)
+  public ProcessContext createContext(Device device, ProcessLogger logger)
   {
-    ProcessContext context = new ProcessContext();
+    ProcessContext context = new ProcessContext(device, logger);
     
     for (Container container : baseContainers.values())
     {
@@ -107,16 +107,16 @@ public class Process
     }
   }
 
-  public void run(Device device) throws PositioningException
+  public void run(Device device, ProcessLogger logger) throws PositioningException
   {
     verifyProcedures();
     verifyContainers();
 
-    ProcessContext context = createContext(device);
+    ProcessContext context = createContext(device, logger);
 
     for (Procedure procedure : procedures)
     {
-      procedure.perform(context, device);
+      procedure.perform(context);
     }
   }
   

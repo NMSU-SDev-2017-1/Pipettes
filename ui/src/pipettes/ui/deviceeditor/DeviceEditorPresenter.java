@@ -25,27 +25,27 @@ public class DeviceEditorPresenter implements Initializable
 {
   @FXML
   TextField nameTextField;
-  
+
   @FXML
   Label typeLabel;
-  
+
   @FXML
   Button example1Button;
-  
+
   @FXML
   Button example2Button;
 
   @Inject
   ObjectProperty<Device> activeDevice;
-  
+
   Device lastActiveDevice;
-  
+
   BooleanProperty validDevice = new SimpleBooleanProperty();
-  
 
   // TODO: Remove when examples no longer needed
   CylindricalGCodeDevice exampleDevice1 = new CylindricalGCodeDevice();
   RectangularGCodeDevice exampleDevice2 = new RectangularGCodeDevice();
+
   public DeviceEditorPresenter()
   {
     exampleDevice1.setName("SeeMeCNC Rostock MAX v2");
@@ -54,7 +54,7 @@ public class DeviceEditorPresenter implements Initializable
     exampleDevice1.setRadius(140.0);
     exampleDevice1.setMinimumZ(0.0);
     exampleDevice1.setMaximumZ(375.0);
-    
+
     exampleDevice2.setName("MakerBot Replicator");
     exampleDevice2.setExtrudePerVolume(20.0);
     exampleDevice2.setDispenseExtrudeRatio(1.01);
@@ -62,13 +62,13 @@ public class DeviceEditorPresenter implements Initializable
     exampleDevice2.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     exampleDevice2.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));
   }
-  
+
   @Override
   public void initialize(URL url, ResourceBundle rb)
   {
     nameTextField.visibleProperty().bind(validDevice);
     typeLabel.visibleProperty().bind(validDevice);
-    
+
     activeDevice.addListener(new ChangeListener<Device>()
     {
       @Override
@@ -86,7 +86,8 @@ public class DeviceEditorPresenter implements Initializable
   {
     if (lastActiveDevice != null)
     {
-      nameTextField.textProperty().unbindBidirectional(lastActiveDevice.nameProperty());
+      nameTextField.textProperty().unbindBidirectional(
+          lastActiveDevice.nameProperty());
     }
 
     Device device = activeDevice.get();
@@ -94,7 +95,7 @@ public class DeviceEditorPresenter implements Initializable
     if (device != null)
     {
       validDevice.set(true);
-      
+
       nameTextField.textProperty().bindBidirectional(device.nameProperty());
       typeLabel.setText(device.getType().toString());
     }
@@ -102,15 +103,15 @@ public class DeviceEditorPresenter implements Initializable
     {
       validDevice.set(false);
     }
-    
+
     lastActiveDevice = device;
   }
-  
+
   public void selectExample1()
   {
     activeDevice.set(exampleDevice1);
   }
-  
+
   public void selectExample2()
   {
     activeDevice.set(exampleDevice2);

@@ -108,14 +108,15 @@ public abstract class GCodeDevice extends Device
   {
     this.output = output;
     
-    output.println(getHeader());
+    output.print(getHeader());
+    output.printf("\n");
     
     position = getHomePosition();
   }
 
   public void endProcess()
   {
-    output.println(getFooter());
+    output.print(getFooter());
 	
     output.flush();
     output = null;
@@ -137,7 +138,7 @@ public abstract class GCodeDevice extends Device
   public void setSpeed(double speed)
   {
     double feedrateMmPerMinute = speed * 60.0;
-    output.printf("G1 F%.2f\n", feedrateMmPerMinute);
+    output.printf("G1 F%.3f\n", feedrateMmPerMinute);
   }
 
   public void moveHeight(double z) throws PositioningException
@@ -146,7 +147,7 @@ public abstract class GCodeDevice extends Device
 
     checkPosition(pos);
 
-    output.printf("G1 Z%.2f\n", pos.getZ());
+    output.printf("G1 Z%.3f\n", pos.getZ());
 
     position = pos;
   }
@@ -157,7 +158,7 @@ public abstract class GCodeDevice extends Device
 
     checkPosition(pos);
 
-    output.printf("G1 X%.2f Y%.2f\n", pos.getX(), pos.getY());
+    output.printf("G1 X%.3f Y%.3f\n", pos.getX(), pos.getY());
 
     position = pos;
   }
@@ -168,7 +169,7 @@ public abstract class GCodeDevice extends Device
 
     checkPosition(pos);
 
-    output.printf("G1 X%.2f Y%.2f Z%.2f\n", pos.getX(), pos.getY(), pos.getZ());
+    output.printf("G1 X%.3f Y%.3f Z%.3f\n", pos.getX(), pos.getY(), pos.getZ());
 
     this.position = pos;
   }
@@ -176,12 +177,12 @@ public abstract class GCodeDevice extends Device
   public void drawFluid(double volume)
   {
     double extrude = -getExtrudePerVolume() * volume;
-    output.printf("G1 E%.2f\n", extrude);
+    output.printf("G1 E%.3f\n", extrude);
   }
 
   public void dispenseFluid(double volume)
   {
     double extrude = getExtrudePerVolume() * getDispenseExtrudeRatio() * volume;
-    output.printf("G1 E%.2f\n", extrude);
+    output.printf("G1 E%.3f\n", extrude);
   }
 }

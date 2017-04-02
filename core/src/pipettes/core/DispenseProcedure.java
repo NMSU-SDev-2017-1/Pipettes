@@ -38,7 +38,7 @@ public class DispenseProcedure extends Procedure
   {
     return source;
   }
-  
+
   @XmlIDREF
   @XmlAttribute
   public Container getDestination()
@@ -50,7 +50,7 @@ public class DispenseProcedure extends Procedure
   {
     this.destination.set(destination);
   }
-  
+
   public ObjectProperty<Container> destinationProperty()
   {
     return destination;
@@ -76,8 +76,8 @@ public class DispenseProcedure extends Procedure
         return new Container[] { getDestination() };
       }
     }
-    
-    return new Container[] { };
+
+    return new Container[] {};
   }
 
   @XmlAttribute
@@ -95,16 +95,16 @@ public class DispenseProcedure extends Procedure
   {
     return volume;
   }
-  
-  private void performRecursively(ProcessContext context, Device device,
-      Container source, Container destination) throws PositioningException
+
+  private void performRecursively(ProcessContext context, Container source,
+      Container destination) throws PositioningException
   {
     if (source.hasSubcontainers())
     {
       Iterator<Container> subcontainers = source.getSubcontainerIterator();
       while (subcontainers.hasNext())
       {
-        performRecursively(context, device, subcontainers.next(), destination);
+        performRecursively(context, subcontainers.next(), destination);
       }
     }
     else if (destination.hasSubcontainers())
@@ -112,36 +112,42 @@ public class DispenseProcedure extends Procedure
       Iterator<Container> subcontainers = destination.getSubcontainerIterator();
       while (subcontainers.hasNext())
       {
-        performRecursively(context, device, source, subcontainers.next());
+        performRecursively(context, source, subcontainers.next());
       }
     }
     else
     {
+      Device device = context.getDevice();
+      ProcessLogger logger = context.getLogger();
       Point2D startLocation = device.getLocation();
       Point2D drawLocation = source.getDrawLocation();
       Point2D dispenseLocation = destination.getDispenseLocation();
       double startToDrawClearance = context.getClearanceHeight(startLocation,
           drawLocation);
-      double drawToDispenseClearance = context.getClearanceHeight(
-          drawLocation, dispenseLocation);
+      double drawToDispenseClearance = context.getClearanceHeight(drawLocation,
+          dispenseLocation);
+      double volume = getVolume(); 
 
       device.moveHeight(startToDrawClearance);
 
       device.move(drawLocation);
       device.moveHeight(source.getDrawHeight());
-      device.drawFluid(getVolume());
+      
+      device.drawFluid(volume);
+      logger.logDraw(source.getName(), volume);
 
       device.moveHeight(drawToDispenseClearance);
 
       device.move(dispenseLocation);
       device.moveHeight(destination.getDispenseHeight());
-      device.dispenseFluid(getVolume());
+      
+      device.dispenseFluid(volume);
+      logger.logDispense(destination.getName(), volume);
     }
   }
 
-  public void perform(ProcessContext context, Device device)
-      throws PositioningException
+  public void perform(ProcessContext context) throws PositioningException
   {
-    performRecursively(context, device, getSource(), getDestination());
+    performRecursively(context, getSource(), getDestination());
   }
 }

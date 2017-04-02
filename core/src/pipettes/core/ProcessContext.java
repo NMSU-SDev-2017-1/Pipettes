@@ -6,8 +6,26 @@ import javafx.geometry.Point2D;
 
 public class ProcessContext
 {
+  private Device device;
+  private ProcessLogger logger;
   private ArrayList<Container> containers = new ArrayList<Container>();
 
+  public ProcessContext(Device device, ProcessLogger logger)
+  {
+    this.device = device;
+    this.logger = logger;
+  }
+  
+  public Device getDevice()
+  {
+    return device;
+  }
+
+  public ProcessLogger getLogger()
+  {
+    return logger;
+  }
+  
   public void addContainer(Container container)
   {
     containers.add(container);
