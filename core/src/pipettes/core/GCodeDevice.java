@@ -108,6 +108,8 @@ public abstract class GCodeDevice extends Device
   {
     this.output = output;
     
+    // TODO: Print slic3r parameters like bed_shape as comments
+    
     output.print(getHeader());
     output.printf("\n");
     
