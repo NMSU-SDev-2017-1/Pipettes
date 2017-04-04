@@ -1,6 +1,5 @@
 package pipettes.core;
 
-import java.util.HashMap;
 import java.util.Iterator;
 
 import javafx.beans.property.DoubleProperty;
@@ -54,9 +53,7 @@ public class Container
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
   
   @XmlElement
-  private HashMap<String, Container> subcontainers = new HashMap<String, Container>();
-  
-  private ObservableMap<String, Container> observableSubcontainers = FXCollections.observableMap(subcontainers);
+  private ObservableMap<String, Container> subcontainers = FXCollections.observableHashMap();
   
   @XmlElement
   public String getLocalName()
@@ -338,6 +335,6 @@ public class Container
   
   public ObservableMap<String, Container> getSubcontainers()
   {
-    return observableSubcontainers;
+    return subcontainers;
   }
 }

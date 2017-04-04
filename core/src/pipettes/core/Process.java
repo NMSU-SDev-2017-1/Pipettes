@@ -1,7 +1,5 @@
 package pipettes.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import javafx.collections.FXCollections;
@@ -20,15 +18,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Process
 {
   @XmlElement
-  private HashMap<String, Container> baseContainers = new HashMap<String, Container>();
-  
-  private ObservableMap<String, Container> observableBaseContainers = FXCollections.observableMap(baseContainers);
+  private ObservableMap<String, Container> baseContainers = FXCollections.observableHashMap();
 
   @XmlElementWrapper(name = "procedures")
   @XmlAnyElement(lax = true)
-  private ArrayList<Procedure> procedures = new ArrayList<Procedure>();
-
-  private ObservableList<Procedure> observableProcedures = FXCollections.observableArrayList(procedures);
+  private ObservableList<Procedure> procedures = FXCollections.observableArrayList();
   
   private void addSubcontainersToContext(ProcessContext context, Container container)
   {
@@ -122,19 +116,19 @@ public class Process
   
   public ObservableMap<String, Container> getBaseContainers()
   {
-    return observableBaseContainers;
+    return baseContainers;
   }
 
   public ObservableList<Procedure> getProcedures()
   {
-    return observableProcedures;
+    return procedures;
   }
   
   public void addContainer(Container container)
   {
     container = getBaseContainer(container);
     
-    observableBaseContainers.put(container.getName(), container);
+    baseContainers.put(container.getName(), container);
   }
 
   public void addProcedure(Procedure procedure)
@@ -144,6 +138,6 @@ public class Process
       addContainer(container);
     }
     
-    observableProcedures.add(procedure);
+    procedures.add(procedure);
   }
 }
