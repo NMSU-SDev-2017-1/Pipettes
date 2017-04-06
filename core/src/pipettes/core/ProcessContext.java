@@ -68,19 +68,21 @@ public class ProcessContext
     // t0x is the intercept with the plane along the minimum box edge
     // t1x is the intercept with the plane along the maximum box edge 
     double dX = (toLocation.getX() - fromLocation.getX());
-    double t0x = (xmin - fromLocation.getX()/dX);
-    double t1x = (xmax - fromLocation.getX()/dX);
+    double t0x = (xmin - fromLocation.getX())/dX;
+    double t1x = (xmax - fromLocation.getX())/dX;
     
     // CALCULATE Y INTERCEPTS
     // dY is the y component of the total vector
     // t0x is the intercept with the plane along the minimum box edge
     // t1x is the intercept with the plane along the maximum box edge 
     double dY = (toLocation.getY() - fromLocation.getY());
-    double t0y = (ymin - fromLocation.getY()/dY);
-    double t1y = (ymax - fromLocation.getY()/dY);
+    double t0y = (ymin - fromLocation.getY())/dY;
+    double t1y = (ymax - fromLocation.getY())/dY;
     
     // Determine if the box is intersected
-    if (t0x > t1y || t0y > t1x)
+    boolean missAboveBox = t0x > t1y;
+    boolean missBelowBox = t0y > t1x;
+    if (missAboveBox || missBelowBox)
       return false; // the line misses the box
     else return true;
   }
