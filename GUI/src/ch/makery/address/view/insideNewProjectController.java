@@ -2,24 +2,17 @@ package ch.makery.address.view;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import ch.makery.address.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class insideNewProjectController {
 
-	private MainApp main;
 	private boolean okClicked = false;
 	private Stage dialogStage;
 	final FileChooser fileChooser = new FileChooser();

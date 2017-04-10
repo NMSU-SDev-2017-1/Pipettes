@@ -93,7 +93,7 @@
             </CheckBox>
             <TextField fx:id="locationField" prefHeight="25.0" prefWidth="180.0">
                <HBox.margin>
-                  <Insets left="-110.0" top="65.0" />
+                  <Insets left="-160.0" top="65.0" />
                </HBox.margin>
             </TextField>
             <Button mnemonicParsing="false" onAction="#handleBrowse" prefHeight="25.0" prefWidth="80.0" text="Browse...">
@@ -151,7 +151,7 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="100.0" text="Cancel">
                <HBox.margin>
-                  <Insets bottom="20.0" right="20.0" />
+                  <Insets bottom="20.0" right="40.0" />
                </HBox.margin>
             </Button>
          </children>
