@@ -55,8 +55,8 @@ public class MainApp extends Application {
     public void showPersonOverview() throws Exception{
     	// Load person overview.
     	FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-        AnchorPane personOverview = (AnchorPane) loader.load();
+        loader.setLocation(MainApp.class.getResource("view/personOverview.fxml"));
+        AnchorPane personOverview = loader.load();
 
         // Set person overview into the center of root layout.
         rootLayout.setCenter(personOverview);
