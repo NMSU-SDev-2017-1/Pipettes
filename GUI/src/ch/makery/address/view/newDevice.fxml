@@ -117,12 +117,12 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="410.0" AnchorPane.topAnchor="400.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="OK">
+            <Button mnemonicParsing="false" onAction="#handleOk" prefWidth="100.0" text="OK">
                <HBox.margin>
                   <Insets left="170.0" top="55.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefWidth="100.0" text="Cancel">
                <HBox.margin>
                   <Insets left="8.0" top="55.0" />
                </HBox.margin>

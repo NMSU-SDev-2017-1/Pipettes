@@ -77,33 +77,33 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <CheckBox mnemonicParsing="false" text="Use this as default save location">
-               <VBox.margin>
-                  <Insets left="20.0" top="18.0" />
-               </VBox.margin>
-            </CheckBox>
             <Separator prefHeight="0.0" prefWidth="399.0">
                <VBox.margin>
-                  <Insets top="23.0" />
+                  <Insets top="60.0" />
                </VBox.margin>
             </Separator>
          </children>
       </VBox>
       <HBox prefHeight="150.0" prefWidth="410.0" AnchorPane.topAnchor="143.0">
          <children>
+            <CheckBox mnemonicParsing="false" text="Use this as default save location">
+               <HBox.margin>
+                  <Insets left="20.0" top="110.0" />
+               </HBox.margin>
+            </CheckBox>
             <TextField fx:id="locationField" prefHeight="25.0" prefWidth="180.0">
                <HBox.margin>
-                  <Insets left="100.0" top="65.0" />
+                  <Insets left="-110.0" top="65.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Browse...">
+            <Button mnemonicParsing="false" onAction="#handleBrowse" prefHeight="25.0" prefWidth="80.0" text="Browse...">
                <HBox.margin>
                   <Insets left="5.0" top="65.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <VBox layoutY="290.0" prefHeight="212.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
+      <VBox layoutY="290.0" prefHeight="110.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
          <children>
             <Label text="Device">
                <font>
@@ -131,23 +131,27 @@
                   <Insets top="23.0" />
                </VBox.margin>
             </Separator>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="OK">
-               <VBox.margin>
-                  <Insets left="160.0" top="60.0" />
-               </VBox.margin>
-            </Button>
          </children>
       </VBox>
-      <HBox prefHeight="212.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
+      <HBox prefHeight="110.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
          <children>
             <ComboBox fx:id="deviceBox" prefHeight="25.0" prefWidth="200.0">
                <HBox.margin>
                   <Insets left="165.0" top="65.0" />
                </HBox.margin>
             </ComboBox>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Cancel">
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="410.0" AnchorPane.topAnchor="400.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="100.0" text="OK">
                <HBox.margin>
-                  <Insets left="-101.0" top="172.0" />
+                  <Insets bottom="20.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="100.0" text="Cancel">
+               <HBox.margin>
+                  <Insets bottom="20.0" right="20.0" />
                </HBox.margin>
             </Button>
          </children>

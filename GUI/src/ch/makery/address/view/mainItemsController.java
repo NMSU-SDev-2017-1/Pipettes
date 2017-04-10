@@ -23,4 +23,9 @@ public class mainItemsController {
 	private void goDevice() throws Exception  {
 		main.showNewScene2();
 	}
+	
+	public void setMainApp(MainApp mainApp) {
+        this.main = mainApp;
+
+    }
 }

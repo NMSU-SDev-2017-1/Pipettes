@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="500.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.insideExistingProjectController">
    <children>
       <Label text="Open an Existing Project" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
          <font>
@@ -61,12 +61,12 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="410.0" AnchorPane.topAnchor="400.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="OK">
+            <Button mnemonicParsing="false" onAction="#handleOk" prefWidth="100.0" text="OK">
                <HBox.margin>
                   <Insets left="160.0" top="55.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefWidth="100.0" text="Cancel">
                <HBox.margin>
                   <Insets left="8.0" top="55.0" />
                </HBox.margin>

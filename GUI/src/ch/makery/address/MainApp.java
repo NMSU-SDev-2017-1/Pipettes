@@ -2,6 +2,10 @@ package ch.makery.address;
 
 import java.io.IOException;
 
+import ch.makery.address.view.insideExistingProjectController;
+import ch.makery.address.view.insideNewDeviceController;
+import ch.makery.address.view.insideNewProjectController;
+import ch.makery.address.view.mainItemsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +27,7 @@ public class MainApp extends Application {
         initRootLayout();
 
         showPersonOverview();
+        
     }
 
     /**
@@ -47,7 +52,7 @@ public class MainApp extends Application {
     /**
      * Shows the person overview inside the root layout.
      */
-    public static void showPersonOverview() throws Exception{
+    public void showPersonOverview() throws Exception{
     	// Load person overview.
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
@@ -55,48 +60,67 @@ public class MainApp extends Application {
 
         // Set person overview into the center of root layout.
         rootLayout.setCenter(personOverview);
+        
+        mainItemsController controller = loader.getController();
+        controller.setMainApp(this);
     }
     
-    public static void showNewScene() throws Exception  {
+    
+    public static boolean showNewScene() throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/createNewProject.fxml"));
     	AnchorPane createProject = loader.load();
     	
-    	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Creating New Project");
-    	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(primaryStage);
+    	Stage dialogStage = new Stage();
+    	dialogStage.setTitle("Creating New Project");
+    	dialogStage.initModality(Modality.WINDOW_MODAL);
+    	dialogStage.initOwner(primaryStage);
     	Scene scene = new Scene(createProject);
-    	addDialogStage.setScene(scene);
-    	addDialogStage.showAndWait();
+    	dialogStage.setScene(scene);
+    	
+    	insideNewProjectController controller = loader.getController();
+    	controller.setDialogStage(dialogStage);   	
+    	
+    	dialogStage.showAndWait();
+    	return controller.isOkClicked();
     }
     
-    public static void showNewScene1() throws Exception  {
+    public static boolean showNewScene1() throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/existingProject.fxml"));
     	AnchorPane createProject = loader.load();
     	
-    	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Import Existing Project");
-    	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(primaryStage);
+    	Stage dialogStage = new Stage();
+    	dialogStage.setTitle("Import Existing Project");
+    	dialogStage.initModality(Modality.WINDOW_MODAL);
+    	dialogStage.initOwner(primaryStage);
     	Scene scene = new Scene(createProject);
-    	addDialogStage.setScene(scene);
-    	addDialogStage.showAndWait();
+    	dialogStage.setScene(scene);
+    	
+    	insideExistingProjectController controller = loader.getController();
+    	controller.setDialogStage(dialogStage);   	
+    	
+    	dialogStage.showAndWait();
+    	return controller.isOkClicked();  	
     }
     
-    public static void showNewScene2() throws Exception  {
+    public static boolean showNewScene2() throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/newDevice.fxml"));
     	AnchorPane createProject = loader.load();
     	
-    	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Create a New Device");
-    	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(primaryStage);
+    	Stage dialogStage = new Stage();
+    	dialogStage.setTitle("Create a New Device");
+    	dialogStage.initModality(Modality.WINDOW_MODAL);
+    	dialogStage.initOwner(primaryStage);
     	Scene scene = new Scene(createProject);
-    	addDialogStage.setScene(scene);
-    	addDialogStage.showAndWait();
+    	dialogStage.setScene(scene);
+    	
+    	insideNewDeviceController controller = loader.getController();
+    	controller.setDialogStage(dialogStage);   	
+    	
+    	dialogStage.showAndWait();
+    	return controller.isOkClicked();
     }
     
     /*public static void showSecondView() throws Exception  {
