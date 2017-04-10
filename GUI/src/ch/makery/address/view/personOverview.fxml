@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.mainItemsController">
+   <children>
+      <SplitPane dividerPositions="0.11044176706827309" layoutX="320.0" layoutY="150.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background">
+               <children>
+                  <Label layoutY="1.0" prefHeight="52.0" prefWidth="798.0" styleClass="label-bright" text="            PIPETTE" textFill="#a16868" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label alignment="CENTER" layoutX="199.0" layoutY="14.0" styleClass="label-bright" text="Welcome Page for the PIPETTE User Interface" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="199.0" />
+                  <Button layoutX="608.0" layoutY="44.0" mnemonicParsing="false" text="Tutorial" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <VBox prefHeight="619.0" prefWidth="700.0" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Tutorials">
+                           <VBox.margin>
+                              <Insets left="450.0" top="70.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#8c8c8d" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="480.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Practice tutorials">
+                           <VBox.margin>
+                              <Insets left="490.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#goNew" prefHeight="33.0" prefWidth="220.0" text="Create a new project">
+                           <VBox.margin>
+                              <Insets left="60.0" top="-57.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#8d8d8d" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="90.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label prefHeight="21.0" prefWidth="243.0" text="Create a new pipetting project">
+                           <VBox.margin>
+                              <Insets left="100.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Examples">
+                           <VBox.margin>
+                              <Insets left="450.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#808283" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="480.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Understand examples">
+                           <VBox.margin>
+                              <Insets left="490.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#goExist" prefHeight="33.0" prefWidth="220.0" text="Open an existing project">
+                           <VBox.margin>
+                              <Insets left="60.0" top="-57.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#a7a7a8" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="90.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Open an existing project from your files">
+                           <VBox.margin>
+                              <Insets left="100.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="What's new">
+                           <VBox.margin>
+                              <Insets left="450.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#797979" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="480.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Discover what is new">
+                           <VBox.margin>
+                              <Insets left="490.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#goDevice" prefHeight="33.0" prefWidth="220.0" text="Create a new device">
+                           <VBox.margin>
+                              <Insets left="60.0" top="-57.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#9c9d9e" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="90.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Create a new device with new properties">
+                           <VBox.margin>
+                              <Insets left="100.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefWidth="135.0" text="Help">
+                           <VBox.margin>
+                              <Insets left="450.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#7a7b7c" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="480.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Get help">
+                           <VBox.margin>
+                              <Insets left="490.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="220.0" text="Create a new container">
+                           <VBox.margin>
+                              <Insets left="60.0" top="-57.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Circle fill="#868686" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="90.0" top="10.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Label text="Create a new container with new properties">
+                           <VBox.margin>
+                              <Insets left="100.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

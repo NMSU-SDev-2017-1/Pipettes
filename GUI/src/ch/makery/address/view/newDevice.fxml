@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.insideNewDeviceController">
+   <children>
+      <Label text="Create a New Device" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="410.0" AnchorPane.topAnchor="35.0" />
+      <VBox prefHeight="90.0" prefWidth="410.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <Label text="Properties of Build Area">
+               <VBox.margin>
+                  <Insets left="30.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Separator>
+            <Label text="Shape:">
+               <VBox.margin>
+                  <Insets left="30.0" top="18.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox prefHeight="465.0" prefWidth="410.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <ComboBox fx:id="deviceBox" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="85.0" top="65.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
+      <VBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <Label text="Length:">
+               <VBox.margin>
+                  <Insets left="30.0" top="22.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox prefHeight="56.0" prefWidth="410.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="60.0">
+               <HBox.margin>
+                  <Insets left="85.0" top="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="inches">
+               <HBox.margin>
+                  <Insets left="5.0" top="22.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="180.0">
+         <children>
+            <Label text="Width:">
+               <VBox.margin>
+                  <Insets left="30.0" top="22.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="180.0">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="60.0">
+               <HBox.margin>
+                  <Insets left="85.0" top="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="inches">
+               <HBox.margin>
+                  <Insets left="5.0" top="22.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="230.0">
+         <children>
+            <Label text="Height:">
+               <VBox.margin>
+                  <Insets left="30.0" top="22.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="230.0">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="60.0">
+               <HBox.margin>
+                  <Insets left="85.0" top="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="inches">
+               <HBox.margin>
+                  <Insets left="5.0" top="22.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="410.0" AnchorPane.topAnchor="400.0">
+         <children>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="OK">
+               <HBox.margin>
+                  <Insets left="170.0" top="55.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Cancel">
+               <HBox.margin>
+                  <Insets left="8.0" top="55.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
