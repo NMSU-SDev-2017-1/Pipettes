@@ -82,35 +82,29 @@ public class ChangeTipProcedure extends Procedure
   private void performChange(ProcessContext context, Device device,
       Container tipDisposal, Container newTip) throws PositioningException
   {
-    if (tipDisposal.hasSubcontainers())
-    {
-      Iterator<Container> subcontainers = tipDisposal.getSubcontainerIterator();
-      while (subcontainers.hasNext())
-      {
-        performRecursively(context, device, subcontainers.next());
-      }
-    }
-        else
-    {
       Point2D startLocation = device.getLocation();
-      Point2D mixLocation = tipDisposal.getDispenseLocation();
-      double startToDrawClearance = context.getClearanceHeight(startLocation,
-          mixLocation);
-
-      device.moveHeight(startToDrawClearance);
-      device.move(mixLocation);
+      Point2D disposalLocation = tipDisposal.getDispenseLocation();
+      Point2D newTipLocation = newTip.getDrawLocation();
+      double startToDisposeClearance = context.getClearanceHeight(startLocation,
+          disposalLocation);
+      Point2D knockOffLocation = new Point2D((tipDisposal.getLocalPositionX() + 
+          tipDisposal.getSizeX()+1),tipDisposal.getLocalPositionY());
+      double disposeToNewTipClearance = context.getClearanceHeight(disposalLocation,
+          newTipLocation);
+      
+      device.moveHeight(startToDisposeClearance);
+      device.move(disposalLocation);
       device.moveHeight(tipDisposal.getDrawHeight());
-      for(int i=0; i<10; i++){
-        device.drawFluid(getVolume()*0.8);
-        device.dispenseFluid(getVolume()*0.8);
-      }
-      device.dispenseFluid(getVolume()*0.05);
-    }
+      device.move(knockOffLocation);
+      device.moveHeight(disposeToNewTipClearance);
+      device.move(newTipLocation);
+      device.moveHeight(newTip.getDrawHeight());   
+   
   }
 
   public void perform(ProcessContext context, Device device)
       throws PositioningException
   {
-    performRecursively(context, device, getTipDisposal());
+    performChange(context, device, getTipDisposal(),getNewTip());
   }
 }
