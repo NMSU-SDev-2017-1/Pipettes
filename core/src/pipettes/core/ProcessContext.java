@@ -34,11 +34,6 @@ public class ProcessContext
   public double getClearanceHeight(Point2D fromLocation, Point2D toLocation)
   {
     double result = 0;
-
-    // TODO: Replace this with code that actually finds maximum clearance
-    // of containers intersected by movement from and to the specified
-    // locations
-    
     for (Container container : containers)
     {
       // TODO: include code for cylindrical containers
@@ -50,7 +45,7 @@ public class ProcessContext
   }
   
   // TODO: Handle the case where the start and end points are both inside a single container (return that container height)
-  private boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
+  public boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
     Point2D corner1 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
     Point2D corner2 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
@@ -63,7 +58,7 @@ public class ProcessContext
   }
   
   // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  private boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
+  public boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
     Orientation o1 = getOrientation(A1,A2,B1);
     Orientation o2 = getOrientation(A1,A2,B2);
     Orientation o3 = getOrientation(B1,B2,A1);
@@ -77,7 +72,7 @@ public class ProcessContext
   }
   
   // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  private boolean onSegment(Point2D A, Point2D B, Point2D C){
+  public boolean onSegment(Point2D A, Point2D B, Point2D C){
     if (B.getX() <= Math.max(A.getX(),C.getX()) && B.getX() >= Math.min(A.getX(), B.getX()) &&
         B.getY() <= Math.max(A.getY(),C.getY()) && B.getY() >= Math.min(A.getY(), C.getY()))
       return true;
@@ -85,7 +80,7 @@ public class ProcessContext
   }
   
   // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  private Orientation getOrientation(Point2D A, Point2D B, Point2D C){
+  public Orientation getOrientation(Point2D A, Point2D B, Point2D C){
     Double slopeAB = (B.getY()-A.getY())/(float)(B.getX()-A.getX());
     Double slopeBC = (C.getY()-B.getY())/(float)(C.getX()-B.getY());
     if (slopeAB < slopeBC) return Orientation.COUNTERCLOCKWISE;
@@ -94,7 +89,7 @@ public class ProcessContext
   }
   
   // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  private enum Orientation{
+  public enum Orientation{
     CLOCKWISE, COUNTERCLOCKWISE, COLINEAR
   }
   
