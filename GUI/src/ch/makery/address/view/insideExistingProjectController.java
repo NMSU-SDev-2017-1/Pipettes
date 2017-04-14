@@ -22,6 +22,7 @@ public class insideExistingProjectController {
 	private void handleOk() throws Exception {
 		okClicked = true;
 		dialogStage.close();
+		main.showSecondView();
 	}
 	
 	@FXML

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private static Stage primaryStage;
+	private static Stage secondaryStage;
     private static BorderPane rootLayout;
 
     @Override
@@ -123,19 +124,20 @@ public class MainApp extends Application {
     	return controller.isOkClicked();
     }
     
-    /*public static void showSecondView() throws Exception  {
+    public static void showSecondView() throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(MainApp.class.getResource("view/newDevice.fxml"));
-    	BorderPane createProject = loader.load();
+    	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
+    	AnchorPane createProject = loader.load();
     	
+    	//primaryStage.close();
     	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Create a New Device");
+    	addDialogStage.setTitle("Program Name");
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(primaryStage);
+    	addDialogStage.initOwner(secondaryStage);
     	Scene scene = new Scene(createProject);
     	addDialogStage.setScene(scene);
     	addDialogStage.showAndWait();
-    }*/
+    }
 
 	public static void main(String[] args) {
 		launch(args);

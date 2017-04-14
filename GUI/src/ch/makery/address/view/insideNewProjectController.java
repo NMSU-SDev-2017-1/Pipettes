@@ -3,6 +3,8 @@ package ch.makery.address.view;
 import java.awt.Desktop;
 import java.io.File;
 
+import ch.makery.address.MainApp;
+import ch.makery.address.model.newProject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,10 +15,12 @@ import javafx.stage.Stage;
 
 public class insideNewProjectController {
 
+	private MainApp main;
 	private boolean okClicked = false;
 	private Stage dialogStage;
 	final FileChooser fileChooser = new FileChooser();
 	private Desktop desktop = Desktop.getDesktop();
+	private newProject name;
 
 	ObservableList<String> deviceList = FXCollections.observableArrayList(
 			"-------", "device1", "device2", "device3");
@@ -51,7 +55,8 @@ public class insideNewProjectController {
 	}
 
 	public void setProject() {
-
+		this.name = name;
+		projectName.setText(name.getProjectName());
 	}
 
 	public boolean isOkClicked() {
@@ -62,11 +67,18 @@ public class insideNewProjectController {
 	private void handleOk() throws Exception {
 		okClicked = true;
 		dialogStage.close();
+		main.showSecondView();
 	}
 
 	@FXML
 	private void handleCancel() throws Exception {
 		dialogStage.close();
 	}
+	
+	public void setMainApp(MainApp mainApp) {
+        this.main = mainApp;
+
+    }
+
 
 }
