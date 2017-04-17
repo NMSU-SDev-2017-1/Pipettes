@@ -93,7 +93,7 @@
             </CheckBox>
             <TextField fx:id="projectLocation" prefHeight="25.0" prefWidth="203.0">
                <HBox.margin>
-                  <Insets left="-135.0" top="65.0" />
+                  <Insets left="-185.0" top="65.0" />
                </HBox.margin>
             </TextField>
             <Button mnemonicParsing="false" onAction="#handleBrowse" prefHeight="25.0" prefWidth="80.0" text="Browse...">
@@ -101,11 +101,6 @@
                   <Insets left="5.0" top="65.0" />
                </HBox.margin>
             </Button>
-            <Label fx:id="label" prefHeight="17.0" prefWidth="199.0">
-               <HBox.margin>
-                  <Insets left="-285.0" top="68.0" />
-               </HBox.margin>
-            </Label>
          </children>
       </HBox>
       <VBox layoutY="290.0" prefHeight="110.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
@@ -140,7 +135,7 @@
       </VBox>
       <HBox prefHeight="110.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
          <children>
-            <ComboBox fx:id="deviceBox" prefHeight="25.0" prefWidth="200.0">
+            <ComboBox fx:id="deviceBox" onAction="#handleDevice" prefHeight="25.0" prefWidth="200.0">
                <HBox.margin>
                   <Insets left="165.0" top="65.0" />
                </HBox.margin>

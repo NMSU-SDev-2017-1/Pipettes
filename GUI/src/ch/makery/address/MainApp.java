@@ -25,7 +25,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Pipette GUI - Welcome Page");
 
-        initRootLayout();
+        //initRootLayout();
 
         showPersonOverview();
         
@@ -34,7 +34,7 @@ public class MainApp extends Application {
     /**
      * Initializes the root layout.
      */
-    public void initRootLayout() throws Exception  {
+    /*public void initRootLayout() throws Exception  {
     	// Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
@@ -44,7 +44,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }*/
 
     /**
      * Shows the person overview inside the root layout.
@@ -54,9 +54,9 @@ public class MainApp extends Application {
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("view/personOverview.fxml"));
         BorderPane personOverview = loader.load();
-
-        // Set person overview into the center of root layout.
-        rootLayout.setCenter(personOverview);
+        Scene scene = new Scene(personOverview);
+        primaryStage.setScene(scene);
+        primaryStage.show();
         
         mainItemsController controller = loader.getController();
         controller.setMainApp(this);
@@ -124,7 +124,6 @@ public class MainApp extends Application {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
     	BorderPane createProject = loader.load();
-        //rootLayout.setCenter(createProject);
     	
     	primaryStage.hide();
     	Stage addDialogStage = new Stage();

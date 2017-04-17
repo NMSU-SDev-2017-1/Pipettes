@@ -10,37 +10,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <BorderPane maxWidth="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.mainItemsController">
-   <top>
-      <HBox prefHeight="75.0" prefWidth="700.0" styleClass="background" BorderPane.alignment="CENTER">
+   <center>
+      <VBox prefHeight="700.0" prefWidth="700.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="50.0" prefWidth="120.0" styleClass="label-bright" text="            PIPETTE" textFill="#a16868">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="129.0" styleClass="label-bright" text="PIPETTE" textFill="#a16868">
                <font>
                   <Font size="24.0" />
                </font>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </Label>
-            <Label alignment="CENTER" prefHeight="50.0" styleClass="label-bright" text="Welcome Page for the PIPETTE User Interface">
-               <HBox.margin>
-                  <Insets left="60.0" top="10.0" />
-               </HBox.margin>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="404.0" styleClass="label-bright" text="Welcome Page for the PIPETTE User Interface">
+               <VBox.margin>
+                  <Insets left="140.0" top="-50.0" />
+               </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Tutorial">
-               <HBox.margin>
-                  <Insets left="100.0" top="42.0" />
-               </HBox.margin>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" text="Tutorial">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="580.0" top="-10.0" />
+               </VBox.margin>
             </Button>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <VBox prefHeight="600.0" prefWidth="700.0" styleClass="background" BorderPane.alignment="CENTER">
-         <children>
             <Separator prefWidth="200.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
             </Separator>
             <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Tutorials">
                <VBox.margin>
@@ -165,4 +162,83 @@
          </children>
       </VBox>
    </center>
+   <top>
+      <MenuBar prefHeight="5.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open File..." />
+                  <MenuItem mnemonicParsing="false" text="Open Project..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Close All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As..." />
+                  <MenuItem mnemonicParsing="false" text="Save All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Refresh" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Undo" />
+                  <MenuItem mnemonicParsing="false" text="Redo" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Cut" />
+                  <MenuItem mnemonicParsing="false" text="Copy" />
+                  <MenuItem mnemonicParsing="false" text="Paste" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Select All" />
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Project">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Open Project" />
+                  <MenuItem mnemonicParsing="false" text="Close Project" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Properties" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Window">
+              <items>
+                <MenuItem mnemonicParsing="false" text="New Window" />
+                  <Menu mnemonicParsing="false" text="Appearances">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Show Toolbar" />
+                        <MenuItem mnemonicParsing="false" text="Toogle Fullscreen" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Perspective">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="2D" />
+                        <MenuItem mnemonicParsing="false" text="3D" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Save Perspective" />
+                        <MenuItem mnemonicParsing="false" text="Reset Perspective" />
+                        <MenuItem mnemonicParsing="false" text="Close Perspective" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Preferences" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Welcome" />
+                  <MenuItem mnemonicParsing="false" text="Search" />
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>
