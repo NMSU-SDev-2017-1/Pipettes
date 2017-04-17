@@ -34,20 +34,16 @@ public class MainApp extends Application {
     /**
      * Initializes the root layout.
      */
-    public void initRootLayout() {
-        try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+    public void initRootLayout() throws Exception  {
+    	// Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+        rootLayout = (BorderPane) loader.load();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     /**
@@ -57,7 +53,7 @@ public class MainApp extends Application {
     	// Load person overview.
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("view/personOverview.fxml"));
-        AnchorPane personOverview = loader.load();
+        BorderPane personOverview = loader.load();
 
         // Set person overview into the center of root layout.
         rootLayout.setCenter(personOverview);
@@ -127,16 +123,17 @@ public class MainApp extends Application {
     public static void showSecondView(String name1) throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
-    	AnchorPane createProject = loader.load();
+    	BorderPane createProject = loader.load();
+        //rootLayout.setCenter(createProject);
     	
-    	primaryStage.close();
+    	primaryStage.hide();
     	Stage addDialogStage = new Stage();
     	addDialogStage.setTitle(name1);
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
     	addDialogStage.initOwner(secondaryStage);
     	Scene scene = new Scene(createProject);
     	addDialogStage.setScene(scene);
-    	addDialogStage.showAndWait();
+    	addDialogStage.show();
     }
 
 	public static void main(String[] args) {
