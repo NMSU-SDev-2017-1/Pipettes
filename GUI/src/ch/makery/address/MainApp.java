@@ -124,14 +124,14 @@ public class MainApp extends Application {
     	return controller.isOkClicked();
     }
     
-    public static void showSecondView() throws Exception  {
+    public static void showSecondView(String name1) throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
     	AnchorPane createProject = loader.load();
     	
-    	//primaryStage.close();
+    	primaryStage.close();
     	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Program Name");
+    	addDialogStage.setTitle(name1);
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
     	addDialogStage.initOwner(secondaryStage);
     	Scene scene = new Scene(createProject);

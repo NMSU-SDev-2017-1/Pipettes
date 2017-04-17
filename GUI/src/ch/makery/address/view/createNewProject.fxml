@@ -47,7 +47,7 @@
       </VBox>
       <HBox prefHeight="107.0" prefWidth="410.0" AnchorPane.topAnchor="35.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="266.0">
+            <TextField fx:id="projectName" prefHeight="25.0" prefWidth="266.0">
                <HBox.margin>
                   <Insets left="100.0" top="65.0" />
                </HBox.margin>
@@ -91,7 +91,7 @@
                   <Insets left="20.0" top="110.0" />
                </HBox.margin>
             </CheckBox>
-            <TextField fx:id="locationField" prefHeight="25.0" prefWidth="203.0">
+            <TextField fx:id="projectLocation" prefHeight="25.0" prefWidth="203.0">
                <HBox.margin>
                   <Insets left="-135.0" top="65.0" />
                </HBox.margin>
@@ -101,6 +101,11 @@
                   <Insets left="5.0" top="65.0" />
                </HBox.margin>
             </Button>
+            <Label fx:id="label" prefHeight="17.0" prefWidth="199.0">
+               <HBox.margin>
+                  <Insets left="-285.0" top="68.0" />
+               </HBox.margin>
+            </Label>
          </children>
       </HBox>
       <VBox layoutY="290.0" prefHeight="110.0" prefWidth="410.0" AnchorPane.topAnchor="290.0">
