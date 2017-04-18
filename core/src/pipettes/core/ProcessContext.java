@@ -34,11 +34,6 @@ public class ProcessContext
   public double getClearanceHeight(Point2D fromLocation, Point2D toLocation)
   {
     double result = 0;
-
-    // TODO: Replace this with code that actually finds maximum clearance
-    // of containers intersected by movement from and to the specified
-    // locations
-    
     for (Container container : containers)
     {
       // TODO: include code for cylindrical containers
@@ -49,41 +44,53 @@ public class ProcessContext
     return result;
   }
   
-  // TODO: finish implementing box intersection code
-  //note algorithm at:
-  // https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
-  // https://github.com/BSVino/MathForGameDevelopers/blob/line-box-intersection/math/collision.cpp
-  private boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
+  // TODO: Handle the case where the start and end points are both inside a single container (return that container height)
+  public boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
-    // coordinates of the near and far (minimum and maximum) edges of the cube in the X direction
-    double xmin = container.getLocalPositionX() - 0.5*container.getSizeX();
-    double xmax = container.getLocalPositionX() + 0.5*container.getSizeX();
-    
-    // coordinates of the near and far (minimum and maximum) edges of the cube in the Y direction
-    double ymin = container.getLocalPositionY() - 0.5*container.getSizeY();
-    double ymax = container.getLocalPositionY() + 0.5*container.getSizeY();
-    
-    // CALCULATE X INTERCEPTS
-    // dX is the x component of the total vector
-    // t0x is the intercept with the plane along the minimum box edge
-    // t1x is the intercept with the plane along the maximum box edge 
-    double dX = (toLocation.getX() - fromLocation.getX());
-    double t0x = (xmin - fromLocation.getX())/dX;
-    double t1x = (xmax - fromLocation.getX())/dX;
-    
-    // CALCULATE Y INTERCEPTS
-    // dY is the y component of the total vector
-    // t0x is the intercept with the plane along the minimum box edge
-    // t1x is the intercept with the plane along the maximum box edge 
-    double dY = (toLocation.getY() - fromLocation.getY());
-    double t0y = (ymin - fromLocation.getY())/dY;
-    double t1y = (ymax - fromLocation.getY())/dY;
-    
-    // Determine if the box is intersected
-    boolean missAboveBox = t0x > t1y;
-    boolean missBelowBox = t0y > t1x;
-    if (missAboveBox || missBelowBox)
-      return false; // the line misses the box
-    else return true;
+    Point2D corner1 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
+    Point2D corner2 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
+    Point2D corner3 = new Point2D(container.getLocalPositionX()-container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
+    Point2D corner4 = new Point2D(container.getLocalPositionX()-container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
+    if (linesIntersect(corner1,corner2,fromLocation,toLocation) || linesIntersect(corner1,corner3,fromLocation,toLocation) ||
+        linesIntersect(corner2,corner4,fromLocation,toLocation) || linesIntersect(corner3,corner4,fromLocation,toLocation))
+      return true;
+    else return false;
   }
+  
+  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+  public boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
+    Orientation o1 = getOrientation(A1,A2,B1);
+    Orientation o2 = getOrientation(A1,A2,B2);
+    Orientation o3 = getOrientation(B1,B2,A1);
+    Orientation o4 = getOrientation(B1,B2,A2);
+    if (o1 != o2 && o3 != o4) return true;
+    else if (o1 == Orientation.COLINEAR && onSegment(A1,B1,A2)) return true;
+    else if (o2 == Orientation.COLINEAR && onSegment(A1,B2,A2)) return true;
+    else if (o3 == Orientation.COLINEAR && onSegment(B1,A1,B2)) return true;
+    else if (o4 == Orientation.COLINEAR && onSegment(B1,A2,B2)) return true;
+    else return false;
+  }
+  
+  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+  public boolean onSegment(Point2D A, Point2D B, Point2D C){
+    if (B.getX() <= Math.max(A.getX(),C.getX()) && B.getX() >= Math.min(A.getX(), B.getX()) &&
+        B.getY() <= Math.max(A.getY(),C.getY()) && B.getY() >= Math.min(A.getY(), C.getY()))
+      return true;
+    return false;
+  }
+  
+  // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+  public Orientation getOrientation(Point2D A, Point2D B, Point2D C){
+    Double slopeAB = (B.getY()-A.getY())/(float)(B.getX()-A.getX());
+    Double slopeBC = (C.getY()-B.getY())/(float)(C.getX()-B.getY());
+    if (slopeAB < slopeBC) return Orientation.COUNTERCLOCKWISE;
+    else if (slopeAB==slopeBC) return Orientation.COLINEAR;
+    else return Orientation.CLOCKWISE;
+  }
+  
+  // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+  public enum Orientation{
+    CLOCKWISE, COUNTERCLOCKWISE, COLINEAR
+  }
+  
 }

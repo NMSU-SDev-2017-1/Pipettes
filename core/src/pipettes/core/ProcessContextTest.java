@@ -5,6 +5,8 @@ import javafx.geometry.*;
 
 import org.junit.Test;
 
+import pipettes.core.ProcessContext.Orientation;
+
 public class ProcessContextTest
 {
 
@@ -30,5 +32,31 @@ public class ProcessContextTest
     
     //fail("Not yet implemented");
   }
-
+  
+  // (Container container, Point2D fromLocation, Point2D toLocation)
+  @Test
+  public void testBoxIntersects()
+  {
+    fail("Not yet implemented");
+  }
+  
+  // (Point2D A1, Point2D A2, Point2D B1, Point2D B2)
+  @Test
+  public void testLinesIntersect()
+  {
+    fail("Not yet implemented");
+  }
+  
+  // (Point2D A, Point2D B, Point2D C)
+  @Test
+  public void testOnSegment()
+  {
+    ProcessContext context = new ProcessContext(null,null);
+    
+    if (context.onSegment(new Point2D(10,10), new Point2D(10,10), new Point2D(10,10))==false)
+      fail("Failed to recognize colinear points.");
+    if (context.onSegment(new Point2D(10,10), new Point2D(15,15), new Point2D(10,10))==true)
+      fail("Failed to recognize non-colinear points.");
+  }
+  
 }

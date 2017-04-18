@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private static Stage primaryStage;
+	private static Stage secondaryStage;
     private static BorderPane rootLayout;
 
     @Override
@@ -24,7 +25,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Pipette GUI - Welcome Page");
 
-        initRootLayout();
+        //initRootLayout();
 
         showPersonOverview();
         
@@ -33,21 +34,17 @@ public class MainApp extends Application {
     /**
      * Initializes the root layout.
      */
-    public void initRootLayout() {
-        try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+    /*public void initRootLayout() throws Exception  {
+    	// Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+        rootLayout = (BorderPane) loader.load();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }*/
 
     /**
      * Shows the person overview inside the root layout.
@@ -56,10 +53,10 @@ public class MainApp extends Application {
     	// Load person overview.
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("view/personOverview.fxml"));
-        AnchorPane personOverview = loader.load();
-
-        // Set person overview into the center of root layout.
-        rootLayout.setCenter(personOverview);
+        BorderPane personOverview = loader.load();
+        Scene scene = new Scene(personOverview);
+        primaryStage.setScene(scene);
+        primaryStage.show();
         
         mainItemsController controller = loader.getController();
         controller.setMainApp(this);
@@ -123,19 +120,20 @@ public class MainApp extends Application {
     	return controller.isOkClicked();
     }
     
-    /*public static void showSecondView() throws Exception  {
+    public static void showSecondView(String name1) throws Exception  {
     	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(MainApp.class.getResource("view/newDevice.fxml"));
+    	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
     	BorderPane createProject = loader.load();
     	
+    	primaryStage.hide();
     	Stage addDialogStage = new Stage();
-    	addDialogStage.setTitle("Create a New Device");
+    	addDialogStage.setTitle(name1);
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(primaryStage);
+    	addDialogStage.initOwner(secondaryStage);
     	Scene scene = new Scene(createProject);
     	addDialogStage.setScene(scene);
-    	addDialogStage.showAndWait();
-    }*/
+    	addDialogStage.show();
+    }
 
 	public static void main(String[] args) {
 		launch(args);

@@ -17,7 +17,7 @@ public class newProject {
 		//this.projectLocation = new SimpleStringProperty("");
 	}
 	
-	public String getprojectName()  {
+	public String getProjectName()  {
 		return projectName.get();
 	}
 	
@@ -30,3 +30,4 @@ public class newProject {
 	}
 
 }
+

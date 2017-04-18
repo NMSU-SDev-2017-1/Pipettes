@@ -11,7 +11,7 @@
    <children>
       <Label text="Open an Existing Project" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
       <Separator prefWidth="410.0" AnchorPane.topAnchor="35.0" />
@@ -47,12 +47,12 @@
       </VBox>
       <HBox prefHeight="200.0" prefWidth="410.0" AnchorPane.topAnchor="35.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="180.0">
+            <TextField fx:id="existingProject" prefHeight="25.0" prefWidth="180.0">
                <HBox.margin>
                   <Insets left="100.0" top="65.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefWidth="85.0" text="Browse...">
+            <Button mnemonicParsing="false" onAction="#handleBrowse" prefWidth="85.0" text="Browse...">
                <HBox.margin>
                   <Insets left="5.0" top="65.0" />
                </HBox.margin>
