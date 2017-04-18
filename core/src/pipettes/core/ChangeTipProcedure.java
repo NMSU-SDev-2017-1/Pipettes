@@ -79,11 +79,26 @@ public class ChangeTipProcedure extends Procedure
     return new Container[] { };
   }  
   
-  private void performChange(ProcessContext context, Device device,
-      Container tipDisposal, Container newTip) throws PositioningException
+  private void performChange(ProcessContext context, Container tipDisposal, 
+      Container newTip) throws PositioningException
   {
+      Device device = context.getDevice();
       Point2D startLocation = device.getLocation();
       Point2D disposalLocation = tipDisposal.getDispenseLocation();
+      if (newTip.hasSubcontainers()){
+        Iterator<Container> subcontainers = newTip.getSubcontainerIterator();
+        boolean full = false;
+        while (!full){
+          newTip = subcontainers.next();
+          full = newTip.getFull();
+          if (!subcontainers.hasNext())
+          {
+            throw new IllegalArgumentException("Tips Container is empty");
+          }
+        }          
+      }
+      else
+        throw new IllegalArgumentException("Tips container has no subcontainers");
       Point2D newTipLocation = newTip.getDrawLocation();
       double startToDisposeClearance = context.getClearanceHeight(startLocation,
           disposalLocation);
@@ -102,9 +117,11 @@ public class ChangeTipProcedure extends Procedure
    
   }
 
-  public void perform(ProcessContext context, Device device)
+  public void perform(ProcessContext context)
       throws PositioningException
   {
-    performChange(context, device, getTipDisposal(),getNewTip());
+    performChange(context, getTipDisposal(),getNewTip());
   }
+
+  
 }

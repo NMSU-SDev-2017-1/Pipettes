@@ -63,7 +63,7 @@ public class MixProcedure extends Procedure
     return volume;
   }
   
-  private void performRecursively(ProcessContext context, Device device,
+  private void performRecursively(ProcessContext context,
       Container destination) throws PositioningException
   {
     if (destination.hasSubcontainers())
@@ -71,11 +71,12 @@ public class MixProcedure extends Procedure
       Iterator<Container> subcontainers = destination.getSubcontainerIterator();
       while (subcontainers.hasNext())
       {
-        performRecursively(context, device, subcontainers.next());
+        performRecursively(context, subcontainers.next());
       }
     }
         else
     {
+      Device device = context.getDevice();
       Point2D startLocation = device.getLocation();
       Point2D mixLocation = destination.getDispenseLocation();
       double startToDrawClearance = context.getClearanceHeight(startLocation,
@@ -92,9 +93,9 @@ public class MixProcedure extends Procedure
     }
   }
 
-  public void perform(ProcessContext context, Device device)
+  public void perform(ProcessContext context)
       throws PositioningException
   {
-    performRecursively(context, device, getDestination());
+    performRecursively(context, getDestination());
   }
 }

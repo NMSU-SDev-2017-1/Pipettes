@@ -52,6 +52,7 @@ public class Container
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
   
+  private boolean full = true; 
   @XmlElement
   private ObservableMap<String, Container> subcontainers = FXCollections.observableHashMap();
   
@@ -201,6 +202,7 @@ public class Container
   }
   
   public void setSizeZ(double z)
+
   {
     sizeZ.set(z);
   }
@@ -322,6 +324,14 @@ public class Container
   {
     return getTopHeight() + getClearanceHeightAboveTop();
   }
+  public boolean getFull()
+  {
+    return full;
+  }
+  public void setFull(boolean isFull)
+  {
+    full = isFull; 
+  }
   
   public boolean hasSubcontainers()
   {
@@ -336,5 +346,15 @@ public class Container
   public ObservableMap<String, Container> getSubcontainers()
   {
     return subcontainers;
+  }
+  public void addSubcontainer(Container containerToAdd) throws IllegalArgumentException
+  {
+      if(!subcontainers.containsKey(containerToAdd.getLocalName())){
+        subcontainers.put(containerToAdd.getLocalName(), 
+            containerToAdd); 
+      }
+      else{
+        throw new IllegalArgumentException("Container Name already in subcontainers");
+      }
   }
 }
