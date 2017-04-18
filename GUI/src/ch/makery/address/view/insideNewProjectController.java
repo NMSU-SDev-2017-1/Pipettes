@@ -1,10 +1,7 @@
 package ch.makery.address.view;
 
-import java.awt.Desktop;
 import java.io.File;
-
 import ch.makery.address.MainApp;
-import ch.makery.address.model.newProject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
