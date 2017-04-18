@@ -2,6 +2,7 @@ package ch.makery.address.view;
 
 import java.io.File;
 import ch.makery.address.MainApp;
+import ch.makery.address.view.exampleController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 public class insideNewProjectController {
 
 	private MainApp main;
+	private exampleController example;
 	private boolean okClicked = false;
 	private Stage dialogStage;
 
@@ -27,6 +29,8 @@ public class insideNewProjectController {
 	@FXML
 
 	private String name1, name2, output;
+	
+	private int[] workArea;
 
 	@FXML
 	private void initialize() {
@@ -55,6 +59,7 @@ public class insideNewProjectController {
 			okClicked = true;
 			dialogStage.close();
 			main.showSecondView(name1);
+			//example.drawWorkArea(workArea);
 		}
 		return name1;
 	}
@@ -86,6 +91,11 @@ public class insideNewProjectController {
 			name2 = file.getPath();
 			projectLocation.setText(name2);
 		}
+	}
+	
+	private int[] sendDevice() throws Exception {
+		workArea = new int[] {300, 350};
+		return workArea;
 	}
 
 	public void setMainApp(MainApp mainApp) {

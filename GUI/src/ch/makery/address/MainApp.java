@@ -1,7 +1,5 @@
 package ch.makery.address;
 
-import java.io.IOException;
-
 import ch.makery.address.view.insideExistingProjectController;
 import ch.makery.address.view.insideNewDeviceController;
 import ch.makery.address.view.insideNewProjectController;
@@ -16,9 +14,7 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-	private static Stage primaryStage;
-	private static Stage secondaryStage;
-    private static BorderPane rootLayout;
+	public static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -129,10 +125,14 @@ public class MainApp extends Application {
     	Stage addDialogStage = new Stage();
     	addDialogStage.setTitle(name1);
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
-    	addDialogStage.initOwner(secondaryStage);
+    	addDialogStage.initOwner(primaryStage);
     	Scene scene = new Scene(createProject);
     	addDialogStage.setScene(scene);
     	addDialogStage.show();
+    }
+    
+    public Stage getStage()  {
+    	return this.primaryStage;
     }
 
 	public static void main(String[] args) {
