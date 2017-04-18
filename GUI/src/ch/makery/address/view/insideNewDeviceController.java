@@ -3,13 +3,11 @@ package ch.makery.address.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import ch.makery.address.MainApp;
 
 public class insideNewDeviceController {
 	
-	private MainApp main;
 	private boolean okClicked = false;
 	private Stage dialogStage;
 
@@ -17,7 +15,11 @@ public class insideNewDeviceController {
 			.observableArrayList("---------", "Circular", "Rectangular");
 
 	@FXML
-	private ComboBox deviceBox;
+	private ComboBox<String> deviceBox;
+	@FXML
+	private TextField lengthArea;
+	@FXML
+	private TextField widthArea;
 	
 	@FXML
 	private void initialize()  {
