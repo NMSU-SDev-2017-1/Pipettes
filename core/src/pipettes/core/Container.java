@@ -61,8 +61,19 @@ public class Container
     return localName.get();
   }
   
-  public void setLocalName(String name)
+  public void setLocalName(String name) throws NameConflictException
   {
+    // If this node has a parent, and the local name is changing, throw
+    // an exception if the new name conflicts with another subcontainer
+    // within the parent
+    if ((parent != null) && (!name.equals(getLocalName())))
+    {
+      if (parent.subcontainers.containsKey(name))
+      {
+        throw new NameConflictException();
+      }
+    }
+    
     localName.set(name);
   }
   
@@ -336,5 +347,18 @@ public class Container
   public ObservableMap<String, Container> getSubcontainers()
   {
     return subcontainers;
+  }
+  
+  public void addSubcontainer(Container c) throws NameConflictException
+  {
+    String cLocalName = c.getLocalName();
+    
+    // Prevent name collisions between subcontainers
+    if (subcontainers.containsKey(cLocalName))
+    {
+      throw new NameConflictException();
+    }
+    
+    subcontainers.put(cLocalName, c);
   }
 }
