@@ -79,10 +79,14 @@ public class ProcessContext
     return false;
   }
   
-  // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+  // http://www.geeksforgeeks.org/orientation-3-ordered-points/
   public Orientation getOrientation(Point2D A, Point2D B, Point2D C){
-    Double slopeAB = (B.getY()-A.getY())/(float)(B.getX()-A.getX());
-    Double slopeBC = (C.getY()-B.getY())/(float)(C.getX()-B.getY());
+    // check for vertical line (avoid divide by zero)
+    if (((B.getX()-A.getX())==0) || ((C.getX()-B.getX())==0)){
+      return Orientation.COLINEAR;}
+    // if not vertical, compare slopes to find orientation
+    double slopeAB = (B.getY()-A.getY())/(B.getX()-A.getX());
+    double slopeBC = (C.getY()-B.getY())/(C.getX()-B.getX());
     if (slopeAB < slopeBC) return Orientation.COUNTERCLOCKWISE;
     else if (slopeAB==slopeBC) return Orientation.COLINEAR;
     else return Orientation.CLOCKWISE;
