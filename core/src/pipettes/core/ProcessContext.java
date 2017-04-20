@@ -57,19 +57,53 @@ public class ProcessContext
     else return false;
   }
   
-  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  public boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
-    Orientation o1 = getOrientation(A1,A2,B1);
-    Orientation o2 = getOrientation(A1,A2,B2);
-    Orientation o3 = getOrientation(B1,B2,A1);
-    Orientation o4 = getOrientation(B1,B2,A2);
-    if (o1 != o2 && o3 != o4) return true;
-    else if (o1 == Orientation.COLINEAR && onSegment(A1,B1,A2)) return true;
-    else if (o2 == Orientation.COLINEAR && onSegment(A1,B2,A2)) return true;
-    else if (o3 == Orientation.COLINEAR && onSegment(B1,A1,B2)) return true;
-    else if (o4 == Orientation.COLINEAR && onSegment(B1,A2,B2)) return true;
-    else return false;
+  // see https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/
+  public boolean linesIntersect(Point2D P11, Point2D P12, Point2D P21, Point2D P22){
+    // line 1
+    double A1 = P12.getY() - P11.getY();
+    double B1 = P12.getX() - P11.getX();
+    double C1 = A1*P11.getX() + B1*P11.getY();
+    
+    // line 2
+    double A2 = P22.getY() - P21.getY();
+    double B2 = P22.getX() - P21.getX();
+    double C2 = A2*P21.getX() + B2*P21.getY();
+    
+    double det = A1*B2 - A2*B1;
+    if (det!=0) { // lines not parallel
+      
+      // find intersection
+      double x = (B2*C1 - B1*C2)/det;
+      double y = (A1*C2 - A2*C1)/det;
+      
+      // check intersection is on line segment 1
+      if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.min(P11.getX(),P12.getX())) &&
+          (y>=Math.min(P11.getY(),P12.getY())) && (x<=Math.min(P11.getY(),P12.getY())) ){
+        
+        // check intersection is on line segment 2
+        if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.min(P11.getX(),P12.getX())) &&
+            (y>=Math.min(P11.getY(),P12.getY())) && (x<=Math.min(P11.getY(),P12.getY())) ){
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
+  
+  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+//  public boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
+//    Orientation o1 = getOrientation(A1,A2,B1);
+//    Orientation o2 = getOrientation(A1,A2,B2);
+//    Orientation o3 = getOrientation(B1,B2,A1);
+//    Orientation o4 = getOrientation(B1,B2,A2);
+//    if (o1 != o2 && o3 != o4) return true;
+//    else if (o1 == Orientation.COLINEAR && onSegment(A1,B1,A2)) return true;
+//    else if (o2 == Orientation.COLINEAR && onSegment(A1,B2,A2)) return true;
+//    else if (o3 == Orientation.COLINEAR && onSegment(B1,A1,B2)) return true;
+//    else if (o4 == Orientation.COLINEAR && onSegment(B1,A2,B2)) return true;
+//    else return false;
+//  }
   
   // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
   public boolean onSegment(Point2D A, Point2D B, Point2D C){
