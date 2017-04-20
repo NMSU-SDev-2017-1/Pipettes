@@ -93,12 +93,13 @@ public class ChangeTipProcedure extends Procedure
           full = newTip.getFull();
           if (!subcontainers.hasNext())
           {
-            throw new IllegalArgumentException("Tips Container is empty");
+            throw new IllegalArgumentException("newTip Container is empty");
           }
         }          
       }
       else
-        throw new IllegalArgumentException("Tips container has no subcontainers");
+        throw new IllegalArgumentException("newTip container has no subcontainers");
+     
       Point2D newTipLocation = newTip.getDrawLocation();
       double startToDisposeClearance = context.getClearanceHeight(startLocation,
           disposalLocation);
@@ -109,11 +110,11 @@ public class ChangeTipProcedure extends Procedure
       
       device.moveHeight(startToDisposeClearance);
       device.move(disposalLocation);
-      device.moveHeight(tipDisposal.getDrawHeight());
+      device.moveHeight(tipDisposal.getDispenseHeight());
       device.move(knockOffLocation);
       device.moveHeight(disposeToNewTipClearance);
       device.move(newTipLocation);
-      device.moveHeight(newTip.getDrawHeight());   
+      device.moveHeight(newTip.getDispenseHeight());   
    
   }
 
