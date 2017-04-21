@@ -1,8 +1,10 @@
 package ch.makery.address.view;
 
 import java.io.File;
-import ch.makery.address.MainApp;
+import java.util.Arrays;
+
 import ch.makery.address.view.exampleController;
+import ch.makery.address.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,9 +30,13 @@ public class insideNewProjectController {
 	private ComboBox <String> deviceBox;
 	@FXML
 
-	private String name1, name2, output;
+	private String name1, name2;
 	
-	private int[] workArea;
+	private static String output;
+	
+	private static int[] device1 = {300, 200};
+	private static int[] device2 = {400, 300};
+	private static int[] device3 = {500, 400};
 
 	@FXML
 	private void initialize() {
@@ -49,6 +55,7 @@ public class insideNewProjectController {
 	@FXML
 	private String handleDevice() throws Exception  {
 		output = deviceBox.getSelectionModel().getSelectedItem();
+		System.out.println(output);
 		return output;
 	}
 
@@ -59,13 +66,12 @@ public class insideNewProjectController {
 			okClicked = true;
 			dialogStage.close();
 			main.showSecondView(name1);
-			//example.drawWorkArea(workArea);
+			sendDevice();
 		}
 		return name1;
 	}
 
 	private boolean isInputValid() throws Exception {
-		String errorMessage = "";
 		if (projectName.getText() == null
 				|| projectName.getText().length() == 0
 				|| projectLocation.getText() == null
@@ -93,14 +99,23 @@ public class insideNewProjectController {
 		}
 	}
 	
-	private int[] sendDevice() throws Exception {
-		workArea = new int[] {300, 350};
-		return workArea;
+	public static int[] sendDevice() throws Exception {
+		if(output == "device1")  {
+			System.out.println("helo");
+			return (device1);
+		}
+		else if(output == "device2")  {
+			return (device2);
+
+		}
+		else if(output == "device3")  {
+			return (device3);
+		}
+		return null;
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.main = mainApp;
 
 	}
-
 }

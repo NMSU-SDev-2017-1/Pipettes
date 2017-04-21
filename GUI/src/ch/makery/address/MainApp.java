@@ -121,7 +121,7 @@ public class MainApp extends Application {
     	loader.setLocation(MainApp.class.getResource("view/example.fxml"));
     	BorderPane createProject = loader.load();
     	
-    	primaryStage.hide();
+    	primaryStage.close();
     	Stage addDialogStage = new Stage();
     	addDialogStage.setTitle(name1);
     	addDialogStage.initModality(Modality.WINDOW_MODAL);
