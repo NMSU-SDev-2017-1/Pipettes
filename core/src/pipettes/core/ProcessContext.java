@@ -37,7 +37,7 @@ public class ProcessContext
     for (Container container : containers)
     {
       // TODO: include code for cylindrical containers
-      if (boxIntersects(container, fromLocation, toLocation)){
+      if (containerIntersects(container, fromLocation, toLocation)){
         result = Math.max(result, container.getClearanceHeight());
       }
     }
@@ -45,7 +45,7 @@ public class ProcessContext
   }
   
   // TODO: Handle the case where the start and end points are both inside a single container (return that container height)
-  public boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
+  public boolean containerIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
     Point2D corner1 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
     Point2D corner2 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
@@ -61,12 +61,12 @@ public class ProcessContext
   public boolean linesIntersect(Point2D P11, Point2D P12, Point2D P21, Point2D P22){
     // line 1
     double A1 = P12.getY() - P11.getY();
-    double B1 = P12.getX() - P11.getX();
+    double B1 = P11.getX() - P12.getX();
     double C1 = A1*P11.getX() + B1*P11.getY();
     
     // line 2
     double A2 = P22.getY() - P21.getY();
-    double B2 = P22.getX() - P21.getX();
+    double B2 = P21.getX() - P22.getX();
     double C2 = A2*P21.getX() + B2*P21.getY();
     
     double det = A1*B2 - A2*B1;
@@ -76,59 +76,37 @@ public class ProcessContext
       double x = (B2*C1 - B1*C2)/det;
       double y = (A1*C2 - A2*C1)/det;
       
-      // check intersection is on line segment 1
-      if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.min(P11.getX(),P12.getX())) &&
-          (y>=Math.min(P11.getY(),P12.getY())) && (x<=Math.min(P11.getY(),P12.getY())) ){
+      // TODO: why does this code fail but the below code work?
+//      // check intersection is on line segment 1
+//      if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.max(P11.getX(),P12.getX())) &&
+//          (y>=Math.min(P11.getY(),P12.getY())) && (y<=Math.max(P11.getY(),P12.getY())) ){
+//        
+//        // check intersection is on line segment 2
+//        if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.max(P11.getX(),P12.getX())) &&
+//            (y>=Math.min(P11.getY(),P12.getY())) && (y<=Math.max(P11.getY(),P12.getY())) ){
+//          return true;
+//        }
+//      } 
+      
+   // check intersection is on line segment 1
+      boolean xAboveX1Min = x>=Math.min(P11.getX(),P12.getX());
+      boolean xBelowX1Max = x<=Math.max(P11.getX(),P12.getX());
+      boolean yAboveY1Min = y>=Math.min(P11.getY(),P12.getY());
+      boolean yBelowY1Max = y<=Math.max(P11.getY(),P12.getY());
+      if( xAboveX1Min && xBelowX1Max && yAboveY1Min && yBelowY1Max ){
         
         // check intersection is on line segment 2
-        if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.min(P11.getX(),P12.getX())) &&
-            (y>=Math.min(P11.getY(),P12.getY())) && (x<=Math.min(P11.getY(),P12.getY())) ){
+        boolean xAboveX2Min = x>=Math.min(P21.getX(),P22.getX());
+        boolean xBelowX2Max = x<=Math.max(P21.getX(),P22.getX());
+        boolean yAboveY2Min = y>=Math.min(P21.getY(),P22.getY());
+        boolean yBelowY2Max = y<=Math.max(P21.getY(),P22.getY());
+        if( xAboveX2Min && xBelowX2Max && yAboveY2Min && yBelowY2Max ){
           return true;
         }
       }
+       
     }
-    
     return false;
-  }
-  
-  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-//  public boolean linesIntersect(Point2D A1, Point2D A2, Point2D B1, Point2D B2){
-//    Orientation o1 = getOrientation(A1,A2,B1);
-//    Orientation o2 = getOrientation(A1,A2,B2);
-//    Orientation o3 = getOrientation(B1,B2,A1);
-//    Orientation o4 = getOrientation(B1,B2,A2);
-//    if (o1 != o2 && o3 != o4) return true;
-//    else if (o1 == Orientation.COLINEAR && onSegment(A1,B1,A2)) return true;
-//    else if (o2 == Orientation.COLINEAR && onSegment(A1,B2,A2)) return true;
-//    else if (o3 == Orientation.COLINEAR && onSegment(B1,A1,B2)) return true;
-//    else if (o4 == Orientation.COLINEAR && onSegment(B1,A2,B2)) return true;
-//    else return false;
-//  }
-  
-  // see http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  public boolean onSegment(Point2D A, Point2D B, Point2D C){
-    if (B.getX() <= Math.max(A.getX(),C.getX()) && B.getX() >= Math.min(A.getX(), B.getX()) &&
-        B.getY() <= Math.max(A.getY(),C.getY()) && B.getY() >= Math.min(A.getY(), C.getY()))
-      return true;
-    return false;
-  }
-  
-  // http://www.geeksforgeeks.org/orientation-3-ordered-points/
-  public Orientation getOrientation(Point2D A, Point2D B, Point2D C){
-    // check for vertical line (avoid divide by zero)
-    if (((B.getX()-A.getX())==0) || ((C.getX()-B.getX())==0)){
-      return Orientation.COLINEAR;}
-    // if not vertical, compare slopes to find orientation
-    double slopeAB = (B.getY()-A.getY())/(B.getX()-A.getX());
-    double slopeBC = (C.getY()-B.getY())/(C.getX()-B.getX());
-    if (slopeAB < slopeBC) return Orientation.COUNTERCLOCKWISE;
-    else if (slopeAB==slopeBC) return Orientation.COLINEAR;
-    else return Orientation.CLOCKWISE;
-  }
-  
-  // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-  public enum Orientation{
-    CLOCKWISE, COUNTERCLOCKWISE, COLINEAR
   }
   
 }
