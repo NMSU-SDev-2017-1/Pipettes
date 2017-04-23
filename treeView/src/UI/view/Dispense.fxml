@@ -18,7 +18,7 @@
             <ComboBox fx:id="unitBox" layoutX="133.0" layoutY="111.0" prefWidth="117.0" />
             <Button fx:id="okButton" layoutX="73.0" layoutY="182.0" mnemonicParsing="false" onAction="#okButton" prefWidth="55.0" text="Ok" />
             <Button fx:id="canButton" layoutX="166.0" layoutY="182.0" mnemonicParsing="false" onAction="#canButton" prefHeight="25.0" prefWidth="55.0" text="Cancel" />
-            <ComboBox layoutX="133.0" layoutY="51.0" prefHeight="25.0" prefWidth="117.0" />
+            <ComboBox fx:id="conBox" layoutX="133.0" layoutY="51.0" prefHeight="25.0" prefWidth="117.0" />
          </children>
       </Pane>
    </center>

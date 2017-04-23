@@ -17,7 +17,7 @@
       </Pane>
    </bottom>
    <top>
-      <Pane prefHeight="53.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="56.0" layoutY="7.0" prefHeight="39.0" prefWidth="188.0" text="Are you sure you want to exit?">
                <font>

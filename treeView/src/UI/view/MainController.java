@@ -1,30 +1,49 @@
 package UI.view;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import UI.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.stage.Window;
 
 public class MainController {
-
+	
+	//ObservableSet<String> items = FXCollections.observableSet();
+	ObservableList<String> items = FXCollections.observableArrayList("Hello", "Bye");
 	@FXML
-	private TreeView<String> treeView;
+	public TreeView<String> treeView;
 	@FXML 
-	private ListView listView;
+	public ListView<String> listView;
+	//public static ListView newList = listView;
 	@FXML
 	private Button okButton;
 	@FXML
 	private Button canButton;
 	
-	
+	//public static String[] procedure;
+	public void list(){
+		//System.out.println("You made it");
+		//listView.getItems().add("byee");
+	}
 	@FXML
 	private void drawButton() throws IOException{
 		Main.showDraw();
 	}
 	@FXML
 	private void dispenseButton() throws IOException{
-		Main.showDispense();
+		drawController dC = new drawController();
+		if((dC.dopen)==false){
+			Main.showDisError();
+		}
+		else{
+			Main.showDispense();
+		}
 	}
 	@FXML
 	private void okButton(){
@@ -52,18 +71,10 @@ public class MainController {
 		
 		child1.getChildren().addAll(child1_1,child1_2,child1_3);
 		
-		TreeItem<String> child2_1 = new TreeItem<>("Child2.1");
-		TreeItem<String> child2_2 = new TreeItem<>("Child2.2");
-		TreeItem<String> child2_3 = new TreeItem<>("Child3.3");
-		
-		child2.getChildren().addAll(child2_1,child2_2,child2_3);
-		
-		TreeItem<String> child3_1 = new TreeItem<>("Child3.1");
-		TreeItem<String> child3_2 = new TreeItem<>("Child3.2");
-		TreeItem<String> child3_3 = new TreeItem<>("Child3.3");
-		
-		child3.getChildren().addAll(child3_1,child3_2,child3_3);
-		
+		listView.setEditable(true);
+		listView.setCellFactory(TextFieldListCell.forListView());
+		listView.setItems(items);
 		treeView.setRoot(root);
+		
 	}
 }
