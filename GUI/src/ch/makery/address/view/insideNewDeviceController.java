@@ -10,6 +10,7 @@ public class insideNewDeviceController {
 	
 	private boolean okClicked = false;
 	private Stage dialogStage;
+	private String dim;
 
 	ObservableList<String> deviceList = FXCollections
 			.observableArrayList("---------", "Circular", "Rectangular");
@@ -20,6 +21,8 @@ public class insideNewDeviceController {
 	private TextField lengthArea;
 	@FXML
 	private TextField widthArea;
+	@FXML
+	private TextField heightArea;
 	
 	@FXML
 	private void initialize()  {
@@ -37,6 +40,8 @@ public class insideNewDeviceController {
 	
 	@FXML
 	private void handleOk() throws Exception {
+		dim = lengthArea.getText();
+		System.out.println(dim);
 		okClicked = true;
 		dialogStage.close();
 	}

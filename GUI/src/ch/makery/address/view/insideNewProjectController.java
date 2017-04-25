@@ -9,13 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class insideNewProjectController {
 
 	private MainApp main;
-	private exampleController example;
 	private boolean okClicked = false;
 	private Stage dialogStage;
 
@@ -29,14 +29,15 @@ public class insideNewProjectController {
 	@FXML
 	private ComboBox <String> deviceBox;
 	@FXML
-
+	private Label error;
+	
 	private String name1, name2;
 	
 	private static String output;
 	
-	private static int[] device1 = {300, 200};
-	private static int[] device2 = {400, 300};
-	private static int[] device3 = {500, 400};
+	private static int[] device1 = {228, 228, 237};	//(HWD)
+	private static int[] device2 = {248, 443, 290};	//(HWD)
+	private static int[] device3 = {225, 297, 378};	//(HWD)
 
 	@FXML
 	private void initialize() {
@@ -55,7 +56,6 @@ public class insideNewProjectController {
 	@FXML
 	private String handleDevice() throws Exception  {
 		output = deviceBox.getSelectionModel().getSelectedItem();
-		System.out.println(output);
 		return output;
 	}
 
@@ -77,6 +77,8 @@ public class insideNewProjectController {
 				|| projectLocation.getText() == null
 				|| projectLocation.getText().length() == 0
 				|| output == null) {
+			error.setText("One of the Required Fields is Empty!");
+			error.setTextFill(Color.RED);
 			return false;
 		} else {
 			return true;
@@ -101,7 +103,6 @@ public class insideNewProjectController {
 	
 	public static int[] sendDevice() throws Exception {
 		if(output == "device1")  {
-			System.out.println("helo");
 			return (device1);
 		}
 		else if(output == "device2")  {
