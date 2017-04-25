@@ -57,7 +57,7 @@
       </VBox>
       <HBox prefHeight="56.0" prefWidth="410.0" AnchorPane.topAnchor="130.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="60.0">
+            <TextField fx:id="lengthArea" prefHeight="25.0" prefWidth="60.0">
                <HBox.margin>
                   <Insets left="85.0" top="20.0" />
                </HBox.margin>
