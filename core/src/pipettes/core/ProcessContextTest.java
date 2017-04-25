@@ -41,6 +41,10 @@ public class ProcessContextTest
       fail("Did not recognize container intersection.");
     if (context.containerIntersects(sample, new Point2D(-5,25), new Point2D(15,25))==true)
       fail("Falsely recognized container intersection.");
+    
+    // check line entirely within container
+    if (context.containerIntersects(sample, new Point2D(1,9), new Point2D(9,1))==false)
+      fail("Did not recognize interior line segment.");
   }
   
   @Test

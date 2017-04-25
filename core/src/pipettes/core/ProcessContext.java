@@ -3,6 +3,7 @@ package pipettes.core;
 import java.util.ArrayList;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.BoundingBox;
 
 public class ProcessContext
 {
@@ -47,13 +48,25 @@ public class ProcessContext
   // TODO: Handle the case where the start and end points are both inside a single container (return that container height)
   public boolean containerIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
-    Point2D corner1 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
-    Point2D corner2 = new Point2D(container.getLocalPositionX()+container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
-    Point2D corner3 = new Point2D(container.getLocalPositionX()-container.getSizeX()/2,container.getLocalPositionY()+container.getSizeY()/2);
-    Point2D corner4 = new Point2D(container.getLocalPositionX()-container.getSizeX()/2,container.getLocalPositionY()-container.getSizeY()/2);
+    double minX = container.getLocalPositionX()-container.getSizeX()/2;
+    double maxX = container.getLocalPositionX()+container.getSizeX()/2;
+    double minY = container.getLocalPositionY()-container.getSizeY()/2;
+    double maxY = container.getLocalPositionY()+container.getSizeY()/2;
+    
+    // check for line intersecting any edge
+    Point2D corner1 = new Point2D(maxX,maxY);
+    Point2D corner2 = new Point2D(maxX,minY);
+    Point2D corner3 = new Point2D(minX,maxY);
+    Point2D corner4 = new Point2D(minX,minY);
     if (linesIntersect(corner1,corner2,fromLocation,toLocation) || linesIntersect(corner1,corner3,fromLocation,toLocation) ||
         linesIntersect(corner2,corner4,fromLocation,toLocation) || linesIntersect(corner3,corner4,fromLocation,toLocation))
       return true;
+    
+    // check for line segment entirely inside box
+    BoundingBox box = new BoundingBox(minX,minY,container.getSizeX(),container.getSizeY());
+    if (box.contains(fromLocation) && box.contains(toLocation))
+      return true;
+    
     else return false;
   }
   
