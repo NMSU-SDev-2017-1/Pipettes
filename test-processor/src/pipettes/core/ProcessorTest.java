@@ -42,7 +42,7 @@ public class ProcessorTest
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(Common.deviceClasses);
+      jaxbContext = JAXBContext.newInstance(Common.allClasses);
       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
       device = (Device) jaxbUnmarshaller.unmarshal(deviceFile);
     }

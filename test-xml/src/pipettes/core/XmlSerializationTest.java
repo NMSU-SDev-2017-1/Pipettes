@@ -15,6 +15,8 @@ public class XmlSerializationTest
     String processFileName = args[0];
     String deviceCylindricalFileName = args[1];
     String deviceRectangularFileName = args[2];
+    String deviceLibraryFileName = args[3];
+    String containerLibraryFileName = args[4];
 
     File processFile = new File(processFileName);
     File deviceCylindricalFile = new File(deviceCylindricalFileName);
@@ -88,6 +90,9 @@ public class XmlSerializationTest
     deviceRectangular.setHomePosition(new Point3D(50.0, 75.0, 130.0));
     deviceRectangular.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     deviceRectangular.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));
+    
+    Library<Device> deviceLibrary = new Library<Device>();
+    Library<Container> containerLibrary = new Library<Container>();
     
     JAXBContext jaxbContext;
 

@@ -1,10 +1,6 @@
 package pipettes.core;
 
-import java.util.Iterator;
-
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 
@@ -21,6 +17,11 @@ public class ChangeTipProcedure extends Procedure
   private ObjectProperty<Container> tipDisposal = new SimpleObjectProperty<Container>();
   private ObjectProperty<Container> newTip = new SimpleObjectProperty<Container>();;
 
+  public String getName()
+  {
+    return "Change Tip";
+  }
+  
   @XmlIDREF
   @XmlAttribute
   public Container getTipDisposal()
@@ -32,7 +33,7 @@ public class ChangeTipProcedure extends Procedure
   {
     this.tipDisposal.set(TipDisposal);
   }
-  
+
   public ObjectProperty<Container> TipDisposalProperty()
   {
     return tipDisposal;
@@ -54,7 +55,7 @@ public class ChangeTipProcedure extends Procedure
   {
     return newTip;
   }
-  
+
   public Container[] getReferencedContainers()
   {
     if (getTipDisposal() != null)
@@ -75,36 +76,36 @@ public class ChangeTipProcedure extends Procedure
         return new Container[] { getNewTip() };
       }
     }
-    
-    return new Container[] { };
-  }  
-  
-  private void performChange(ProcessContext context, Device device,
-      Container tipDisposal, Container newTip) throws PositioningException
-  {
-      Point2D startLocation = device.getLocation();
-      Point2D disposalLocation = tipDisposal.getDispenseLocation();
-      Point2D newTipLocation = newTip.getDrawLocation();
-      double startToDisposeClearance = context.getClearanceHeight(startLocation,
-          disposalLocation);
-      Point2D knockOffLocation = new Point2D((tipDisposal.getLocalPositionX() + 
-          tipDisposal.getSizeX()+1),tipDisposal.getLocalPositionY());
-      double disposeToNewTipClearance = context.getClearanceHeight(disposalLocation,
-          newTipLocation);
-      
-      device.moveHeight(startToDisposeClearance);
-      device.move(disposalLocation);
-      device.moveHeight(tipDisposal.getDrawHeight());
-      device.move(knockOffLocation);
-      device.moveHeight(disposeToNewTipClearance);
-      device.move(newTipLocation);
-      device.moveHeight(newTip.getDrawHeight());   
-   
+
+    return new Container[] {};
   }
 
-  public void perform(ProcessContext context, Device device)
-      throws PositioningException
+  private void performChange(ProcessContext context, Container tipDisposal,
+      Container newTip) throws PositioningException
   {
-    performChange(context, device, getTipDisposal(),getNewTip());
+    Device device = context.getDevice();
+    Point2D startLocation = device.getLocation();
+    Point2D disposalLocation = tipDisposal.getDispenseLocation();
+    Point2D newTipLocation = newTip.getDrawLocation();
+    double startToDisposeClearance = context.getClearanceHeight(startLocation,
+        disposalLocation);
+    Point2D knockOffLocation = new Point2D((tipDisposal.getLocalPositionX()
+        + tipDisposal.getSizeX() + 1), tipDisposal.getLocalPositionY());
+    double disposeToNewTipClearance = context.getClearanceHeight(
+        disposalLocation, newTipLocation);
+
+    device.moveHeight(startToDisposeClearance);
+    device.move(disposalLocation);
+    device.moveHeight(tipDisposal.getDrawHeight());
+    device.move(knockOffLocation);
+    device.moveHeight(disposeToNewTipClearance);
+    device.move(newTipLocation);
+    device.moveHeight(newTip.getDrawHeight());
+
+  }
+
+  public void perform(ProcessContext context) throws PositioningException
+  {
+    performChange(context, getTipDisposal(), getNewTip());
   }
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<VBox prefHeight="397.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open..." />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+               </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Undo" />
+                  <MenuItem mnemonicParsing="false" text="Redo" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Cut" />
+                  <MenuItem mnemonicParsing="false" text="Copy" />
+                  <MenuItem mnemonicParsing="false" text="Paste" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Select All" />
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Process">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Select Device..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Properties" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <items>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Device">
+                     <content>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                           <items>
+                              <VBox>
+                                 <children>
+                                    <Label text="Active Device:" />
+                                    <ListView fx:id="deviceLibraryListView" prefHeight="200.0" prefWidth="200.0" />
+                                 </children>
+                              </VBox>
+                              <Pane fx:id="devicePropertiesPane" />
+                           </items>
+                        </SplitPane>
+                     </content>
+                  </Tab>
+                <Tab text="Containers">
+                     <content>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                          <items>
+                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+                                 <items>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <ListView fx:id="containerLibraryListView" prefHeight="200.0" prefWidth="200.0" />
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Add" />
+                                                <Button mnemonicParsing="false" text="Remove" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <TreeView fx:id="containersTreeView" />
+                                 </items>
+                              </SplitPane>
+                              <VBox>
+                                 <children>
+                                    <Label text="Containers" />
+                                 </children>
+                              </VBox>
+                          </items>
+                        </SplitPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Procedures">
+                     <content>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                           <items>
+                              <ListView fx:id="proceduresListView" />
+                              <VBox>
+                                 <children>
+                                    <Label text="Procedures" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Label layoutX="294.0" layoutY="324.0" prefHeight="20.0" prefWidth="219.0" text="Possibly Display Area">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </items>
+      </SplitPane>
+   </children>
+</VBox>
