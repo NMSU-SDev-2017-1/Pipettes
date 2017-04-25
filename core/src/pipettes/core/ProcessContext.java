@@ -37,7 +37,6 @@ public class ProcessContext
     double result = 0;
     for (Container container : containers)
     {
-      // TODO: include code for cylindrical containers
       if (containerIntersects(container, fromLocation, toLocation)){
         result = Math.max(result, container.getClearanceHeight());
       }
@@ -45,7 +44,6 @@ public class ProcessContext
     return result;
   }
   
-  // TODO: Handle the case where the start and end points are both inside a single container (return that container height)
   public boolean containerIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
     double minX = container.getLocalPositionX()-container.getSizeX()/2;
@@ -88,20 +86,8 @@ public class ProcessContext
       // find intersection
       double x = (B2*C1 - B1*C2)/det;
       double y = (A1*C2 - A2*C1)/det;
-      
-      // TODO: why does this code fail but the below code work?
-//      // check intersection is on line segment 1
-//      if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.max(P11.getX(),P12.getX())) &&
-//          (y>=Math.min(P11.getY(),P12.getY())) && (y<=Math.max(P11.getY(),P12.getY())) ){
-//        
-//        // check intersection is on line segment 2
-//        if( (x>=Math.min(P11.getX(),P12.getX())) && (x<=Math.max(P11.getX(),P12.getX())) &&
-//            (y>=Math.min(P11.getY(),P12.getY())) && (y<=Math.max(P11.getY(),P12.getY())) ){
-//          return true;
-//        }
-//      } 
-      
-   // check intersection is on line segment 1
+
+      // check intersection is on line segment 1
       boolean xAboveX1Min = x>=Math.min(P11.getX(),P12.getX());
       boolean xBelowX1Max = x<=Math.max(P11.getX(),P12.getX());
       boolean yAboveY1Min = y>=Math.min(P11.getY(),P12.getY());

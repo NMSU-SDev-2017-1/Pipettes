@@ -52,19 +52,36 @@ public class ProcessContextTest
   {
     ProcessContext context = new ProcessContext(null,null);
     
-    Container sample = new Container();
-    sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
-    sample.setSize(new Point3D(10.0, 10.0, 40.0));
-    sample.setShape(ContainerShape.Rectangular);
-    sample.setClearanceHeightAboveTop(7.0);
-    context.addContainer(sample);
+    // small container
+    Container sample1 = new Container();
+    sample1.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
+    sample1.setSize(new Point3D(10.0, 10.0, 40.0));
+    sample1.setShape(ContainerShape.Rectangular);
+    sample1.setClearanceHeightAboveTop(7.0);
+    context.addContainer(sample1);
+    
+    // larger container
+    Container sample2 = new Container();
+    sample2.setLocalPosition(new Point3D(10, 10, 0.0));
+    sample2.setSize(new Point3D(10.0, 10.0, 42.0));
+    sample2.setShape(ContainerShape.Cylindrical);
+    sample2.setClearanceHeightAboveTop(21.0);
+    context.addContainer(sample2);
+    
+    // tall container not on line
+    Container sample3 = new Container();
+    sample3.setLocalPosition(new Point3D(100, 100, 0.0));
+    sample3.setSize(new Point3D(10.0, 10.0, 314.0));
+    sample3.setShape(ContainerShape.Cylindrical);
+    sample3.setClearanceHeightAboveTop(271);
+    context.addContainer(sample3);
     
     Point2D fromPoint = new Point2D(-90,90);
     Point2D toPoint = new Point2D(10,10);
     
     double height = context.getClearanceHeight(fromPoint, toPoint);
     
-    if (height!=47) fail("Wrong height clearance.");
+    if (height!=63) fail("Wrong height clearance: "+height);
   }
   
   
