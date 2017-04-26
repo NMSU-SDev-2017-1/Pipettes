@@ -27,6 +27,8 @@ public class App extends Application
     // Properties of any type can be easily injected.
     Map<Object, Object> customProperties = new HashMap<>();
 
+    Injector.setConfigurationSource(customProperties::get);
+    
     //customProperties.put("deviceLibrary", deviceLibrary);
     //customProperties.put("containerLibrary", containerLibrary);
     customProperties.put("deviceLibrary", null);

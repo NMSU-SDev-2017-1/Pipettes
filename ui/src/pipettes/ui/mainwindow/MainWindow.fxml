@@ -7,51 +7,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<VBox prefHeight="397.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
+<VBox prefHeight="714.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="_File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open..." />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As..." />
+                  <MenuItem fx:id="fileNewMenuItem" mnemonicParsing="false" text="_New" />
+                  <MenuItem fx:id="fileOpenMenuItem" mnemonicParsing="false" text="_Open..." />
+                  <MenuItem fx:id="fileSaveMenuItem" mnemonicParsing="false" text="_Save" />
+                  <MenuItem fx:id="fileSaveAsMenuItem" mnemonicParsing="false" text="Save _As..." />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem fx:id="fileExportMenuItem" mnemonicParsing="false" text="_Export..." />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <MenuItem fx:id="fileExitMenuItem" mnemonicParsing="false" text="E_xit" />
                </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Undo" />
-                  <MenuItem mnemonicParsing="false" text="Redo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cut" />
-                  <MenuItem mnemonicParsing="false" text="Copy" />
-                  <MenuItem mnemonicParsing="false" text="Paste" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Select All" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Process">
-              <items>
-                  <MenuItem mnemonicParsing="false" text="Select Device..." />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Properties" />
-              </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="_Help">
             <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="helpAboutMenuItem" mnemonicParsing="false" text="_About..." />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="693.0" prefWidth="701.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -62,37 +41,182 @@
                               <VBox>
                                  <children>
                                     <Label text="Active Device:" />
-                                    <ListView fx:id="deviceLibraryListView" prefHeight="200.0" prefWidth="200.0" />
+                                    <ListView fx:id="deviceLibraryListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                    <HBox>
+                                       <children>
+                                          <MenuButton mnemonicParsing="false" text="Add">
+                                             <items>
+                                                <MenuItem fx:id="deviceAddRectangularMenuItem" mnemonicParsing="false" text="Rectangular Device" />
+                                                <MenuItem fx:id="deviceAddCylindricalMenuItem" mnemonicParsing="false" text="Cylindrical Device" />
+                                             </items>
+                                          </MenuButton>
+                                          <Button fx:id="deviceRemoveButton" mnemonicParsing="false" text="Remove" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
-                              <Pane fx:id="devicePropertiesPane" />
+                              <VBox>
+                                 <children>
+                                    <Label text="Active Device Properties:" />
+                                    <StackPane>
+                                       <children>
+                                          <GridPane fx:id="deviceRectangularGridPane" layoutX="10.0" layoutY="27.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
+                                             <children>
+                                                <Label text="Name:" />
+                                                <TextField fx:id="deviceRectangularNameTextField" GridPane.columnIndex="1" />
+                                                <Label text="Home Position (mm):" GridPane.rowIndex="2" />
+                                                <Label text="X:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                                <Label text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                                <Label text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                                <Label layoutX="10.0" layoutY="29.0" text="Minimum Position (mm):" GridPane.rowIndex="5" />
+                                                <Label layoutX="189.0" layoutY="29.0" text="X:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                                <Label layoutX="189.0" layoutY="47.0" text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                                                <TextField fx:id="deviceRectangularHomeXTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TextField fx:id="deviceRectangularHomeYTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextField fx:id="deviceRectangularHomeZTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <TextField fx:id="deviceRectangularMinimumXTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <TextField fx:id="deviceRectangularMinimumYTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <Label layoutX="189.0" layoutY="107.0" text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                                <TextField fx:id="deviceRectangularMinimumZTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                <Label text="Type:" GridPane.rowIndex="1" />
+                                                <Label text="Maximum Position (mm):" GridPane.rowIndex="8" />
+                                                <TextField fx:id="deviceRectangularMaximumXTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                <TextField fx:id="deviceRectangularMaximumYTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                <Label text="Rectangular G-Code 3D Printer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label layoutX="254.0" layoutY="167.0" text="X:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                                                <Label layoutX="254.0" layoutY="197.0" text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+                                                <Label layoutX="254.0" layoutY="227.0" text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
+                                                <TextField fx:id="deviceRectangularMaximumZTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <GridPane fx:id="deviceCylindricalGridPane" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                             <children>
+                                                <Label text="Name:" />
+                                                <TextField fx:id="deviceCylindricalNameTextField" GridPane.columnIndex="1" />
+                                                <Label text="Radius (mm):" GridPane.rowIndex="2" />
+                                                <Label text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                                <Label layoutX="10.0" layoutY="29.0" text="Minimum Position (mm):" GridPane.rowIndex="3" />
+                                                <TextField fx:id="deviceCylindricalRadiusTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TextField fx:id="deviceCylindricalMinimumZTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextField fx:id="deviceCylindricalMaximumZTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label layoutX="189.0" layoutY="107.0" text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                                <Label text="Type:" GridPane.rowIndex="1" />
+                                                <Label text="Maximum Position (mm):" GridPane.rowIndex="4" />
+                                                <Label text="Cylindrical G-Code 3D Printer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
                            </items>
                         </SplitPane>
                      </content>
                   </Tab>
                 <Tab text="Containers">
                      <content>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                        <SplitPane dividerPositions="0.23889739663093415, 0.46401225114854516" orientation="VERTICAL" prefHeight="348.0" prefWidth="382.0">
                           <items>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
-                                 <items>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Container Library:" />
+                                    <ListView fx:id="containerLibraryListView" prefHeight="158.0" prefWidth="507.0" VBox.vgrow="ALWAYS" />
+                                    <HBox>
                                        <children>
-                                          <ListView fx:id="containerLibraryListView" prefHeight="200.0" prefWidth="200.0" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" text="Add" />
-                                                <Button mnemonicParsing="false" text="Remove" />
-                                             </children>
-                                          </HBox>
+                                          <Button fx:id="containersAddButton" mnemonicParsing="false" text="Add to Process" />
+                                          <Button fx:id="containersCopyToProcessButton" mnemonicParsing="false" text="Copy to Process" />
+                                          <Button fx:id="containersRemoveButton" mnemonicParsing="false" text="Remove from Process" />
+                                          <Button fx:id="containersCopyToLibraryButton" mnemonicParsing="false" text="Copy to Library" />
+                                          <Button fx:id="containersRemoveFromLibraryButton" mnemonicParsing="false" text="Remove from Library" />
                                        </children>
-                                    </VBox>
-                                    <TreeView fx:id="containersTreeView" />
-                                 </items>
-                              </SplitPane>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                               <VBox>
                                  <children>
-                                    <Label text="Containers" />
+                                    <Label text="Process Containers:" />
+                                    <TreeView fx:id="containersTreeView" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Selected Process Container Properties:" />
+                                    <GridPane maxHeight="-Infinity" minHeight="-Infinity">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Name:" />
+                                          <TextField fx:id="containerNameTextField" GridPane.columnIndex="1" />
+                                          <Label text="Position (center of bottom in mm):" GridPane.rowIndex="2" />
+                                          <Label text="X:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                          <Label text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                          <Label text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                          <Label layoutX="10.0" layoutY="29.0" text="Size (mm):" GridPane.rowIndex="5" />
+                                          <Label layoutX="189.0" layoutY="29.0" text="X:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                          <Label layoutX="189.0" layoutY="47.0" text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                                          <TextField fx:id="containerPositionXTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="containerPositionYTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="containerPositionZTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="containerSizeXTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField fx:id="containerSizeYTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <Label layoutX="189.0" layoutY="107.0" text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                          <TextField fx:id="containerSizeZTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <Label text="Shape:" GridPane.rowIndex="1" />
+                                          <Label text="Draw Height (above bottom in mm):" GridPane.rowIndex="8" />
+                                          <Label text="Dispense Height (above top in mm):" GridPane.rowIndex="9" />
+                                          <Label text="Clearance Height (above top in mm):" GridPane.rowIndex="10" />
+                                          <TextField fx:id="containerDrawHeightTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="containerDispenseHeightTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                          <TextField fx:id="containerClearanceHeightTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                          <ChoiceBox fx:id="containerShapeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </VBox>
                           </items>
@@ -103,10 +227,93 @@
                      <content>
                         <SplitPane dividerPositions="0.5" orientation="VERTICAL">
                            <items>
-                              <ListView fx:id="proceduresListView" />
                               <VBox>
                                  <children>
-                                    <Label text="Procedures" />
+                                    <Label text="Procedures in Process:" />
+                                    <ListView fx:id="proceduresListView" VBox.vgrow="ALWAYS" />
+                                    <HBox>
+                                       <children>
+                                          <MenuButton mnemonicParsing="false" text="Add">
+                                            <items>
+                                              <MenuItem fx:id="procedureAddDispenseMenuItem" mnemonicParsing="false" text="Dispense Procedure" />
+                                              <MenuItem fx:id="procedureAddMixMenuItem" mnemonicParsing="false" text="Mix Procedure" />
+                                                <MenuItem fx:id="procedureAddChangeTipMenuItem" mnemonicParsing="false" text="Change Tip Procedure" />
+                                            </items>
+                                          </MenuButton>
+                                          <Button fx:id="procedureRemoveButton" mnemonicParsing="false" text="Remove" />
+                                          <Button fx:id="procedureMoveUpButton" mnemonicParsing="false" text="Move Up" />
+                                          <Button fx:id="procedureMoveDownButton" mnemonicParsing="false" text="Move Down" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Selected Procedure:" />
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane fx:id="procedureDispenseGridPane" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Type:" />
+                                                <Label text="Dispense" GridPane.columnIndex="1" />
+                                                <Label text="Source Container:" GridPane.rowIndex="1" />
+                                                <Label text="Destination Container:" GridPane.rowIndex="2" />
+                                                <MenuButton fx:id="procedureDispenseSourceMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <MenuButton fx:id="procedureDispenseDestinationMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label text="Volume (ml):" GridPane.rowIndex="3" />
+                                                <TextField fx:id="procedureDispenseVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                             </children>
+                                          </GridPane>
+                                          <GridPane fx:id="procedureMixGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                             <children>
+                                                <Label text="Type:" />
+                                                <Label text="Mix" GridPane.columnIndex="1" />
+                                                <Label text="Mix Container:" GridPane.rowIndex="1" />
+                                                <MenuButton fx:id="procedureDispenseMixContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Volume (ml):" GridPane.rowIndex="2" />
+                                                <TextField fx:id="procedureMixVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <GridPane fx:id="procedureChangeTipGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
+                                             <children>
+                                                <Label text="Type:" />
+                                                <Label text="Change Tip" GridPane.columnIndex="1" />
+                                                <Label text="New Tip Container:" GridPane.rowIndex="1" />
+                                                <Label text="Disposal Container:" GridPane.rowIndex="2" />
+                                                <MenuButton fx:id="procedureTipChangeNewContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <MenuButton fx:id="procedureTipChangeDisposalMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </VBox>
                            </items>
