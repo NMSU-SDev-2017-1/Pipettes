@@ -1,19 +1,25 @@
 package ch.makery.address.view;
 
-import java.util.Arrays;
+import java.io.IOException;
 
+
+//import java.util.Arrays;
+import ch.makery.address.MainApp;
 import ch.makery.address.view.insideNewProjectController;
+import ch.makery.address.view.drawController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+//import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+
+//import javafx.scene.input.MouseEvent;
 
 public class exampleController {
 
+	private MainApp main;
 	private String output;
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
@@ -23,10 +29,20 @@ public class exampleController {
 			"50mL\tFlask", "\t container5", "\t container6", "\t container7",
 			"\t container8", "\t container9", "\t container10");
 
+	ObservableList<String> items = FXCollections.observableArrayList();
+	ObservableList<String> items1 = FXCollections.observableArrayList();
+
+
 	@FXML
 	private ComboBox<String> containerBox;
 	@FXML
+	private Button draw;
+	@FXML
+	private Button dispense;
+	@FXML
 	private Canvas myCanvas;
+	@FXML
+	ListView<String> list = new ListView<>();
 
 	// (Capacity(mL), Diameter(mm), Height(mm))
 	private static double[] centrifugeTube = { 50.0, 33.0, 115.0 };
@@ -53,39 +69,59 @@ public class exampleController {
 	}
 
 	@FXML
+	private void drawButton() throws Exception {
+		MainApp.showDraw();
+		if(drawController.isInputValid() == true)  {
+			String[] drawProcedure = drawController.drawProcedure();
+			items.addAll(drawProcedure);
+			list.setItems(items);
+		}
+		//list.getItems().clear();
+	}
+
+	@FXML
+	private void dispenseButton() throws Exception {
+		//drawController dC = new drawController();
+		MainApp.showDispense();
+		if(dispenseController.isInputValid() == true)  {
+			String[] dispenseProcedure = drawController.drawProcedure();
+			items1.addAll(dispenseProcedure);
+			list.setItems(items1);
+		}
+	}
+
+	@FXML
 	private void handleContainer() throws Exception {
 		GraphicsContext gc = myCanvas.getGraphicsContext2D();
 		output = containerBox.getSelectionModel().getSelectedItem();
 		if (!(output == null)) {
 			drawContainers(gc, output);
-			myCanvas.setOnMousePressed(canvasOnMousePressedEventHandler);
-			myCanvas.setOnMouseDragged(canvasOnMouseDraggedEventHandler);
+			// myCanvas.setOnMousePressed(canvasOnMousePressedEventHandler);
+			// myCanvas.setOnMouseDragged(canvasOnMouseDraggedEventHandler);
 		}
 		return;
 	}
 
-	EventHandler<MouseEvent> canvasOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
-		@Override
-		public void handle(MouseEvent mouseEvent) {
-			orgSceneX = mouseEvent.getSceneX();
-			orgSceneY = mouseEvent.getSceneY();
-			orgTranslateX = ((Canvas) (mouseEvent.getSource())).getTranslateX();
-			orgTranslateY = ((Canvas) (mouseEvent.getSource())).getTranslateY();
-		}
-	};
-
-	EventHandler<MouseEvent> canvasOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
-		@Override
-		public void handle(MouseEvent mouseEvent) {
-			double offsetX = mouseEvent.getSceneX() - orgSceneX;
-			double offsetY = mouseEvent.getSceneY() - orgSceneY;
-			double newTranslateX = orgTranslateX + offsetX;
-			double newTranslateY = orgTranslateY + offsetY;
-
-			((Canvas) (mouseEvent.getSource())).setTranslateX(newTranslateX);
-			((Canvas) (mouseEvent.getSource())).setTranslateY(newTranslateY);
-		}
-	};
+	/*
+	 * EventHandler<MouseEvent> canvasOnMousePressedEventHandler = new
+	 * EventHandler<MouseEvent>() {
+	 * 
+	 * @Override public void handle(MouseEvent mouseEvent) { orgSceneX =
+	 * mouseEvent.getSceneX(); orgSceneY = mouseEvent.getSceneY(); orgTranslateX
+	 * = ((Canvas) (mouseEvent.getSource())).getTranslateX(); orgTranslateY =
+	 * ((Canvas) (mouseEvent.getSource())).getTranslateY(); } };
+	 * 
+	 * EventHandler<MouseEvent> canvasOnMouseDraggedEventHandler = new
+	 * EventHandler<MouseEvent>() {
+	 * 
+	 * @Override public void handle(MouseEvent mouseEvent) { double offsetX =
+	 * mouseEvent.getSceneX() - orgSceneX; double offsetY =
+	 * mouseEvent.getSceneY() - orgSceneY; double newTranslateX = orgTranslateX
+	 * + offsetX; double newTranslateY = orgTranslateY + offsetY;
+	 * 
+	 * ((Canvas) (mouseEvent.getSource())).setTranslateX(newTranslateX);
+	 * ((Canvas) (mouseEvent.getSource())).setTranslateY(newTranslateY); } };
+	 */
 
 	public void handleWorkArea(int[] deviceUse) throws Exception {
 		GraphicsContext gc = myCanvas.getGraphicsContext2D();
@@ -116,5 +152,9 @@ public class exampleController {
 			gc.strokeOval(100, 100, flask[1] / 2, flask[1] / 2);
 			gc.fillOval(100, 100, flask[1] / 2, flask[1] / 2);
 		}
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.main = mainApp;
 	}
 }
