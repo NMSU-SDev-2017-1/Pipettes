@@ -15,39 +15,47 @@ public class XmlSerializationTest
     String processFileName = args[0];
     String deviceCylindricalFileName = args[1];
     String deviceRectangularFileName = args[2];
-    String deviceLibraryFileName = args[3];
-    String containerLibraryFileName = args[4];
+    // String deviceLibraryFileName = args[3];
+    // String containerLibraryFileName = args[4];
 
     File processFile = new File(processFileName);
     File deviceCylindricalFile = new File(deviceCylindricalFileName);
     File deviceRectangularFile = new File(deviceRectangularFileName);
 
     Container source = new Container();
-    source.setLocalName("Beaker 1");
-    source.setLocalPosition(new Point3D(-70.0, -50.0, 0.0));
-    source.setSize(new Point3D(10.0, 10.0, 60.0));
-    source.setShape(ContainerShape.Cylindrical);
-    source.setDrawHeightAboveBottom(4.0);
-    source.setDispenseHeightAboveTop(5.0);
-    source.setClearanceHeightAboveTop(5.0);
-    
     Container destination = new Container();
-    destination.setLocalName("Beaker 2");
-    destination.setLocalPosition(new Point3D(60.0, 40.0, 0.0));
-    destination.setSize(new Point3D(10.0, 10.0, 40.0));
-    destination.setShape(ContainerShape.Cylindrical);
-    destination.setDrawHeightAboveBottom(5.0);
-    destination.setDispenseHeightAboveTop(10.0);
-    destination.setClearanceHeightAboveTop(10.0);
-
     Container sample = new Container();
-    sample.setLocalName("Beaker 3");
-    sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
-    sample.setSize(new Point3D(10.0, 10.0, 40.0));
-    sample.setShape(ContainerShape.Rectangular);
-    sample.setDrawHeightAboveBottom(6.0);
-    sample.setDispenseHeightAboveTop(7.0);
-    sample.setClearanceHeightAboveTop(7.0);
+    
+    try
+    {
+      source.setLocalName("Beaker 1");
+      source.setLocalPosition(new Point3D(-70.0, -50.0, 0.0));
+      source.setSize(new Point3D(10.0, 10.0, 60.0));
+      source.setShape(ContainerShape.Cylindrical);
+      source.setDrawHeightAboveBottom(4.0);
+      source.setDispenseHeightAboveTop(5.0);
+      source.setClearanceHeightAboveTop(5.0);
+      
+      destination.setLocalName("Beaker 2");
+      destination.setLocalPosition(new Point3D(60.0, 40.0, 0.0));
+      destination.setSize(new Point3D(10.0, 10.0, 40.0));
+      destination.setShape(ContainerShape.Cylindrical);
+      destination.setDrawHeightAboveBottom(5.0);
+      destination.setDispenseHeightAboveTop(10.0);
+      destination.setClearanceHeightAboveTop(10.0);
+
+      sample.setLocalName("Beaker 3");
+      sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
+      sample.setSize(new Point3D(10.0, 10.0, 40.0));
+      sample.setShape(ContainerShape.Rectangular);
+      sample.setDrawHeightAboveBottom(6.0);
+      sample.setDispenseHeightAboveTop(7.0);
+      sample.setClearanceHeightAboveTop(7.0);
+    }
+    catch (NameConflictException e1)
+    {
+      e1.printStackTrace();
+    }
     
     Process process = new Process();
     
@@ -91,8 +99,8 @@ public class XmlSerializationTest
     deviceRectangular.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     deviceRectangular.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));
     
-    Library<Device> deviceLibrary = new Library<Device>();
-    Library<Container> containerLibrary = new Library<Container>();
+    // Library<Device> deviceLibrary = new Library<Device>();
+    // Library<Container> containerLibrary = new Library<Container>();
     
     JAXBContext jaxbContext;
 

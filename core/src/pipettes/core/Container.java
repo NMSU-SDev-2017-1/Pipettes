@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Container
+public class Container implements LibraryItem
 {
   private static final char nestingSeparator = '/';
   
@@ -80,6 +80,21 @@ public class Container
   public StringProperty localNameProperty()
   {
     return localName;
+  }
+
+  public String getLibraryName()
+  {
+    return getLocalName();
+  }
+  
+  public void setLibraryName(String name) throws NameConflictException
+  {
+    setLocalName(name);
+  }
+  
+  public StringProperty libraryNameProperty()
+  {
+    return localNameProperty();
   }
   
   @XmlID

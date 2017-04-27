@@ -21,4 +21,9 @@ public class DeviceListItem extends HBox
     this.getChildren().add(label);
     this.setAlignment(Pos.CENTER_LEFT);
   }
+  
+  public Device getDevice()
+  {
+    return device;
+  }
 }

@@ -21,4 +21,9 @@ public class ContainerListItem extends HBox
     this.getChildren().add(label);
     this.setAlignment(Pos.CENTER_LEFT);
   }
+  
+  public Container getContainer()
+  {
+    return container;
+  }
 }

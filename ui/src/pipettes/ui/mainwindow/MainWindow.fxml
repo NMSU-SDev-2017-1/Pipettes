@@ -30,7 +30,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="693.0" prefWidth="701.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="719.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -60,7 +60,7 @@
                                     <Label text="Active Device Properties:" />
                                     <StackPane>
                                        <children>
-                                          <GridPane fx:id="deviceRectangularGridPane" layoutX="10.0" layoutY="27.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
+                                          <GridPane fx:id="deviceRectangularGridPane" layoutX="10.0" layoutY="27.0" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
                                              <children>
                                                 <Label text="Name:" />
                                                 <TextField fx:id="deviceRectangularNameTextField" GridPane.columnIndex="1" />
@@ -87,12 +87,24 @@
                                                 <Label layoutX="254.0" layoutY="197.0" text="Y:" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
                                                 <Label layoutX="254.0" layoutY="227.0" text="Z:" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
                                                 <TextField fx:id="deviceRectangularMaximumZTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                                <Label text="Extrude Volume (ml/mm):" GridPane.rowIndex="11" />
+                                                <Label text="Dispense/Extrude Ratio:" GridPane.rowIndex="12" />
+                                                <TextField fx:id="deviceRectangularDispenseExtrudeRatioTextField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                                                <Label text="Header:" GridPane.rowIndex="13" />
+                                                <Label text="Footer:" GridPane.rowIndex="14" />
+                                                <TextArea fx:id="deviceRectangularHeaderTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                                                <TextArea fx:id="deviceRectangularFooterTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                                                <TextField fx:id="deviceRectangularExtrudeVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                              </columnConstraints>
                                              <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -106,7 +118,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                           </GridPane>
-                                          <GridPane fx:id="deviceCylindricalGridPane" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                          <GridPane fx:id="deviceCylindricalGridPane" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                                              <children>
                                                 <Label text="Name:" />
                                                 <TextField fx:id="deviceCylindricalNameTextField" GridPane.columnIndex="1" />
@@ -120,6 +132,14 @@
                                                 <Label text="Type:" GridPane.rowIndex="1" />
                                                 <Label text="Maximum Position (mm):" GridPane.rowIndex="4" />
                                                 <Label text="Cylindrical G-Code 3D Printer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Extrude Volume (ml/mm):" GridPane.rowIndex="5" />
+                                                <Label text="Dispense/Extrude Ratio:" GridPane.rowIndex="6" />
+                                                <Label text="Header:" GridPane.rowIndex="7" />
+                                                <Label text="Footer:" GridPane.rowIndex="8" />
+                                                <TextField fx:id="deviceCylindricalExtrudeVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <TextField fx:id="deviceCylindricalDispenseExtrudeRatioTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <TextArea fx:id="deviceCylindricalHeaderTextArea" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+                                                <TextArea fx:id="deviceCylindricalFooterTextArea" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="TOP" />
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -131,6 +151,10 @@
                                                 <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                           </GridPane>
                                        </children>
@@ -172,7 +196,7 @@
                               <VBox>
                                  <children>
                                     <Label text="Selected Process Container Properties:" />
-                                    <GridPane maxHeight="-Infinity" minHeight="-Infinity">
+                                    <GridPane fx:id="containerGridPane" maxHeight="-Infinity" minHeight="-Infinity">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -274,12 +298,12 @@
                                                 <TextField fx:id="procedureDispenseVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
-                                          <GridPane fx:id="procedureMixGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                          <GridPane fx:id="procedureMixGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                                              <children>
                                                 <Label text="Type:" />
                                                 <Label text="Mix" GridPane.columnIndex="1" />
                                                 <Label text="Mix Container:" GridPane.rowIndex="1" />
-                                                <MenuButton fx:id="procedureDispenseMixContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <MenuButton fx:id="procedureMixContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <Label text="Volume (ml):" GridPane.rowIndex="2" />
                                                 <TextField fx:id="procedureMixVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                              </children>
@@ -293,7 +317,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                           </GridPane>
-                                          <GridPane fx:id="procedureChangeTipGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
+                                          <GridPane fx:id="procedureChangeTipGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
                                              <children>
                                                 <Label text="Type:" />
                                                 <Label text="Change Tip" GridPane.columnIndex="1" />
@@ -322,7 +346,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Label layoutX="294.0" layoutY="324.0" prefHeight="20.0" prefWidth="219.0" text="Possibly Display Area">
+            <Label alignment="CENTER" layoutX="294.0" layoutY="324.0" prefHeight="20.0" prefWidth="219.0" text="Display Area">
                <font>
                   <Font size="14.0" />
                </font>

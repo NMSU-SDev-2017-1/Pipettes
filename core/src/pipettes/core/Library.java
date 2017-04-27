@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Library<T>
+public class Library<T extends LibraryItem>
 {
   @XmlTransient
   private File libraryFile;
@@ -79,5 +79,18 @@ public class Library<T>
   public ObservableMap<String, T> getItems()
   {
     return items;
+  }
+  
+  public void addLibraryItem(T item) throws NameConflictException
+  {
+    String libraryName = item.getLibraryName();
+    
+    // Prevent name collisions between subcontainers
+    if (items.containsKey(libraryName))
+    {
+      throw new NameConflictException();
+    }
+    
+    items.put(libraryName, item);
   }
 }

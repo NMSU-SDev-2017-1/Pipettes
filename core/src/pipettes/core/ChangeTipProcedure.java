@@ -29,12 +29,12 @@ public class ChangeTipProcedure extends Procedure
     return tipDisposal.get();
   }
 
-  public void setTipDisposal(Container TipDisposal)
+  public void setTipDisposal(Container tipDisposal)
   {
-    this.tipDisposal.set(TipDisposal);
+    this.tipDisposal.set(tipDisposal);
   }
 
-  public ObjectProperty<Container> TipDisposalProperty()
+  public ObjectProperty<Container> tipDisposalProperty()
   {
     return tipDisposal;
   }
@@ -46,12 +46,12 @@ public class ChangeTipProcedure extends Procedure
     return newTip.get();
   }
 
-  public void setNewTip(Container NewTip)
+  public void setNewTip(Container newTip)
   {
-    this.newTip.set(NewTip);
+    this.newTip.set(newTip);
   }
 
-  public ObjectProperty<Container> NewTipProperty()
+  public ObjectProperty<Container> newTipProperty()
   {
     return newTip;
   }
