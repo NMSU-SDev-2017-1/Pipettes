@@ -22,15 +22,14 @@ public class dispenseController {
 	private static String[] procedure;
 	public int leftover;
 
-	
-	ObservableList<String> unitList = FXCollections.observableArrayList(
-			"mL", "µl");
-	
+	ObservableList<String> unitList = FXCollections.observableArrayList("mL",
+			"µl");
+
 	ObservableList<String> conList = FXCollections.observableArrayList(
 			"Container1", "Container2");
-	
-	@FXML 
-    private ComboBox<String> unitBox;
+
+	@FXML
+	private ComboBox<String> unitBox;
 	@FXML
 	private ComboBox<String> conBox;
 	@FXML
@@ -39,98 +38,91 @@ public class dispenseController {
 	private Button okButton;
 	@FXML
 	private Button canButton;
-	
+
 	@FXML
-	private void okButton() throws Exception{
-		Window stage= okButton.getScene().getWindow();
-		if((conBox.getValue()).equals("--Containers--")){
+	private void okButton() throws Exception {
+		Window stage = okButton.getScene().getWindow();
+		if ((conBox.getValue()).equals("--Containers--")) {
 			main.showdConError();
 			System.out.println("Invalid entries");
-		}
-		else if((unitBox.getValue()).equals("--Units--")){
+		} else if ((unitBox.getValue()).equals("--Units--")) {
 			main.showdUnitError();
 			System.out.println("Invalid entries");
-		}
-		else if(((unitAmount.getText()).isEmpty()) == true){//==true){
+		} else if (((unitAmount.getText()).isEmpty()) == true) {// ==true){
 			main.showTextError();
 			System.out.println("Invalid entries");
-		}
-		else{
-		/*System.out.println("Dispense to: "+conBox.getValue());
-		System.out.print(unitText.getText());
-		System.out.println("  "+unitBox.getValue());*/
-		amount = unitAmount.getText();
-		dispenseProcedure();
-		//setAmount(amount);
-		//compute(amount);
-		
-		//System.out.println("Leftover amount: " +leftover+" "+unitBox.getValue());
-		stage.hide();
+		} else {
+			amount = unitAmount.getText();
+			stage.hide();
 		}
 	}
-	
+
 	@FXML
 	private String getContainer() throws Exception {
 		con = conBox.getSelectionModel().getSelectedItem();
 		return con;
 	}
-	
+
 	@FXML
 	private String getUnits() throws Exception {
 		units = unitBox.getSelectionModel().getSelectedItem();
 		return units;
 	}
-	
-	public static String[] dispenseProcedure() throws Exception{
-		if(isInputValid())  {
-			procedure = new String[] {"Draw " + amount + " " + units + " from " + con};
-			System.out.println(procedure);
+
+	public static String[] dispenseProcedure() throws Exception {
+		if (isInputValid()) {
+			procedure = new String[] { "Dispense " + amount + " " + units
+					+ " into " + con };
 		}
 		return procedure;
 	}
-	
-	public static boolean isInputValid() throws Exception  {
-		if(amount == null || units == null || con == null)
+
+	public static boolean isInputValid() throws Exception {
+		if (amount == null || units == null || con == null)
 			return false;
 		else
 			return true;
 	}
-	
-	public int compute(String a){
+
+	/*public int compute(String a) {
 		drawController dC = new drawController();
 		int dispAmount = Integer.parseInt(a);
 		int drawn = Integer.parseInt(dC.getAmount1());
-		leftover = drawn-dispAmount;
+		leftover = drawn - dispAmount;
 		return leftover;
 	}
-	public void setAmount(String a){
+
+	public void setAmount(String a) {
 		amount = a;
 	}
-	
-	public String getAmount(){
+
+	public String getAmount() {
 		return amount;
-	}
+	}*/
+
 	@FXML
-	private void canButton(){
-		Window stage= canButton.getScene().getWindow();
+	private void canButton() {
+		Window stage = canButton.getScene().getWindow();
 		stage.hide();
 	}
-	@FXML 
-	private void textHandle(KeyEvent e){
-		if(e.getCode()==KeyCode.ENTER){
-		System.out.println(unitAmount.getText());
+
+	@FXML
+	private void textHandle(KeyEvent e) {
+		if (e.getCode() == KeyCode.ENTER) {
+			System.out.println(unitAmount.getText());
 		}
 	}
+
 	@FXML
-	private void initialize(){
+	private void initialize() {
 
 		unitBox.setValue("--Units--");
 		unitBox.setItems(unitList);
-		
+
 		conBox.setValue("--Containers--");
 		conBox.setItems(conList);
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.main = mainApp;
 	}

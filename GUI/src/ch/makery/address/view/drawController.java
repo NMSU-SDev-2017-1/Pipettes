@@ -56,20 +56,9 @@ public class drawController {
 			main.showTextError();
 			System.out.println("Invalid entries");
 		} else {
-			// exampleController mC = new exampleController();
-			// String container = (String) conBox.getValue();
-			// setCon(container);
-			// String am = unitText.getText();
-			// setAmount(am);
-			// String units = (String) unitBox.getValue();
-			// setUnits(units);
 			amount = unitAmount.getText();
-			// System.out.println(amount);
 			Boolean a = true;
 			setOpen(a);
-			//drawProcedure();
-			// System.out.println(getFinal());
-			// mC.list();
 			stage.hide();
 		}
 	}
@@ -86,31 +75,16 @@ public class drawController {
 		return units;
 	}
 
-	public static String[] drawProcedure() throws Exception{
-		if(isInputValid())  {
-			procedure = new String[] {"Draw " + amount + " " + units + " from " + con};
-			//amount = null;
-			
-		//System.out.println(Arrays.toString(procedure));
-		/*System.out.print(con + "\t");
-		System.out.print(amount + "\t");
-		System.out.print(units);*/
+	public static String[] drawProcedure() throws Exception {
+		if (isInputValid()) {
+			procedure = new String[] { "Draw " + amount + " " + units
+					+ " from " + con };
 		}
 		return procedure;
-
-		/*String con = getCon();
-		String amount = getAmount();
-		String units = getUnits();
-		String drawFrom = "Draw from: ";
-		String line = "\n";
-		String space = " ";
-		a = drawFrom + con + line + amount + space + units;
-		setFinal(a);
-		return a;*/
 	}
-	
-	public static boolean isInputValid() throws Exception  {
-		if(amount == null || units == null || con == null)
+
+	public static boolean isInputValid() throws Exception {
+		if (amount == null || units == null || con == null)
 			return false;
 		else
 			return true;
@@ -122,7 +96,7 @@ public class drawController {
 		stage.hide();
 	}
 
-	public void setFinal(String a) {
+	/*public void setFinal(String a) {
 		this.finalString = a;
 	}
 
@@ -152,12 +126,13 @@ public class drawController {
 
 	public static String getUnits1() {
 		return units;
-	}
-	
-	public void setOpen(Boolean a)  {
+	}*/
+
+	public void setOpen(Boolean a) {
 		dopen = a;
 	}
-	public static Boolean getOpen()  {
+
+	public static Boolean getOpen() {
 		return dopen;
 	}
 

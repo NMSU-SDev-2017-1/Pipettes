@@ -2,7 +2,6 @@ package ch.makery.address.view;
 
 import java.io.IOException;
 
-
 //import java.util.Arrays;
 import ch.makery.address.MainApp;
 import ch.makery.address.view.insideNewProjectController;
@@ -32,7 +31,6 @@ public class exampleController {
 	ObservableList<String> items = FXCollections.observableArrayList();
 	ObservableList<String> items1 = FXCollections.observableArrayList();
 
-
 	@FXML
 	private ComboBox<String> containerBox;
 	@FXML
@@ -43,6 +41,8 @@ public class exampleController {
 	private Canvas myCanvas;
 	@FXML
 	ListView<String> list = new ListView<>();
+	@FXML
+	ListView<String> list1 = new ListView<>();
 
 	// (Capacity(mL), Diameter(mm), Height(mm))
 	private static double[] centrifugeTube = { 50.0, 33.0, 115.0 };
@@ -71,22 +71,20 @@ public class exampleController {
 	@FXML
 	private void drawButton() throws Exception {
 		MainApp.showDraw();
-		if(drawController.isInputValid() == true)  {
+		if (drawController.isInputValid() == true) {
 			String[] drawProcedure = drawController.drawProcedure();
 			items.addAll(drawProcedure);
 			list.setItems(items);
 		}
-		//list.getItems().clear();
 	}
 
 	@FXML
 	private void dispenseButton() throws Exception {
-		//drawController dC = new drawController();
 		MainApp.showDispense();
-		if(dispenseController.isInputValid() == true)  {
-			String[] dispenseProcedure = drawController.drawProcedure();
-			items1.addAll(dispenseProcedure);
-			list.setItems(items1);
+		if (dispenseController.isInputValid() == true) {
+			String[] dispenseProcedure = dispenseController.dispenseProcedure();
+			items.addAll(dispenseProcedure);
+			list.setItems(items);
 		}
 	}
 
