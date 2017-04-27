@@ -21,7 +21,7 @@ public class drawController {
 	private static String[] procedure;
 
 	ObservableList<String> unitList = FXCollections.observableArrayList("mL",
-			"µl");
+			"ï¿½l");
 
 	ObservableList<String> conList = FXCollections.observableArrayList(
 			"Container1", "Container2");
@@ -47,13 +47,13 @@ public class drawController {
 		Window stage = okButton.getScene().getWindow();
 
 		if ((conBox.getValue()).equals("--Containers--")) {
-			main.showdConError();
+			MainApp.showdConError();
 			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
-			main.showdUnitError();
+			MainApp.showdUnitError();
 			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {
-			main.showTextError();
+			MainApp.showTextError();
 			System.out.println("Invalid entries");
 		} else {
 			amount = unitAmount.getText();
