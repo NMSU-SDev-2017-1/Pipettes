@@ -80,11 +80,16 @@ public class exampleController {
 
 	@FXML
 	private void dispenseButton() throws Exception {
-		MainApp.showDispense();
-		if (dispenseController.isInputValid() == true) {
-			String[] dispenseProcedure = dispenseController.dispenseProcedure();
-			items.addAll(dispenseProcedure);
-			list.setItems(items);
+		if(drawController.getOpen()==false){
+			main.showDisError();
+		}
+		else{
+			MainApp.showDispense();
+			if (dispenseController.isInputValid() == true) {
+				String[] dispenseProcedure = dispenseController.dispenseProcedure();
+				items.addAll(dispenseProcedure);
+				list.setItems(items);
+			}
 		}
 	}
 

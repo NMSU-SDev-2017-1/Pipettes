@@ -9,6 +9,7 @@ import ch.makery.address.view.mainItemsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -139,7 +140,7 @@ public class MainApp extends Application {
 		BorderPane drawBut = loader.load();
 		
 		Stage drawStage = new Stage();
-		drawStage.setTitle("Draw From...");
+		drawStage.setTitle("Draw");
 		drawStage.initModality(Modality.WINDOW_MODAL);
 	    drawStage.initOwner(primaryStage);
 		Scene drawScene = new Scene(drawBut);
@@ -153,7 +154,7 @@ public class MainApp extends Application {
 		BorderPane dispense = loader.load();
 		
 		Stage drawStage = new Stage();
-		drawStage.setTitle("Dispense To...");
+		drawStage.setTitle("Dispense");
 		drawStage.initModality(Modality.WINDOW_MODAL);
 	    drawStage.initOwner(primaryStage);
 		Scene drawScene = new Scene(dispense);
@@ -167,7 +168,7 @@ public class MainApp extends Application {
 		BorderPane dCon = loader.load();
 		
 		Stage dConStage = new Stage();
-		dConStage.setTitle("Project Name");
+		dConStage.setTitle("Error");
 		dConStage.initModality(Modality.WINDOW_MODAL);
 	    dConStage.initOwner(primaryStage);
 		Scene dConScene = new Scene(dCon);
@@ -180,7 +181,7 @@ public class MainApp extends Application {
 		BorderPane dUnit = loader.load();
 		
 		Stage dUnitStage = new Stage();
-		dUnitStage.setTitle("Project Name");
+		dUnitStage.setTitle("Error");
 		dUnitStage.initModality(Modality.WINDOW_MODAL);
 	    dUnitStage.initOwner(primaryStage);
 		Scene dUnitScene = new Scene(dUnit);
@@ -193,7 +194,7 @@ public class MainApp extends Application {
 		BorderPane disCon = loader.load();
 		
 		Stage disConStage = new Stage();
-		disConStage.setTitle("Project Name");
+		disConStage.setTitle("Error");
 		disConStage.initModality(Modality.WINDOW_MODAL);
 	    disConStage.initOwner(primaryStage);
 		Scene disConScene = new Scene(disCon);
@@ -206,7 +207,7 @@ public class MainApp extends Application {
 		BorderPane disUnit = loader.load();
 		
 		Stage disUnitStage = new Stage();
-		disUnitStage.setTitle("Project Name");
+		disUnitStage.setTitle("Error");
 		disUnitStage.initModality(Modality.WINDOW_MODAL);
 	    disUnitStage.initOwner(primaryStage);
 		Scene dUnitScene = new Scene(disUnit);
@@ -219,7 +220,7 @@ public class MainApp extends Application {
 		BorderPane text = loader.load();
 		
 		Stage textStage = new Stage();
-		textStage.setTitle("Project Name");
+		textStage.setTitle("Error");
 		textStage.initModality(Modality.WINDOW_MODAL);
 		textStage.initOwner(primaryStage);
 		Scene textScene = new Scene(text);
@@ -232,12 +233,25 @@ public class MainApp extends Application {
 		BorderPane disError = loader.load();
 		
 		Stage disErrorStage = new Stage();
-		disErrorStage.setTitle("Project Name");
+		disErrorStage.setTitle("Error");
 		disErrorStage.initModality(Modality.WINDOW_MODAL);
 		disErrorStage.initOwner(primaryStage);
 		Scene disErrorScene = new Scene(disError);
 		disErrorStage.setScene(disErrorScene);
 		disErrorStage.showAndWait();
+	}
+	public static void showInvError() throws IOException{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainApp.class.getResource("view/invError.fxml"));
+		BorderPane invError = loader.load();
+		
+		Stage invErrorStage = new Stage();
+		invErrorStage.setTitle("Error");
+		invErrorStage.initModality(Modality.WINDOW_MODAL);
+		invErrorStage.initOwner(primaryStage);
+		Scene invErrorScene = new Scene(invError);
+		invErrorStage.setScene(invErrorScene);
+		invErrorStage.showAndWait();
 	}
     
     public Stage getStage()  {

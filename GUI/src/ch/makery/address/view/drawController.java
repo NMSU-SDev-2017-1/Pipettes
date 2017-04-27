@@ -56,9 +56,12 @@ public class drawController {
 			main.showTextError();
 			System.out.println("Invalid entries");
 		} else {
-			amount = unitAmount.getText();
+			String am = unitAmount.getText();
 			Boolean a = true;
 			setOpen(a);
+			setAmount(am);
+			int dr = Integer.parseInt(am);
+			dispenseController.setLeft(dr);
 			stage.hide();
 		}
 	}
@@ -96,18 +99,18 @@ public class drawController {
 		stage.hide();
 	}
 
-	/*public void setFinal(String a) {
-		this.finalString = a;
-	}
+	//public void setFinal(String a) {
+	//	this.finalString = a;
+	//}
 
 	public void setAmount(String a) {
 		this.amount = a;
 	}
-
+	/*
 	public void setCon(String a) {
 		con = a;
 	}
-
+	
 	public void setUnits(String a) {
 		units = a;
 	}
@@ -115,11 +118,11 @@ public class drawController {
 	public String getFinal() {
 		return this.finalString;
 	}
-
-	public static String getAmount1() {
+	*/
+	public static String getAmount() {
 		return amount;
 	}
-
+	/*
 	public static String getCon() {
 		return con;
 	}
