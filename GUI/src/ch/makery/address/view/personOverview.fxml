@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxWidth="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.mainItemsController">
+   <center>
+      <VBox prefHeight="700.0" prefWidth="700.0" styleClass="background" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="129.0" styleClass="label-bright" text="PIPETTE" textFill="#a16868">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="404.0" styleClass="label-bright" text="Welcome Page for the PIPETTE User Interface">
+               <VBox.margin>
+                  <Insets left="140.0" top="-50.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" text="Tutorial">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="580.0" top="-10.0" />
+               </VBox.margin>
+            </Button>
+            <Separator prefWidth="200.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
+            </Separator>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Tutorials">
+               <VBox.margin>
+                  <Insets left="450.0" top="70.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#8c8c8d" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="480.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Practice tutorials">
+               <VBox.margin>
+                  <Insets left="490.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#goNew" prefHeight="33.0" prefWidth="230.0" text="Create a new project">
+               <VBox.margin>
+                  <Insets left="60.0" top="-57.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#8d8d8d" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="90.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label prefHeight="21.0" prefWidth="243.0" text="Create a new pipetting project">
+               <VBox.margin>
+                  <Insets left="100.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Examples">
+               <VBox.margin>
+                  <Insets left="450.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#808283" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="480.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Understand examples">
+               <VBox.margin>
+                  <Insets left="490.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#goExist" prefHeight="33.0" prefWidth="230.0" text="Open an existing project">
+               <VBox.margin>
+                  <Insets left="60.0" top="-57.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#a7a7a8" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="90.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Open an existing project from your files">
+               <VBox.margin>
+                  <Insets left="100.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="What's new">
+               <VBox.margin>
+                  <Insets left="450.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#797979" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="480.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Discover what is new">
+               <VBox.margin>
+                  <Insets left="490.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#goDevice" prefHeight="33.0" prefWidth="230.0" text="Create a new device">
+               <VBox.margin>
+                  <Insets left="60.0" top="-57.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#9c9d9e" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="90.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Create a new device with new properties">
+               <VBox.margin>
+                  <Insets left="100.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefWidth="135.0" text="Help">
+               <VBox.margin>
+                  <Insets left="450.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#7a7b7c" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="480.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Get help">
+               <VBox.margin>
+                  <Insets left="490.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="230.0" text="Create a new container">
+               <VBox.margin>
+                  <Insets left="60.0" top="-57.0" />
+               </VBox.margin>
+            </Button>
+            <Circle fill="#868686" radius="3.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="90.0" top="10.0" />
+               </VBox.margin>
+            </Circle>
+            <Label text="Create a new container with new properties">
+               <VBox.margin>
+                  <Insets left="100.0" top="-13.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <MenuBar prefHeight="5.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open File..." />
+                  <MenuItem mnemonicParsing="false" text="Open Project..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Close All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As..." />
+                  <MenuItem mnemonicParsing="false" text="Save All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Refresh" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Undo" />
+                  <MenuItem mnemonicParsing="false" text="Redo" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Cut" />
+                  <MenuItem mnemonicParsing="false" text="Copy" />
+                  <MenuItem mnemonicParsing="false" text="Paste" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Select All" />
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Project">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Open Project" />
+                  <MenuItem mnemonicParsing="false" text="Close Project" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Properties" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Window">
+              <items>
+                <MenuItem mnemonicParsing="false" text="New Window" />
+                  <Menu mnemonicParsing="false" text="Appearances">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Show Toolbar" />
+                        <MenuItem mnemonicParsing="false" text="Toogle Fullscreen" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Perspective">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="2D" />
+                        <MenuItem mnemonicParsing="false" text="3D" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Save Perspective" />
+                        <MenuItem mnemonicParsing="false" text="Reset Perspective" />
+                        <MenuItem mnemonicParsing="false" text="Close Perspective" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Preferences" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Welcome" />
+                  <MenuItem mnemonicParsing="false" text="Search" />
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

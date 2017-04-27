@@ -3,6 +3,7 @@ package pipettes.core;
 import java.util.ArrayList;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.BoundingBox;
 
 public class ProcessContext
 {
@@ -34,54 +35,77 @@ public class ProcessContext
   public double getClearanceHeight(Point2D fromLocation, Point2D toLocation)
   {
     double result = 0;
-
-    // TODO: Replace this with code that actually finds maximum clearance
-    // of containers intersected by movement from and to the specified
-    // locations
-    
     for (Container container : containers)
     {
-      // TODO: include code for cylindrical containers
-      if (boxIntersects(container, fromLocation, toLocation)){
+      if (containerIntersects(container, fromLocation, toLocation)){
         result = Math.max(result, container.getClearanceHeight());
       }
     }
     return result;
   }
   
-  // TODO: finish implementing box intersection code
-  //note algorithm at:
-  // https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
-  // https://github.com/BSVino/MathForGameDevelopers/blob/line-box-intersection/math/collision.cpp
-  private boolean boxIntersects(Container container, Point2D fromLocation, Point2D toLocation)
+  public boolean containerIntersects(Container container, Point2D fromLocation, Point2D toLocation)
   {
-    // coordinates of the near and far (minimum and maximum) edges of the cube in the X direction
-    double xmin = container.getLocalPositionX() - 0.5*container.getSizeX();
-    double xmax = container.getLocalPositionX() + 0.5*container.getSizeX();
+    double minX = container.getLocalPositionX()-container.getSizeX()/2;
+    double maxX = container.getLocalPositionX()+container.getSizeX()/2;
+    double minY = container.getLocalPositionY()-container.getSizeY()/2;
+    double maxY = container.getLocalPositionY()+container.getSizeY()/2;
     
-    // coordinates of the near and far (minimum and maximum) edges of the cube in the Y direction
-    double ymin = container.getLocalPositionY() - 0.5*container.getSizeY();
-    double ymax = container.getLocalPositionY() + 0.5*container.getSizeY();
+    // check for line intersecting any edge
+    Point2D corner1 = new Point2D(maxX,maxY);
+    Point2D corner2 = new Point2D(maxX,minY);
+    Point2D corner3 = new Point2D(minX,maxY);
+    Point2D corner4 = new Point2D(minX,minY);
+    if (linesIntersect(corner1,corner2,fromLocation,toLocation) || linesIntersect(corner1,corner3,fromLocation,toLocation) ||
+        linesIntersect(corner2,corner4,fromLocation,toLocation) || linesIntersect(corner3,corner4,fromLocation,toLocation))
+      return true;
     
-    // CALCULATE X INTERCEPTS
-    // dX is the x component of the total vector
-    // t0x is the intercept with the plane along the minimum box edge
-    // t1x is the intercept with the plane along the maximum box edge 
-    double dX = (toLocation.getX() - fromLocation.getX());
-    double t0x = (xmin - fromLocation.getX()/dX);
-    double t1x = (xmax - fromLocation.getX()/dX);
+    // check for line segment entirely inside box
+    BoundingBox box = new BoundingBox(minX,minY,container.getSizeX(),container.getSizeY());
+    if (box.contains(fromLocation) && box.contains(toLocation))
+      return true;
     
-    // CALCULATE Y INTERCEPTS
-    // dY is the y component of the total vector
-    // t0x is the intercept with the plane along the minimum box edge
-    // t1x is the intercept with the plane along the maximum box edge 
-    double dY = (toLocation.getY() - fromLocation.getY());
-    double t0y = (ymin - fromLocation.getY()/dY);
-    double t1y = (ymax - fromLocation.getY()/dY);
-    
-    // Determine if the box is intersected
-    if (t0x > t1y || t0y > t1x)
-      return false; // the line misses the box
-    else return true;
+    else return false;
   }
+  
+  // see https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/
+  public boolean linesIntersect(Point2D P11, Point2D P12, Point2D P21, Point2D P22){
+    // line 1
+    double A1 = P12.getY() - P11.getY();
+    double B1 = P11.getX() - P12.getX();
+    double C1 = A1*P11.getX() + B1*P11.getY();
+    
+    // line 2
+    double A2 = P22.getY() - P21.getY();
+    double B2 = P21.getX() - P22.getX();
+    double C2 = A2*P21.getX() + B2*P21.getY();
+    
+    double det = A1*B2 - A2*B1;
+    if (det!=0) { // lines not parallel
+      
+      // find intersection
+      double x = (B2*C1 - B1*C2)/det;
+      double y = (A1*C2 - A2*C1)/det;
+
+      // check intersection is on line segment 1
+      boolean xAboveX1Min = x>=Math.min(P11.getX(),P12.getX());
+      boolean xBelowX1Max = x<=Math.max(P11.getX(),P12.getX());
+      boolean yAboveY1Min = y>=Math.min(P11.getY(),P12.getY());
+      boolean yBelowY1Max = y<=Math.max(P11.getY(),P12.getY());
+      if( xAboveX1Min && xBelowX1Max && yAboveY1Min && yBelowY1Max ){
+        
+        // check intersection is on line segment 2
+        boolean xAboveX2Min = x>=Math.min(P21.getX(),P22.getX());
+        boolean xBelowX2Max = x<=Math.max(P21.getX(),P22.getX());
+        boolean yAboveY2Min = y>=Math.min(P21.getY(),P22.getY());
+        boolean yBelowY2Max = y<=Math.max(P21.getY(),P22.getY());
+        if( xAboveX2Min && xBelowX2Max && yAboveY2Min && yBelowY2Max ){
+          return true;
+        }
+      }
+       
+    }
+    return false;
+  }
+  
 }

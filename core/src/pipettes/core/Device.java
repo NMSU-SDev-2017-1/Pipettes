@@ -9,7 +9,7 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 
-public abstract class Device
+public abstract class Device implements LibraryItem
 {
   private StringProperty name =  new SimpleStringProperty();
 
@@ -29,6 +29,21 @@ public abstract class Device
     return name;
   }
   
+  public String getLibraryName()
+  {
+    return getName();
+  }
+  
+  public void setLibraryName(String name) throws NameConflictException
+  {
+    setName(name);
+  }
+  
+  public StringProperty libraryNameProperty()
+  {
+    return nameProperty();
+  }
+
   public abstract DeviceType getType();
   
   public abstract void beginProcess(PrintStream output);

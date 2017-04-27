@@ -22,6 +22,11 @@ public class DispenseProcedure extends Procedure
   private ObjectProperty<Container> destination = new SimpleObjectProperty<Container>();
   private DoubleProperty volume = new SimpleDoubleProperty();
 
+  public String getName()
+  {
+    return "Dispense";
+  }
+  
   @XmlIDREF
   @XmlAttribute
   public Container getSource()
@@ -126,13 +131,13 @@ public class DispenseProcedure extends Procedure
           drawLocation);
       double drawToDispenseClearance = context.getClearanceHeight(drawLocation,
           dispenseLocation);
-      double volume = getVolume(); 
+      double volume = getVolume();
 
       device.moveHeight(startToDrawClearance);
 
       device.move(drawLocation);
       device.moveHeight(source.getDrawHeight());
-      
+
       device.drawFluid(volume);
       logger.logDraw(source.getName(), volume);
 
@@ -140,7 +145,7 @@ public class DispenseProcedure extends Procedure
 
       device.move(dispenseLocation);
       device.moveHeight(destination.getDispenseHeight());
-      
+
       device.dispenseFluid(volume);
       logger.logDispense(destination.getName(), volume);
     }
