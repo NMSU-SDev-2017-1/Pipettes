@@ -48,13 +48,10 @@ public class drawController {
 
 		if ((conBox.getValue()).equals("--Containers--")) {
 			main.showdConError();
-			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
 			main.showdUnitError();
-			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {
 			main.showTextError();
-			System.out.println("Invalid entries");
 		} else {
 			String am = unitAmount.getText();
 			Boolean a = true;

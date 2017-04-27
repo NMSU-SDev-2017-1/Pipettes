@@ -45,13 +45,10 @@ public class dispenseController {
 		Window stage = okButton.getScene().getWindow();
 		if ((conBox.getValue()).equals("--Containers--")) {
 			main.showdConError();
-			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
 			main.showdUnitError();
-			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {// ==true){
 			main.showTextError();
-			System.out.println("Invalid entries");
 		} else {
 			String a = unitAmount.getText();
 			setAmount(a);

@@ -10,7 +10,7 @@
    <top>
       <Pane prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="70.0" layoutY="-1.0" prefHeight="52.0" prefWidth="160.0" text="Please select a container">
+            <Label layoutX="66.0" layoutY="-1.0" prefHeight="52.0" prefWidth="220.0" text="Please select a container">
                <font>
                   <Font size="14.0" />
                </font>

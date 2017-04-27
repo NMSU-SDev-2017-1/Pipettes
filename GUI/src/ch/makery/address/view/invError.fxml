@@ -10,7 +10,7 @@
    <top>
       <Pane prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="inv" layoutX="6.0" layoutY="-1.0" prefHeight="52.0" prefWidth="288.0" />
+            <Label fx:id="inv" layoutY="-1.0" prefHeight="52.0" prefWidth="300.0" />
          </children>
       </Pane>
    </top>
