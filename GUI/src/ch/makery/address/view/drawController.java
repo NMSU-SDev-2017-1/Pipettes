@@ -20,11 +20,11 @@ public class drawController {
 	private MainApp main;
 	private static String[] procedure;
 
-	ObservableList<String> unitList = FXCollections.observableArrayList("mL",
-			"�l");
+	ObservableList<String> unitList = FXCollections.observableArrayList("--Units--","mL",
+			"micro");
 
 	ObservableList<String> conList = FXCollections.observableArrayList(
-			"Container1", "Container2");
+			"--Containers--","Container1", "Container2");
 
 	@FXML
 	private ComboBox<String> unitBox;
@@ -47,13 +47,13 @@ public class drawController {
 		Window stage = okButton.getScene().getWindow();
 
 		if ((conBox.getValue()).equals("--Containers--")) {
-			MainApp.showdConError();
+			main.showdConError();
 			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
-			MainApp.showdUnitError();
+			main.showdUnitError();
 			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {
-			MainApp.showTextError();
+			main.showTextError();
 			System.out.println("Invalid entries");
 		} else {
 			amount = unitAmount.getText();
