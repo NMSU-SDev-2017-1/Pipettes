@@ -10,10 +10,11 @@ public class insideNewDeviceController {
 	
 	private boolean okClicked = false;
 	private Stage dialogStage;
-	private String dim;
+	private String lengthDim;
+	private String widthDim;
 
 	ObservableList<String> deviceList = FXCollections
-			.observableArrayList("---------", "Circular", "Rectangular");
+			.observableArrayList("Circular", "Rectangular");
 
 	@FXML
 	private ComboBox<String> deviceBox;
@@ -40,8 +41,10 @@ public class insideNewDeviceController {
 	
 	@FXML
 	private void handleOk() throws Exception {
-		dim = lengthArea.getText();
-		System.out.println(dim);
+		lengthDim = lengthArea.getText();
+		widthDim = widthArea.getText();
+		System.out.println(lengthDim);
+		System.out.println(widthDim);
 		okClicked = true;
 		dialogStage.close();
 	}

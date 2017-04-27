@@ -90,13 +90,9 @@
       <VBox prefHeight="670.0" prefWidth="170.0" BorderPane.alignment="CENTER">
          <children>
             <ComboBox fx:id="containerBox" onAction="#handleContainer" onMouseClicked="#handleContainer" onMouseDragged="#handleContainer" prefWidth="170.0" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Draw" />
-            <Button mnemonicParsing="false" prefWidth="170.0" text="Dispense" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ListView fx:id="listView" prefHeight="596.0" prefWidth="170.0" />
-               </children>
-            </AnchorPane>
+            <Button fx:id="draw" mnemonicParsing="false" onAction="#drawButton" prefHeight="25.0" prefWidth="170.0" text="Draw" />
+            <Button fx:id="dispense" mnemonicParsing="false" onAction="#dispenseButton" prefWidth="170.0" text="Dispense" />
+            <ListView fx:id="list" prefHeight="800.0" prefWidth="170.0" />
          </children>
       </VBox>
    </left>

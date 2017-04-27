@@ -80,7 +80,7 @@
       </VBox>
       <HBox prefHeight="50.0" prefWidth="410.0" AnchorPane.topAnchor="180.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="60.0">
+            <TextField fx:id="widthArea" prefHeight="25.0" prefWidth="60.0">
                <HBox.margin>
                   <Insets left="85.0" top="20.0" />
                </HBox.margin>

@@ -1,9 +1,7 @@
 package ch.makery.address.view;
 
 import java.io.File;
-import java.util.Arrays;
 
-import ch.makery.address.view.exampleController;
 import ch.makery.address.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,24 +18,25 @@ public class insideNewProjectController {
 	private Stage dialogStage;
 
 	ObservableList<String> deviceList = FXCollections.observableArrayList(
-			"device1", "device2", "device3");
+			"LulzBot Mini Mini 3D Printer", "MakerBot Replicator+",
+			"MakerBot Replicator Desktop 3D Printer");
 
 	@FXML
 	private TextField projectName;
 	@FXML
 	private TextField projectLocation = new TextField();
 	@FXML
-	private ComboBox <String> deviceBox;
+	private ComboBox<String> deviceBox;
 	@FXML
 	private Label error;
-	
+
 	private String name1, name2;
-	
+
 	private static String output;
-	
-	private static int[] device1 = {228, 228, 237};	//(HWD)
-	private static int[] device2 = {248, 443, 290};	//(HWD)
-	private static int[] device3 = {225, 297, 378};	//(HWD)
+
+	private static int[] device1 = { 228, 228, 237 }; // (HWD)
+	private static int[] device2 = { 248, 443, 290 }; // (HWD)
+	private static int[] device3 = { 225, 297, 378 }; // (HWD)
 
 	@FXML
 	private void initialize() {
@@ -52,9 +51,9 @@ public class insideNewProjectController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-	
+
 	@FXML
-	private String handleDevice() throws Exception  {
+	private String handleDevice() throws Exception {
 		output = deviceBox.getSelectionModel().getSelectedItem();
 		return output;
 	}
@@ -75,8 +74,7 @@ public class insideNewProjectController {
 		if (projectName.getText() == null
 				|| projectName.getText().length() == 0
 				|| projectLocation.getText() == null
-				|| projectLocation.getText().length() == 0
-				|| output == null) {
+				|| projectLocation.getText().length() == 0 || output == null) {
 			error.setText("One of the Required Fields is Empty!");
 			error.setTextFill(Color.RED);
 			return false;
@@ -100,16 +98,14 @@ public class insideNewProjectController {
 			projectLocation.setText(name2);
 		}
 	}
-	
+
 	public static int[] sendDevice() throws Exception {
-		if(output == "device1")  {
+		if (output == "LulzBot Mini Mini 3D Printer") {
 			return (device1);
-		}
-		else if(output == "device2")  {
+		} else if (output == "MakerBot Replicator+") {
 			return (device2);
 
-		}
-		else if(output == "device3")  {
+		} else if (output == "MakerBot Replicator Desktop 3D Printer") {
 			return (device3);
 		}
 		return null;
@@ -117,6 +113,5 @@ public class insideNewProjectController {
 
 	public void setMainApp(MainApp mainApp) {
 		this.main = mainApp;
-
 	}
 }
