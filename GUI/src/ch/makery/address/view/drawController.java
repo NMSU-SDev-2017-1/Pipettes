@@ -20,11 +20,11 @@ public class drawController {
 	private MainApp main;
 	private static String[] procedure;
 
-	ObservableList<String> unitList = FXCollections.observableArrayList("mL",
-			"µl");
+	ObservableList<String> unitList = FXCollections.observableArrayList("--Units--","mL",
+			"micro");
 
 	ObservableList<String> conList = FXCollections.observableArrayList(
-			"Container1", "Container2");
+			"--Containers--","Container1", "Container2");
 
 	@FXML
 	private ComboBox<String> unitBox;
@@ -48,17 +48,17 @@ public class drawController {
 
 		if ((conBox.getValue()).equals("--Containers--")) {
 			main.showdConError();
-			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
 			main.showdUnitError();
-			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {
 			main.showTextError();
-			System.out.println("Invalid entries");
 		} else {
-			amount = unitAmount.getText();
+			String am = unitAmount.getText();
 			Boolean a = true;
 			setOpen(a);
+			setAmount(am);
+			int dr = Integer.parseInt(am);
+			dispenseController.setLeft(dr);
 			stage.hide();
 		}
 	}
@@ -96,18 +96,18 @@ public class drawController {
 		stage.hide();
 	}
 
-	/*public void setFinal(String a) {
-		this.finalString = a;
-	}
+	//public void setFinal(String a) {
+	//	this.finalString = a;
+	//}
 
 	public void setAmount(String a) {
 		this.amount = a;
 	}
-
+	/*
 	public void setCon(String a) {
 		con = a;
 	}
-
+	
 	public void setUnits(String a) {
 		units = a;
 	}
@@ -115,11 +115,11 @@ public class drawController {
 	public String getFinal() {
 		return this.finalString;
 	}
-
-	public static String getAmount1() {
+	*/
+	public static String getAmount() {
 		return amount;
 	}
-
+	/*
 	public static String getCon() {
 		return con;
 	}

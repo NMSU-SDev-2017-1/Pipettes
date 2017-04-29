@@ -6,15 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.errors.dUnitController">
+<BorderPane prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.invController">
    <top>
       <Pane prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="87.0" layoutY="-1.0" prefHeight="52.0" prefWidth="126.0" text="Please select units">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <Label fx:id="inv" layoutY="-1.0" prefHeight="52.0" prefWidth="300.0" />
          </children>
       </Pane>
    </top>

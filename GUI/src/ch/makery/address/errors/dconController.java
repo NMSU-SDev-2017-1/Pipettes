@@ -1,4 +1,4 @@
-package UI.errors;
+package ch.makery.address.errors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,10 +1,10 @@
-package UI.errors;
+package ch.makery.address.errors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Window;
 
-public class dUnitController {
+public class textController {
 	@FXML
 	private Button okButton;
 	

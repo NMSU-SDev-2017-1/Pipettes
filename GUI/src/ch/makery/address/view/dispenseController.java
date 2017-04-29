@@ -20,13 +20,13 @@ public class dispenseController {
 	private static String units;
 	private MainApp main;
 	private static String[] procedure;
-	public int leftover;
+	public static int leftover;
 
-	ObservableList<String> unitList = FXCollections.observableArrayList("mL",
+	ObservableList<String> unitList = FXCollections.observableArrayList("--Units--","mL",
 			"µl");
 
 	ObservableList<String> conList = FXCollections.observableArrayList(
-			"Container1", "Container2");
+			"--Containers--","Container1", "Container2");
 
 	@FXML
 	private ComboBox<String> unitBox;
@@ -39,21 +39,26 @@ public class dispenseController {
 	@FXML
 	private Button canButton;
 
+	public static boolean err;
 	@FXML
 	private void okButton() throws Exception {
 		Window stage = okButton.getScene().getWindow();
 		if ((conBox.getValue()).equals("--Containers--")) {
 			main.showdConError();
-			System.out.println("Invalid entries");
 		} else if ((unitBox.getValue()).equals("--Units--")) {
 			main.showdUnitError();
-			System.out.println("Invalid entries");
 		} else if (((unitAmount.getText()).isEmpty()) == true) {// ==true){
 			main.showTextError();
-			System.out.println("Invalid entries");
 		} else {
-			amount = unitAmount.getText();
+			String a = unitAmount.getText();
+			setAmount(a);
+			compute(a);
+			if(err==true){
+				main.showInvError();
+			}
+			else{
 			stage.hide();
+			}
 		}
 	}
 
@@ -84,21 +89,29 @@ public class dispenseController {
 			return true;
 	}
 
-	/*public int compute(String a) {
-		drawController dC = new drawController();
+	public void compute(String a) {
 		int dispAmount = Integer.parseInt(a);
-		int drawn = Integer.parseInt(dC.getAmount1());
-		leftover = drawn - dispAmount;
-		return leftover;
+		int drawn = Integer.parseInt(drawController.getAmount());
+		if(leftover<dispAmount){
+			err=true;
+		}
+		else{
+			int left = leftover - dispAmount;
+			setLeft(left);
+		}
 	}
-
+	public static void setLeft(int a){
+		leftover = a;
+	}
 	public void setAmount(String a) {
 		amount = a;
 	}
-
-	public String getAmount() {
+	public static int getLeft(){
+		return leftover;
+	}
+	public static String getAmount() {
 		return amount;
-	}*/
+	}
 
 	@FXML
 	private void canButton() {
