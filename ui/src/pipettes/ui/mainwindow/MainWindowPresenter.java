@@ -811,4 +811,9 @@ public class MainWindowPresenter implements Initializable
       rebindActiveProcedureNoneControls();
     }
   }
+  
+  public void onNew()
+  {
+    activeProcess.set(new Process());
+  }
 }
