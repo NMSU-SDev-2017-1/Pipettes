@@ -1,6 +1,10 @@
 package pipettes.ui.mainwindow;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
@@ -8,9 +12,15 @@ import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
@@ -20,12 +30,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
 
 import pipettes.core.ChangeTipProcedure;
+import pipettes.core.Common;
 import pipettes.core.Container;
 import pipettes.core.ContainerShape;
 import pipettes.core.CylindricalGCodeDevice;
@@ -33,8 +50,10 @@ import pipettes.core.Device;
 import pipettes.core.DispenseProcedure;
 import pipettes.core.Library;
 import pipettes.core.MixProcedure;
+import pipettes.core.PositioningException;
 import pipettes.core.Procedure;
 import pipettes.core.Process;
+import pipettes.core.Processor;
 import pipettes.core.RectangularGCodeDevice;
 import pipettes.ui.ContainerListItem;
 import pipettes.ui.ContainerTreeItem;
@@ -43,6 +62,18 @@ import pipettes.ui.ProcedureListItem;
 
 public class MainWindowPresenter implements Initializable
 {
+  private static String title = "Pipette Process Editor";
+
+  private static FileChooser.ExtensionFilter extensionProcess = new FileChooser.ExtensionFilter(
+      "Pipette Process File", "*.ppxml");
+  private static FileChooser.ExtensionFilter extensionGCode = new FileChooser.ExtensionFilter(
+      "G-Code File", "*.gcode");
+  private static FileChooser.ExtensionFilter extensionAll = new FileChooser.ExtensionFilter(
+      "All Files", "*.*");
+
+  @FXML
+  public VBox root;
+
   @FXML
   private ListView<DeviceListItem> deviceLibraryListView;
 
@@ -286,9 +317,34 @@ public class MainWindowPresenter implements Initializable
 
   private NumberStringConverter positionPropertyConverter = new NumberStringConverter();
 
+  Scene getScene()
+  {
+    return root.getScene();
+  }
+
+  Window getWindow()
+  {
+    return getScene().getWindow();
+  }
+
+  Stage getStage()
+  {
+    return (Stage) getWindow();
+  }
+
   @Override
   public void initialize(URL arg0, ResourceBundle arg1)
   {
+    root.sceneProperty().addListener(new ChangeListener<Scene>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Scene> observableValue,
+          Scene oldValue, Scene newValue)
+      {
+        onScene();
+      }
+    });
+    
     containerShapeChoiceBox.setItems(FXCollections
         .observableArrayList(ContainerShape.values()));
 
@@ -301,7 +357,7 @@ public class MainWindowPresenter implements Initializable
         loadProcess();
       }
     });
-    
+
     activeDevice.addListener(new ChangeListener<Device>()
     {
       @Override
@@ -331,7 +387,7 @@ public class MainWindowPresenter implements Initializable
         rebindActiveProcedureControls();
       }
     });
-    
+
     for (Device device : deviceLibrary.getItems().values())
     {
       deviceLibraryListView.getItems().add(new DeviceListItem(device));
@@ -381,10 +437,20 @@ public class MainWindowPresenter implements Initializable
     rebindActiveDeviceControls();
     rebindActiveContainerControls();
     rebindActiveProcedureControls();
-    
+
     loadProcess();
   }
-  
+
+  public Device getActiveDevice()
+  {
+    return activeDevice.get();
+  }
+
+  public Process getActiveProcess()
+  {
+    return activeProcess.get();
+  }
+
   private void loadProcessContainers()
   {
     // TODO: Implement
@@ -393,7 +459,7 @@ public class MainWindowPresenter implements Initializable
   private void loadProcessProcedures()
   {
     proceduresListView.getItems().clear();
-    
+
     for (Procedure procedure : activeProcess.get().getProcedures())
     {
       proceduresListView.getItems().add(new ProcedureListItem(procedure));
@@ -405,7 +471,7 @@ public class MainWindowPresenter implements Initializable
     loadProcessContainers();
     loadProcessProcedures();
   }
-  
+
   private void rebindActiveDeviceNoneControls()
   {
     deviceRectangularGridPane.setVisible(false);
@@ -708,8 +774,9 @@ public class MainWindowPresenter implements Initializable
         procedureDispenseSourceMenuButton.textProperty().unbindBidirectional(
             last.sourceProperty().getValue().localNameProperty());
 
-        procedureDispenseDestinationMenuButton.textProperty().unbindBidirectional(
-            last.destinationProperty().getValue().localNameProperty());
+        procedureDispenseDestinationMenuButton.textProperty()
+            .unbindBidirectional(
+                last.destinationProperty().getValue().localNameProperty());
 
         procedureDispenseVolumeTextField.textProperty().unbindBidirectional(
             last.volumeProperty());
@@ -761,7 +828,8 @@ public class MainWindowPresenter implements Initializable
     procedureChangeTipGridPane.setVisible(false);
   }
 
-  private void rebindActiveProcedureChangeTipControls(ChangeTipProcedure procedure)
+  private void rebindActiveProcedureChangeTipControls(
+      ChangeTipProcedure procedure)
   {
     ChangeTipProcedure last = lastActiveProcedureChangeTip;
 
@@ -769,15 +837,18 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        procedureTipChangeNewContainerMenuButton.textProperty().unbindBidirectional(
-            last.newTipProperty().getValue().localNameProperty());
+        procedureTipChangeNewContainerMenuButton.textProperty()
+            .unbindBidirectional(
+                last.newTipProperty().getValue().localNameProperty());
 
-        procedureTipChangeDisposalMenuButton.textProperty().unbindBidirectional(
-            last.tipDisposalProperty().getValue().localNameProperty());
+        procedureTipChangeDisposalMenuButton.textProperty()
+            .unbindBidirectional(
+                last.tipDisposalProperty().getValue().localNameProperty());
       }
 
-      procedureTipChangeNewContainerMenuButton.textProperty().bindBidirectional(
-          procedure.newTipProperty().getValue().localNameProperty());
+      procedureTipChangeNewContainerMenuButton.textProperty()
+          .bindBidirectional(
+              procedure.newTipProperty().getValue().localNameProperty());
 
       procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
           procedure.tipDisposalProperty().getValue().localNameProperty());
@@ -789,7 +860,7 @@ public class MainWindowPresenter implements Initializable
     procedureMixGridPane.setVisible(false);
     procedureChangeTipGridPane.setVisible(true);
   }
-  
+
   private void rebindActiveProcedureControls()
   {
     Procedure procedure = activeProcedure.get();
@@ -811,9 +882,201 @@ public class MainWindowPresenter implements Initializable
       rebindActiveProcedureNoneControls();
     }
   }
+
+  public void onScene()
+  {
+    getScene().windowProperty().addListener(new ChangeListener<Window>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Window> observableValue,
+          Window oldValue, Window newValue)
+      {
+        onWindow();
+      }
+    });
+  }
+
+  public void onWindow()
+  {
+    getStage().setTitle(title);
+
+    getStage().setOnCloseRequest(windowEvent ->
+    {
+      if (allowClose())
+      {
+        getStage().close();
+      }
+      else
+      {
+        windowEvent.consume();
+      }
+    });
+  }
   
   public void onNew()
   {
     activeProcess.set(new Process());
+  }
+
+  public void onOpen()
+  {
+    FileChooser fileChooser = new FileChooser();
+
+    fileChooser.setTitle("Open");
+    fileChooser.getExtensionFilters().addAll(extensionProcess, extensionAll);
+
+    File selectedFile = fileChooser.showOpenDialog(getWindow());
+
+    if (selectedFile != null)
+    {
+      try
+      {
+        Process process = Process.open(selectedFile);
+        activeProcess.set(process);
+      }
+      catch (JAXBException e)
+      {
+        // TODO: Show error message
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void onSave()
+  {
+    if (!getActiveProcess().hasSetFileName())
+    {
+      onSaveAs();
+    }
+    else
+    {
+      try
+      {
+        getActiveProcess().save();
+      }
+      catch (JAXBException e)
+      {
+        // TODO: Show error message
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void onSaveAs()
+  {
+    FileChooser fileChooser = new FileChooser();
+
+    fileChooser.setTitle("Save As");
+    fileChooser.getExtensionFilters().addAll(extensionProcess, extensionAll);
+    fileChooser.setInitialFileName(activeProcess.get().getFileName());
+
+    File selectedFile = fileChooser.showSaveDialog(getWindow());
+
+    if (selectedFile != null)
+    {
+      try
+      {
+        getActiveProcess().saveAs(selectedFile);
+      }
+      catch (JAXBException e)
+      {
+        // TODO: Show error message
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void onExport()
+  {
+    FileChooser fileChooser = new FileChooser();
+
+    fileChooser.setTitle("Export G-Code");
+    fileChooser.getExtensionFilters().addAll(extensionGCode, extensionAll);
+    fileChooser.setInitialFileName(activeProcess.get().getFileName());
+
+    File outputFile = fileChooser.showSaveDialog(getWindow());
+
+    if (outputFile != null)
+    {
+      String logFileName = outputFile.getAbsolutePath();
+      logFileName = Common.removeFileNameExtension(logFileName) + ".csv";
+
+      File logFile = new File(logFileName);
+
+      PrintStream output = null;
+      PrintStream log = null;
+
+      try
+      {
+        output = new PrintStream(outputFile);
+        log = new PrintStream(logFile);
+
+        Processor.run(getActiveProcess(), getActiveDevice(), output, log);
+      }
+      catch (FileNotFoundException e)
+      {
+        // TODO: Show error message
+        e.printStackTrace();
+      }
+      catch (PositioningException e)
+      {
+        // TODO: Show error message
+        e.printStackTrace();
+      }
+      finally
+      {
+        if (output != null)
+        {
+          output.close();
+        }
+
+        if (log != null)
+        {
+          log.close();
+        }
+      }
+    }
+  }
+
+  public void onExit()
+  {
+    getStage().fireEvent(
+        new WindowEvent(getStage(), WindowEvent.WINDOW_CLOSE_REQUEST));
+  }
+
+  public void onAbout()
+  {
+  }
+
+  public boolean allowClose()
+  {
+    if (getActiveProcess().getDirty())
+    {
+      Alert alert = new Alert(AlertType.CONFIRMATION,
+          "Do you want to save changes to "
+              + getActiveProcess().getFileNameWithExtension() + "?",
+          ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+
+      Optional<ButtonType> result = alert.showAndWait();
+
+      if (result.isPresent())
+      {
+        if (result.get() == ButtonType.YES)
+        {
+          onSave();
+        }
+
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+
+    }
+    else
+    {
+      return true;
+    }
   }
 }

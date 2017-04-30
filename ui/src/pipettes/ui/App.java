@@ -41,6 +41,8 @@ public class App extends Application
 
     Injector.setConfigurationSource(customProperties::get);
 
+    customProperties.put("scene", deviceLibrary);
+    
     customProperties.put("deviceLibrary", deviceLibrary);
     customProperties.put("containerLibrary", containerLibrary);
 
@@ -61,7 +63,6 @@ public class App extends Application
 
     MainWindowView appView = new MainWindowView();
     Scene scene = new Scene(appView.getView());
-    stage.setTitle("Pipette Process Editor");
     stage.setScene(scene);
     stage.show();
   }

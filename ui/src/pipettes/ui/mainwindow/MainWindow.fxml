@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<VBox prefHeight="714.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
+<VBox fx:id="root" prefHeight="714.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
    <children>
       <MenuBar>
         <menus>
@@ -18,30 +18,30 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="fileOpenMenuItem" text="_Open...">
+                  <MenuItem fx:id="fileOpenMenuItem" onAction="#onOpen" text="_Open...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="fileSaveMenuItem" text="_Save">
+                  <MenuItem fx:id="fileSaveMenuItem" onAction="#onSave" text="_Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="fileSaveAsMenuItem" text="Save _As...">
+                  <MenuItem fx:id="fileSaveAsMenuItem" onAction="#onSaveAs" text="Save _As...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="fileExportMenuItem" text="_Export...">
+                  <MenuItem fx:id="fileExportMenuItem" onAction="#onExport" text="_Export...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="fileExitMenuItem" text="E_xit" />
+                  <MenuItem fx:id="fileExitMenuItem" onAction="#onExit" text="E_xit" />
                </items>
           </Menu>
           <Menu text="_Help">
             <items>
-                  <MenuItem fx:id="helpAboutMenuItem" text="_About..." />
+                  <MenuItem fx:id="helpAboutMenuItem" onAction="#onAbout" text="_About..." />
             </items>
           </Menu>
         </menus>

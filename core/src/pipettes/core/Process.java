@@ -1,11 +1,22 @@
 package pipettes.core;
 
+import java.io.File;
 import java.util.Iterator;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -17,12 +28,73 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Process
 {
+  private boolean setFileName = false;
+  
+  private ObjectProperty<File> file =  new SimpleObjectProperty<File>();
+
+  private BooleanProperty dirty = new SimpleBooleanProperty();
+
   @XmlElement
   private ObservableMap<String, Container> baseContainers = FXCollections.observableHashMap();
 
   @XmlElementWrapper(name = "procedures")
   @XmlAnyElement(lax = true)
   private ObservableList<Procedure> procedures = FXCollections.observableArrayList();
+  
+  public File getFile()
+  {
+    return file.get();
+  }
+
+  public void setFile(File file)
+  {
+    this.file.set(file);
+    setFileName = true;
+  }
+  
+  public ObjectProperty<File> fileProperty()
+  {
+    return file;
+  }
+
+  public boolean hasSetFileName()
+  {
+    return setFileName;
+  }
+  
+  public String getFileName()
+  {
+    File file = getFile();
+    
+    if (file == null)
+    {
+      return "Untitled";
+    }
+    else
+    {
+      return file.getName();
+    }
+  }
+
+  public String getFileNameWithExtension()
+  {
+    return Common.removeFileNameExtension(getFileName());
+  }
+  
+  public boolean getDirty()
+  {
+    return dirty.get();
+  }
+
+  public void setDirty(boolean dirty)
+  {
+    this.dirty.set(dirty);
+  }
+
+  public BooleanProperty dirtyProperty()
+  {
+    return dirty;
+  }
   
   private void addSubcontainersToContext(ProcessContext context, Container container)
   {
@@ -139,5 +211,37 @@ public class Process
     }
     
     procedures.add(procedure);
+  }
+  
+  public static Process open(File file) throws JAXBException
+  {
+    Process process = null;
+    
+    JAXBContext jaxbContext = JAXBContext.newInstance(Process.class);
+    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+    
+    process = (Process) jaxbUnmarshaller.unmarshal(file);
+    
+    process.setFile(file);
+    
+    return process;
+  }
+
+  public void save() throws JAXBException
+  {
+    saveAs(file.get());
+  }
+
+  public void saveAs(File file) throws JAXBException
+  {
+    JAXBContext jaxbContext = JAXBContext.newInstance(Process.class);
+    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+    jaxbMarshaller.marshal(this, file);
+    
+    setFile(file);
+    setDirty(false);
   }
 }

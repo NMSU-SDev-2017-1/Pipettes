@@ -13,4 +13,16 @@ public class Common
   {
     return new Point3D(point.getX(), point.getY(), point.getZ()); 
   }
+  
+  public static String removeFileNameExtension(String fileName)
+  {
+    int endIndex = fileName.lastIndexOf('.');
+    
+    if (endIndex >= 0)
+    {
+      fileName = fileName.substring(0, endIndex);
+    }
+    
+    return fileName;
+  }
 }
