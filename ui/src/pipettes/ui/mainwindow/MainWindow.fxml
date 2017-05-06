@@ -46,7 +46,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="719.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="710.0" prefWidth="715.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -269,20 +269,25 @@
                            <items>
                               <VBox>
                                  <children>
-                                    <Label text="Procedures in Process:" />
-                                    <ListView fx:id="proceduresListView" VBox.vgrow="ALWAYS" />
+                                    <Label text="Procedures in Process:" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="proceduresTableView">
+                                      <columns>
+                                        <TableColumn fx:id="proceduresTypeTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Type" />
+                                        <TableColumn fx:id="proceduresPropertiesTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Properties" />
+                                      </columns>
+                                    </TableView>
                                     <HBox>
                                        <children>
                                           <MenuButton mnemonicParsing="false" text="Add">
                                             <items>
-                                              <MenuItem fx:id="procedureAddDispenseMenuItem" mnemonicParsing="false" text="Dispense Procedure" />
-                                              <MenuItem fx:id="procedureAddMixMenuItem" mnemonicParsing="false" text="Mix Procedure" />
-                                                <MenuItem fx:id="procedureAddChangeTipMenuItem" mnemonicParsing="false" text="Change Tip Procedure" />
+                                              <MenuItem fx:id="procedureAddDispenseMenuItem" mnemonicParsing="false" onAction="#onAddDispenseProcedure" text="Dispense Procedure" />
+                                              <MenuItem fx:id="procedureAddMixMenuItem" mnemonicParsing="false" onAction="#onAddMixProcedure" text="Mix Procedure" />
+                                                <MenuItem fx:id="procedureAddChangeTipMenuItem" mnemonicParsing="false" onAction="#onAddChangeTipProcedure" text="Change Tip Procedure" />
                                             </items>
                                           </MenuButton>
-                                          <Button fx:id="procedureRemoveButton" mnemonicParsing="false" text="Remove" />
-                                          <Button fx:id="procedureMoveUpButton" mnemonicParsing="false" text="Move Up" />
-                                          <Button fx:id="procedureMoveDownButton" mnemonicParsing="false" text="Move Down" />
+                                          <Button fx:id="procedureRemoveButton" mnemonicParsing="false" onAction="#onRemoveProcedure" text="Remove" />
+                                          <Button fx:id="procedureMoveUpButton" mnemonicParsing="false" onAction="#onMoveUpProcedure" text="Move Up" />
+                                          <Button fx:id="procedureMoveDownButton" mnemonicParsing="false" onAction="#onMoveDownProcedure" text="Move Down" />
                                        </children>
                                     </HBox>
                                  </children>

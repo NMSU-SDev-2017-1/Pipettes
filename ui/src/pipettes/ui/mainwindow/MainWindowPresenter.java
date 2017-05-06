@@ -8,14 +8,15 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -25,9 +26,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -35,7 +38,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
-import javafx.util.StringConverter;
+import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
 import javax.inject.Inject;
@@ -58,7 +61,6 @@ import pipettes.core.RectangularGCodeDevice;
 import pipettes.ui.ContainerListItem;
 import pipettes.ui.ContainerTreeItem;
 import pipettes.ui.DeviceListItem;
-import pipettes.ui.ProcedureListItem;
 
 public class MainWindowPresenter implements Initializable
 {
@@ -72,7 +74,7 @@ public class MainWindowPresenter implements Initializable
       "All Files", "*.*");
 
   @FXML
-  public VBox root;
+  private VBox root;
 
   @FXML
   private ListView<DeviceListItem> deviceLibraryListView;
@@ -84,7 +86,10 @@ public class MainWindowPresenter implements Initializable
   private TreeView<ContainerTreeItem> containersTreeView;
 
   @FXML
-  private ListView<ProcedureListItem> proceduresListView;
+  private TableView<Procedure> proceduresTableView;
+
+  @FXML
+  private TableColumn<Procedure, String> proceduresTypeTableColumn;
 
   @FXML
   private ChoiceBox<ContainerShape> containerShapeChoiceBox;
@@ -317,17 +322,17 @@ public class MainWindowPresenter implements Initializable
 
   private NumberStringConverter positionPropertyConverter = new NumberStringConverter();
 
-  Scene getScene()
+  private Scene getScene()
   {
     return root.getScene();
   }
 
-  Window getWindow()
+  private Window getWindow()
   {
     return getScene().getWindow();
   }
 
-  Stage getStage()
+  private Stage getStage()
   {
     return (Stage) getWindow();
   }
@@ -344,7 +349,7 @@ public class MainWindowPresenter implements Initializable
         onScene();
       }
     });
-    
+
     containerShapeChoiceBox.setItems(FXCollections
         .observableArrayList(ContainerShape.values()));
 
@@ -354,7 +359,7 @@ public class MainWindowPresenter implements Initializable
       public void changed(ObservableValue<? extends Process> observableValue,
           Process oldValue, Process newValue)
       {
-        loadProcess();
+        rebindActiveProcess();
       }
     });
 
@@ -422,54 +427,57 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
-    proceduresListView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<ProcedureListItem>()
+    proceduresTableView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<Procedure>()
         {
           @Override
-          public void changed(
-              ObservableValue<? extends ProcedureListItem> observable,
-              ProcedureListItem oldValue, ProcedureListItem newValue)
+          public void changed(ObservableValue<? extends Procedure> observable,
+              Procedure oldValue, Procedure newValue)
           {
-            activeProcedure.set(newValue.getProcedure());
+            activeProcedure.set(newValue);
           }
         });
 
+    proceduresTypeTableColumn
+        .setCellValueFactory(new Callback<CellDataFeatures<Procedure, String>, ObservableValue<String>>()
+        {
+          public ObservableValue<String> call(
+              CellDataFeatures<Procedure, String> value)
+          {
+            return new SimpleStringProperty(value.getValue().getName());
+          }
+        });
+    
     rebindActiveDeviceControls();
     rebindActiveContainerControls();
-    rebindActiveProcedureControls();
+    intializeProceduresControls();
 
-    loadProcess();
+    rebindActiveProcess();
+  }
+  
+  private void intializeProceduresControls()
+  {
+    rebindActiveProcedureControls();
   }
 
-  public Device getActiveDevice()
+  private Device getActiveDevice()
   {
     return activeDevice.get();
   }
 
-  public Process getActiveProcess()
+  private Process getActiveProcess()
   {
     return activeProcess.get();
   }
-
-  private void loadProcessContainers()
+  
+  private ObservableList<Procedure> getProcedures()
   {
-    // TODO: Implement
+    return getActiveProcess().getProcedures();
   }
 
-  private void loadProcessProcedures()
+  private void rebindActiveProcess()
   {
-    proceduresListView.getItems().clear();
-
-    for (Procedure procedure : activeProcess.get().getProcedures())
-    {
-      proceduresListView.getItems().add(new ProcedureListItem(procedure));
-    }
-  }
-
-  private void loadProcess()
-  {
-    loadProcessContainers();
-    loadProcessProcedures();
+    proceduresTableView.setItems(getProcedures());
   }
 
   private void rebindActiveDeviceNoneControls()
@@ -650,17 +658,17 @@ public class MainWindowPresenter implements Initializable
   {
     Device device = activeDevice.get();
 
-    if (device instanceof RectangularGCodeDevice)
+    if (device == null)
+    {
+      rebindActiveDeviceNoneControls();
+    }
+    else if (device instanceof RectangularGCodeDevice)
     {
       rebindActiveDeviceRectangularControls((RectangularGCodeDevice) device);
     }
     else if (device instanceof CylindricalGCodeDevice)
     {
       rebindActiveDeviceCylindricalControls((CylindricalGCodeDevice) device);
-    }
-    else
-    {
-      rebindActiveDeviceNoneControls();
     }
   }
 
@@ -865,7 +873,11 @@ public class MainWindowPresenter implements Initializable
   {
     Procedure procedure = activeProcedure.get();
 
-    if (procedure instanceof DispenseProcedure)
+    if (procedure == null)
+    {
+      rebindActiveProcedureNoneControls();
+    }
+    else if (procedure instanceof DispenseProcedure)
     {
       rebindActiveProcedureDispenseControls((DispenseProcedure) procedure);
     }
@@ -877,13 +889,9 @@ public class MainWindowPresenter implements Initializable
     {
       rebindActiveProcedureChangeTipControls((ChangeTipProcedure) procedure);
     }
-    else
-    {
-      rebindActiveProcedureNoneControls();
-    }
   }
 
-  public void onScene()
+  private void onScene()
   {
     getScene().windowProperty().addListener(new ChangeListener<Window>()
     {
@@ -896,7 +904,7 @@ public class MainWindowPresenter implements Initializable
     });
   }
 
-  public void onWindow()
+  private void onWindow()
   {
     getStage().setTitle(title);
 
@@ -912,7 +920,7 @@ public class MainWindowPresenter implements Initializable
       }
     });
   }
-  
+
   public void onNew()
   {
     activeProcess.set(new Process());
@@ -1048,7 +1056,7 @@ public class MainWindowPresenter implements Initializable
   {
   }
 
-  public boolean allowClose()
+  private boolean allowClose()
   {
     if (getActiveProcess().getDirty())
     {
@@ -1077,6 +1085,67 @@ public class MainWindowPresenter implements Initializable
     else
     {
       return true;
+    }
+  }
+
+  public void onAddDispenseProcedure()
+  {
+    DispenseProcedure procedure = new DispenseProcedure();
+    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
+    
+    if (selectionIndex >= 0)
+    {
+      getProcedures().add(selectionIndex, procedure);
+    }
+    else
+    {
+      getProcedures().add(procedure);
+    }
+  }
+
+  public void onAddMixProcedure()
+  {
+
+  }
+
+  public void onAddChangeTipProcedure()
+  {
+
+  }
+  
+  public void onRemoveProcedure()
+  {
+    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
+    
+    if (selectionIndex >= 0)
+    {
+      getProcedures().remove(selectionIndex);
+    }
+  }
+  
+  public void onMoveUpProcedure()
+  {
+    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
+    
+    if (selectionIndex > 0)
+    {
+      Procedure procedure = getProcedures().get(selectionIndex);
+      getProcedures().remove(selectionIndex);
+      getProcedures().add(selectionIndex - 1, procedure);
+      proceduresTableView.getSelectionModel().select(selectionIndex - 1);
+    }
+  }
+  
+  public void onMoveDownProcedure()
+  {
+    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
+    
+    if ((selectionIndex >= 0) && (selectionIndex < (getProcedures().size() - 1)))
+    {
+      Procedure procedure = getProcedures().get(selectionIndex);
+      getProcedures().remove(selectionIndex);
+      getProcedures().add(selectionIndex + 1, procedure);
+      proceduresTableView.getSelectionModel().select(selectionIndex + 1);
     }
   }
 }

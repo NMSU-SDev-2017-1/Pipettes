@@ -7,9 +7,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
@@ -29,18 +28,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Process
 {
   private boolean setFileName = false;
-  
-  private ObjectProperty<File> file =  new SimpleObjectProperty<File>();
+
+  private ObjectProperty<File> file = new SimpleObjectProperty<File>();
 
   private BooleanProperty dirty = new SimpleBooleanProperty();
 
   @XmlElement
-  private ObservableMap<String, Container> baseContainers = FXCollections.observableHashMap();
+  private ObservableMap<String, Container> baseContainers = FXCollections
+      .observableHashMap();
 
   @XmlElementWrapper(name = "procedures")
   @XmlAnyElement(lax = true)
-  private ObservableList<Procedure> procedures = FXCollections.observableArrayList();
-  
+  private ObservableList<Procedure> procedures = FXCollections
+      .observableArrayList();
+
   public File getFile()
   {
     return file.get();
@@ -51,7 +52,7 @@ public class Process
     this.file.set(file);
     setFileName = true;
   }
-  
+
   public ObjectProperty<File> fileProperty()
   {
     return file;
@@ -61,11 +62,11 @@ public class Process
   {
     return setFileName;
   }
-  
+
   public String getFileName()
   {
     File file = getFile();
-    
+
     if (file == null)
     {
       return "Untitled";
@@ -80,7 +81,7 @@ public class Process
   {
     return Common.removeFileNameExtension(getFileName());
   }
-  
+
   public boolean getDirty()
   {
     return dirty.get();
@@ -90,16 +91,53 @@ public class Process
   {
     this.dirty.set(dirty);
   }
-
+  
   public BooleanProperty dirtyProperty()
   {
     return dirty;
   }
-  
-  private void addSubcontainersToContext(ProcessContext context, Container container)
+
+  // TODO: Complete change listener
+  public Process()
+  {
+    procedures.addListener(new ListChangeListener<Procedure>()
+    {
+      @Override
+      public void onChanged(
+          ListChangeListener.Change<? extends Procedure> change)
+      {
+        setDirty(true);
+        
+        while (change.next())
+        {
+          if (change.wasUpdated())
+          {
+            // System.out.println("Update detected");
+          }
+          else if (change.wasPermutated())
+          {
+          }
+          else
+          {
+            for (Procedure remitem : change.getRemoved())
+            {
+              // do things
+            }
+            for (Procedure additem : change.getAddedSubList())
+            {
+              // do things
+            }
+          }
+        }
+      }
+    });
+  }
+
+  private void addSubcontainersToContext(ProcessContext context,
+      Container container)
   {
     context.addContainer(container);
-    
+
     if (container.hasSubcontainers())
     {
       Iterator<Container> subcontainers = container.getSubcontainerIterator();
@@ -109,18 +147,18 @@ public class Process
       }
     }
   }
-  
+
   // TODO: Initialize with information necessary for procedures to perform
   // their operation
   public ProcessContext createContext(Device device, ProcessLogger logger)
   {
     ProcessContext context = new ProcessContext(device, logger);
-    
+
     for (Container container : baseContainers.values())
     {
       addSubcontainersToContext(context, container);
     }
-    
+
     return context;
   }
 
@@ -130,14 +168,14 @@ public class Process
     {
       container = container.getParent();
     }
-    
+
     return container;
-  }  
-  
+  }
+
   private void verifyContainer(Container container)
   {
     container = getBaseContainer(container);
-    
+
     Container mappedContainer = baseContainers.get(container.getName());
 
     if (mappedContainer == null)
@@ -161,7 +199,7 @@ public class Process
       }
     }
   }
-  
+
   private void verifyContainers()
   {
     for (Procedure procedure : procedures)
@@ -173,7 +211,8 @@ public class Process
     }
   }
 
-  public void run(Device device, ProcessLogger logger) throws PositioningException
+  public void run(Device device, ProcessLogger logger)
+      throws PositioningException
   {
     verifyProcedures();
     verifyContainers();
@@ -185,7 +224,7 @@ public class Process
       procedure.perform(context);
     }
   }
-  
+
   public ObservableMap<String, Container> getBaseContainers()
   {
     return baseContainers;
@@ -195,11 +234,11 @@ public class Process
   {
     return procedures;
   }
-  
+
   public void addContainer(Container container)
   {
     container = getBaseContainer(container);
-    
+
     baseContainers.put(container.getName(), container);
   }
 
@@ -209,21 +248,21 @@ public class Process
     {
       addContainer(container);
     }
-    
+
     procedures.add(procedure);
   }
-  
+
   public static Process open(File file) throws JAXBException
   {
     Process process = null;
-    
+
     JAXBContext jaxbContext = JAXBContext.newInstance(Process.class);
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-    
+
     process = (Process) jaxbUnmarshaller.unmarshal(file);
-    
+
     process.setFile(file);
-    
+
     return process;
   }
 
@@ -240,7 +279,7 @@ public class Process
     jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
     jaxbMarshaller.marshal(this, file);
-    
+
     setFile(file);
     setDirty(false);
   }
