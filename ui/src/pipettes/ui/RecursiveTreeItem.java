@@ -65,7 +65,6 @@ public class RecursiveTreeItem<T> extends TreeItem<T>
     {
       while (change.next())
       {
-
         if (change.wasAdded())
         {
           change.getAddedSubList().forEach(

@@ -57,16 +57,21 @@
                               <VBox>
                                  <children>
                                     <Label text="Active Device:" />
-                                    <ListView fx:id="deviceLibraryListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="devicesTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                      <columns>
+                                        <TableColumn fx:id="devicesNameTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Name" />
+                                        <TableColumn fx:id="devicesTypeTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Type" />
+                                      </columns>
+                                    </TableView>
                                     <HBox>
                                        <children>
                                           <MenuButton mnemonicParsing="false" text="Add">
                                              <items>
-                                                <MenuItem fx:id="deviceAddRectangularMenuItem" mnemonicParsing="false" text="Rectangular Device" />
-                                                <MenuItem fx:id="deviceAddCylindricalMenuItem" mnemonicParsing="false" text="Cylindrical Device" />
+                                                <MenuItem fx:id="deviceAddRectangularMenuItem" mnemonicParsing="false" onAction="#onAddRectangularDevice" text="Rectangular Device" />
+                                                <MenuItem fx:id="deviceAddCylindricalMenuItem" mnemonicParsing="false" onAction="#onAddCylindricalDevice" text="Cylindrical Device" />
                                              </items>
                                           </MenuButton>
-                                          <Button fx:id="deviceRemoveButton" mnemonicParsing="false" text="Remove" />
+                                          <Button fx:id="deviceRemoveButton" mnemonicParsing="false" onAction="#onRemoveDevice" text="Remove" />
                                        </children>
                                     </HBox>
                                  </children>

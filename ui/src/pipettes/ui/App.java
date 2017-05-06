@@ -105,17 +105,10 @@ public class App extends Application
     exampleDevice2.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     exampleDevice2.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));
 
-    Library<Device> library = new Library<Device>();
+    Library<Device> library = new Library<Device>("Device");
 
-    try
-    {
-      library.addLibraryItem(exampleDevice1);
-      library.addLibraryItem(exampleDevice2);
-    }
-    catch (NameConflictException e)
-    {
-      e.printStackTrace();
-    }
+    library.getItems().add(exampleDevice1);
+    library.getItems().add(exampleDevice2);
 
     return library;
   }
@@ -157,17 +150,10 @@ public class App extends Application
       e1.printStackTrace();
     }
     
-    Library<Container> library = new Library<Container>();
+    Library<Container> library = new Library<Container>("Container");
 
-    try
-    {
-      library.addLibraryItem(exampleContainer1);
-      library.addLibraryItem(exampleContainer2);
-    }
-    catch (NameConflictException e)
-    {
-      e.printStackTrace();
-    }
+    library.getItems().add(exampleContainer1);
+    library.getItems().add(exampleContainer2);
 
     return library;
   }

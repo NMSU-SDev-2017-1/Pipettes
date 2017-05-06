@@ -3,6 +3,7 @@ package pipettes.core;
 import java.io.File;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import javax.xml.bind.JAXBContext;
@@ -19,19 +20,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Library<T extends LibraryItem>
 {
+  private String prefix;
+  
   @XmlTransient
   private File libraryFile;
   
   @XmlElement
-  private ObservableMap<String, T> items = FXCollections.observableHashMap();
+  private ObservableList<T> items = FXCollections.observableArrayList();
   
-  public Library()
+  public Library(String prefix)
   {
-  }
-  
-  public Library(String fileName)
-  {
-    Open(fileName);
+    this.prefix = prefix;
   }
   
   @SuppressWarnings("unchecked")
@@ -45,7 +44,7 @@ public class Library<T extends LibraryItem>
     {
       jaxbContext = JAXBContext.newInstance(ObservableMap.class);
       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      items = (ObservableMap<String, T>) jaxbUnmarshaller.unmarshal(libraryFile);
+      items = (ObservableList<T>) jaxbUnmarshaller.unmarshal(libraryFile);
     }
     catch (JAXBException e)
     {
@@ -76,21 +75,30 @@ public class Library<T extends LibraryItem>
     }
   }
   
-  public ObservableMap<String, T> getItems()
+  public ObservableList<T> getItems()
   {
     return items;
   }
   
-  public void addLibraryItem(T item) throws NameConflictException
+  public String getAvailableName()
   {
-    String libraryName = item.getLibraryName();
+    boolean collision;
+    int itemNumber = 1;
     
-    // Prevent name collisions between subcontainers
-    if (items.containsKey(libraryName))
-    {
-      throw new NameConflictException();
-    }
+    do {
+      collision = false;
+      
+      for (LibraryItem item : items)
+      {
+        if (item.getLibraryName().equals(prefix + itemNumber))
+        {
+          itemNumber++;
+          collision = true;
+          break;
+        }
+      }
+    } while (collision);
     
-    items.put(libraryName, item);
+    return prefix + itemNumber;
   }
 }

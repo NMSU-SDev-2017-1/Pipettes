@@ -13,8 +13,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -60,7 +58,6 @@ import pipettes.core.Processor;
 import pipettes.core.RectangularGCodeDevice;
 import pipettes.ui.ContainerListItem;
 import pipettes.ui.ContainerTreeItem;
-import pipettes.ui.DeviceListItem;
 
 public class MainWindowPresenter implements Initializable
 {
@@ -77,7 +74,13 @@ public class MainWindowPresenter implements Initializable
   private VBox root;
 
   @FXML
-  private ListView<DeviceListItem> deviceLibraryListView;
+  private TableView<Device> devicesTableView;
+
+  @FXML
+  private TableColumn<Device, String> devicesNameTableColumn;
+
+  @FXML
+  private TableColumn<Device, String> devicesTypeTableColumn;
 
   @FXML
   private ListView<ContainerListItem> containerLibraryListView;
@@ -320,6 +323,9 @@ public class MainWindowPresenter implements Initializable
   private MixProcedure lastActiveProcedureMix;
   private ChangeTipProcedure lastActiveProcedureChangeTip;
 
+  private ObjectProperty<Container> dispenseProcedureSource;
+  private ObjectProperty<Container> dispenseProcedureDestination;
+
   private NumberStringConverter positionPropertyConverter = new NumberStringConverter();
 
   private Scene getScene()
@@ -329,12 +335,39 @@ public class MainWindowPresenter implements Initializable
 
   private Window getWindow()
   {
-    return getScene().getWindow();
+    if (getScene() == null)
+    {
+      return null;
+    }
+    else
+    {
+      return getScene().getWindow();
+    }
   }
 
   private Stage getStage()
   {
     return (Stage) getWindow();
+  }
+
+  private Device getActiveDevice()
+  {
+    return activeDevice.get();
+  }
+
+  private Process getActiveProcess()
+  {
+    return activeProcess.get();
+  }
+
+  private ObservableList<Device> getDevices()
+  {
+    return deviceLibrary.getItems();
+  }
+
+  private ObservableList<Procedure> getProcedures()
+  {
+    return getActiveProcess().getProcedures();
   }
 
   @Override
@@ -359,7 +392,7 @@ public class MainWindowPresenter implements Initializable
       public void changed(ObservableValue<? extends Process> observableValue,
           Process oldValue, Process newValue)
       {
-        rebindActiveProcess();
+        onActiveProcess();
       }
     });
 
@@ -369,7 +402,7 @@ public class MainWindowPresenter implements Initializable
       public void changed(ObservableValue<? extends Device> observableValue,
           Device oldValue, Device newValue)
       {
-        rebindActiveDeviceControls();
+        onActiveDevice();
       }
     });
 
@@ -379,7 +412,7 @@ public class MainWindowPresenter implements Initializable
       public void changed(ObservableValue<? extends Container> observableValue,
           Container oldValue, Container newValue)
       {
-        rebindActiveContainerControls();
+        onActiveContainer();
       }
     });
 
@@ -389,31 +422,47 @@ public class MainWindowPresenter implements Initializable
       public void changed(ObservableValue<? extends Procedure> observableValue,
           Procedure oldValue, Procedure newValue)
       {
-        rebindActiveProcedureControls();
+        onActiveProcedure();
       }
     });
 
-    for (Device device : deviceLibrary.getItems().values())
-    {
-      deviceLibraryListView.getItems().add(new DeviceListItem(device));
-    }
-
-    for (Container container : containerLibrary.getItems().values())
+    for (Container container : containerLibrary.getItems())
     {
       containerLibraryListView.getItems().add(new ContainerListItem(container));
     }
 
-    deviceLibraryListView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<DeviceListItem>()
+    devicesTableView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<Device>()
         {
           @Override
-          public void changed(
-              ObservableValue<? extends DeviceListItem> observable,
-              DeviceListItem oldValue, DeviceListItem newValue)
+          public void changed(ObservableValue<? extends Device> observable,
+              Device oldValue, Device newValue)
           {
-            activeDevice.set(newValue.getDevice());
+            activeDevice.set(newValue);
           }
         });
+
+    devicesNameTableColumn
+        .setCellValueFactory(new Callback<CellDataFeatures<Device, String>, ObservableValue<String>>()
+        {
+          public ObservableValue<String> call(
+              CellDataFeatures<Device, String> value)
+          {
+            return value.getValue().nameProperty();
+          }
+        });
+
+    devicesTypeTableColumn
+        .setCellValueFactory(new Callback<CellDataFeatures<Device, String>, ObservableValue<String>>()
+        {
+          public ObservableValue<String> call(
+              CellDataFeatures<Device, String> value)
+          {
+            return new SimpleStringProperty(value.getValue().getType().toString());
+          }
+        });
+    
+    devicesTableView.setItems(getDevices());
 
     containerLibraryListView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<ContainerListItem>()
@@ -447,39 +496,152 @@ public class MainWindowPresenter implements Initializable
             return new SimpleStringProperty(value.getValue().getName());
           }
         });
-    
-    rebindActiveDeviceControls();
-    rebindActiveContainerControls();
-    intializeProceduresControls();
 
-    rebindActiveProcess();
-  }
-  
-  private void intializeProceduresControls()
-  {
-    rebindActiveProcedureControls();
+    onActiveDevice();
+    onActiveContainer();
+    onActiveProcedure();
+
+    onActiveProcess();
   }
 
-  private Device getActiveDevice()
+  private void onActiveDevice()
   {
-    return activeDevice.get();
+    Device device = activeDevice.get();
+
+    if (device == null)
+    {
+      rebindActiveDeviceNoneControls();
+    }
+    else if (device instanceof RectangularGCodeDevice)
+    {
+      rebindActiveDeviceRectangularControls((RectangularGCodeDevice) device);
+    }
+    else if (device instanceof CylindricalGCodeDevice)
+    {
+      rebindActiveDeviceCylindricalControls((CylindricalGCodeDevice) device);
+    }
   }
 
-  private Process getActiveProcess()
+  private void onActiveContainer()
   {
-    return activeProcess.get();
-  }
-  
-  private ObservableList<Procedure> getProcedures()
-  {
-    return getActiveProcess().getProcedures();
+    Container container = activeContainer.get();
+    Container last = lastActiveContainer;
+
+    if (container == null)
+    {
+      containerGridPane.setVisible(false);
+    }
+    else
+    {
+      if (container != last)
+      {
+        if (last != null)
+        {
+          containerNameTextField.textProperty().unbindBidirectional(
+              last.localNameProperty());
+
+          containerShapeChoiceBox.valueProperty().unbindBidirectional(
+              last.shapeProperty());
+
+          containerPositionXTextField.textProperty().unbindBidirectional(
+              last.localPositionXProperty());
+
+          containerPositionYTextField.textProperty().unbindBidirectional(
+              last.localPositionYProperty());
+
+          containerPositionZTextField.textProperty().unbindBidirectional(
+              last.localPositionZProperty());
+
+          containerSizeXTextField.textProperty().unbindBidirectional(
+              last.sizeXProperty());
+
+          containerSizeYTextField.textProperty().unbindBidirectional(
+              last.sizeYProperty());
+
+          containerSizeZTextField.textProperty().unbindBidirectional(
+              last.sizeZProperty());
+
+          containerDrawHeightTextField.textProperty().unbindBidirectional(
+              last.drawHeightAboveBottomProperty());
+
+          containerDispenseHeightTextField.textProperty().unbindBidirectional(
+              last.dispenseHeightAboveTopProperty());
+
+          containerClearanceHeightTextField.textProperty().unbindBidirectional(
+              last.clearanceHeightAboveTopProperty());
+        }
+
+        containerNameTextField.textProperty().bindBidirectional(
+            container.localNameProperty());
+
+        containerShapeChoiceBox.valueProperty().bindBidirectional(
+            container.shapeProperty());
+
+        containerPositionXTextField.textProperty().bindBidirectional(
+            container.localPositionXProperty(), positionPropertyConverter);
+
+        containerPositionYTextField.textProperty().bindBidirectional(
+            container.localPositionYProperty(), positionPropertyConverter);
+
+        containerPositionZTextField.textProperty().bindBidirectional(
+            container.localPositionZProperty(), positionPropertyConverter);
+
+        containerSizeXTextField.textProperty().bindBidirectional(
+            container.sizeXProperty(), positionPropertyConverter);
+
+        containerSizeYTextField.textProperty().bindBidirectional(
+            container.sizeYProperty(), positionPropertyConverter);
+
+        containerSizeZTextField.textProperty().bindBidirectional(
+            container.sizeZProperty(), positionPropertyConverter);
+
+        containerDrawHeightTextField.textProperty().bindBidirectional(
+            container.drawHeightAboveBottomProperty(),
+            positionPropertyConverter);
+
+        containerDispenseHeightTextField.textProperty().bindBidirectional(
+            container.dispenseHeightAboveTopProperty(),
+            positionPropertyConverter);
+
+        containerClearanceHeightTextField.textProperty().bindBidirectional(
+            container.clearanceHeightAboveTopProperty(),
+            positionPropertyConverter);
+
+        lastActiveContainer = container;
+      }
+
+      containerGridPane.setVisible(true);
+    }
   }
 
-  private void rebindActiveProcess()
+  private void onActiveProcedure()
   {
+    Procedure procedure = activeProcedure.get();
+
+    if (procedure == null)
+    {
+      rebindActiveProcedureNoneControls();
+    }
+    else if (procedure instanceof DispenseProcedure)
+    {
+      rebindActiveProcedureDispenseControls((DispenseProcedure) procedure);
+    }
+    else if (procedure instanceof MixProcedure)
+    {
+      rebindActiveProcedureMixControls((MixProcedure) procedure);
+    }
+    else if (procedure instanceof ChangeTipProcedure)
+    {
+      rebindActiveProcedureChangeTipControls((ChangeTipProcedure) procedure);
+    }
+  }
+
+  private void onActiveProcess()
+  {
+    updateTitle();
     proceduresTableView.setItems(getProcedures());
   }
-
+  
   private void rebindActiveDeviceNoneControls()
   {
     deviceRectangularGridPane.setVisible(false);
@@ -653,117 +815,7 @@ public class MainWindowPresenter implements Initializable
     deviceRectangularGridPane.setVisible(false);
     deviceCylindricalGridPane.setVisible(true);
   }
-
-  private void rebindActiveDeviceControls()
-  {
-    Device device = activeDevice.get();
-
-    if (device == null)
-    {
-      rebindActiveDeviceNoneControls();
-    }
-    else if (device instanceof RectangularGCodeDevice)
-    {
-      rebindActiveDeviceRectangularControls((RectangularGCodeDevice) device);
-    }
-    else if (device instanceof CylindricalGCodeDevice)
-    {
-      rebindActiveDeviceCylindricalControls((CylindricalGCodeDevice) device);
-    }
-  }
-
-  private void rebindActiveContainerControls()
-  {
-    Container container = activeContainer.get();
-    Container last = lastActiveContainer;
-
-    if (container == null)
-    {
-      containerGridPane.setVisible(false);
-    }
-    else
-    {
-      if (container != last)
-      {
-        if (last != null)
-        {
-          containerNameTextField.textProperty().unbindBidirectional(
-              last.localNameProperty());
-
-          containerShapeChoiceBox.valueProperty().unbindBidirectional(
-              last.shapeProperty());
-
-          containerPositionXTextField.textProperty().unbindBidirectional(
-              last.localPositionXProperty());
-
-          containerPositionYTextField.textProperty().unbindBidirectional(
-              last.localPositionYProperty());
-
-          containerPositionZTextField.textProperty().unbindBidirectional(
-              last.localPositionZProperty());
-
-          containerSizeXTextField.textProperty().unbindBidirectional(
-              last.sizeXProperty());
-
-          containerSizeYTextField.textProperty().unbindBidirectional(
-              last.sizeYProperty());
-
-          containerSizeZTextField.textProperty().unbindBidirectional(
-              last.sizeZProperty());
-
-          containerDrawHeightTextField.textProperty().unbindBidirectional(
-              last.drawHeightAboveBottomProperty());
-
-          containerDispenseHeightTextField.textProperty().unbindBidirectional(
-              last.dispenseHeightAboveTopProperty());
-
-          containerClearanceHeightTextField.textProperty().unbindBidirectional(
-              last.clearanceHeightAboveTopProperty());
-        }
-
-        containerNameTextField.textProperty().bindBidirectional(
-            container.localNameProperty());
-
-        containerShapeChoiceBox.valueProperty().bindBidirectional(
-            container.shapeProperty());
-
-        containerPositionXTextField.textProperty().bindBidirectional(
-            container.localPositionXProperty(), positionPropertyConverter);
-
-        containerPositionYTextField.textProperty().bindBidirectional(
-            container.localPositionYProperty(), positionPropertyConverter);
-
-        containerPositionZTextField.textProperty().bindBidirectional(
-            container.localPositionZProperty(), positionPropertyConverter);
-
-        containerSizeXTextField.textProperty().bindBidirectional(
-            container.sizeXProperty(), positionPropertyConverter);
-
-        containerSizeYTextField.textProperty().bindBidirectional(
-            container.sizeYProperty(), positionPropertyConverter);
-
-        containerSizeZTextField.textProperty().bindBidirectional(
-            container.sizeZProperty(), positionPropertyConverter);
-
-        containerDrawHeightTextField.textProperty().bindBidirectional(
-            container.drawHeightAboveBottomProperty(),
-            positionPropertyConverter);
-
-        containerDispenseHeightTextField.textProperty().bindBidirectional(
-            container.dispenseHeightAboveTopProperty(),
-            positionPropertyConverter);
-
-        containerClearanceHeightTextField.textProperty().bindBidirectional(
-            container.clearanceHeightAboveTopProperty(),
-            positionPropertyConverter);
-
-        lastActiveContainer = container;
-      }
-
-      containerGridPane.setVisible(true);
-    }
-  }
-
+  
   private void rebindActiveProcedureNoneControls()
   {
     procedureDispenseGridPane.setVisible(false);
@@ -869,28 +921,6 @@ public class MainWindowPresenter implements Initializable
     procedureChangeTipGridPane.setVisible(true);
   }
 
-  private void rebindActiveProcedureControls()
-  {
-    Procedure procedure = activeProcedure.get();
-
-    if (procedure == null)
-    {
-      rebindActiveProcedureNoneControls();
-    }
-    else if (procedure instanceof DispenseProcedure)
-    {
-      rebindActiveProcedureDispenseControls((DispenseProcedure) procedure);
-    }
-    else if (procedure instanceof MixProcedure)
-    {
-      rebindActiveProcedureMixControls((MixProcedure) procedure);
-    }
-    else if (procedure instanceof ChangeTipProcedure)
-    {
-      rebindActiveProcedureChangeTipControls((ChangeTipProcedure) procedure);
-    }
-  }
-
   private void onScene()
   {
     getScene().windowProperty().addListener(new ChangeListener<Window>()
@@ -904,12 +934,31 @@ public class MainWindowPresenter implements Initializable
     });
   }
 
+  private void updateTitle()
+  {
+    if (getStage() != null)
+    {
+      if (getActiveProcess() == null)
+      {
+        getStage().setTitle(title);
+      }
+      else
+      {
+        getStage().setTitle(getActiveProcess().getFileName() + " - " + title);
+      }
+    }
+  }
+  
   private void onWindow()
   {
-    getStage().setTitle(title);
-
+    updateTitle();
+    
     getStage().setOnCloseRequest(windowEvent ->
     {
+      // TODO: Enable saving of libraries
+      //deviceLibrary.Save();
+      //containerLibrary.Save();
+      
       if (allowClose())
       {
         getStage().close();
@@ -985,6 +1034,7 @@ public class MainWindowPresenter implements Initializable
       try
       {
         getActiveProcess().saveAs(selectedFile);
+        updateTitle();
       }
       catch (JAXBException e)
       {
@@ -1088,45 +1138,86 @@ public class MainWindowPresenter implements Initializable
     }
   }
 
+  private void addDevice(Device device)
+  {
+    String deviceName = deviceLibrary.getAvailableName();
+    device.setName(deviceName);
+
+    int selectionIndex = devicesTableView.getSelectionModel()
+        .getSelectedIndex();
+    selectionIndex++;
+    
+    getDevices().add(selectionIndex, device);
+    devicesTableView.getSelectionModel().select(selectionIndex);
+  }
+
+  public void onAddRectangularDevice()
+  {
+    RectangularGCodeDevice device = new RectangularGCodeDevice();
+    addDevice(device);
+  }
+
+  public void onAddCylindricalDevice()
+  {
+    CylindricalGCodeDevice device = new CylindricalGCodeDevice();
+    addDevice(device);
+  }
+
+  public void onRemoveDevice()
+  {
+    int selectionIndex = devicesTableView.getSelectionModel()
+        .getSelectedIndex();
+
+    if (selectionIndex >= 0)
+    {
+      getDevices().remove(selectionIndex);
+    }
+  }
+
+  private void addProcedure(Procedure procedure)
+  {
+    int selectionIndex = proceduresTableView.getSelectionModel()
+        .getSelectedIndex();
+    selectionIndex++;
+    
+    getProcedures().add(selectionIndex, procedure);
+    proceduresTableView.getSelectionModel().select(selectionIndex);
+  }
+  
   public void onAddDispenseProcedure()
   {
     DispenseProcedure procedure = new DispenseProcedure();
-    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
-    
-    if (selectionIndex >= 0)
-    {
-      getProcedures().add(selectionIndex, procedure);
-    }
-    else
-    {
-      getProcedures().add(procedure);
-    }
+    addProcedure(procedure);
   }
 
   public void onAddMixProcedure()
   {
-
+    MixProcedure procedure = new MixProcedure();
+    addProcedure(procedure);
   }
 
   public void onAddChangeTipProcedure()
   {
-
+    ChangeTipProcedure procedure = new ChangeTipProcedure();
+    addProcedure(procedure);
   }
-  
+
   public void onRemoveProcedure()
   {
-    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
-    
+    int selectionIndex = proceduresTableView.getSelectionModel()
+        .getSelectedIndex();
+
     if (selectionIndex >= 0)
     {
       getProcedures().remove(selectionIndex);
     }
   }
-  
+
   public void onMoveUpProcedure()
   {
-    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
-    
+    int selectionIndex = proceduresTableView.getSelectionModel()
+        .getSelectedIndex();
+
     if (selectionIndex > 0)
     {
       Procedure procedure = getProcedures().get(selectionIndex);
@@ -1135,12 +1226,14 @@ public class MainWindowPresenter implements Initializable
       proceduresTableView.getSelectionModel().select(selectionIndex - 1);
     }
   }
-  
+
   public void onMoveDownProcedure()
   {
-    int selectionIndex = proceduresTableView.getSelectionModel().getSelectedIndex();
-    
-    if ((selectionIndex >= 0) && (selectionIndex < (getProcedures().size() - 1)))
+    int selectionIndex = proceduresTableView.getSelectionModel()
+        .getSelectedIndex();
+
+    if ((selectionIndex >= 0)
+        && (selectionIndex < (getProcedures().size() - 1)))
     {
       Procedure procedure = getProcedures().get(selectionIndex);
       getProcedures().remove(selectionIndex);
