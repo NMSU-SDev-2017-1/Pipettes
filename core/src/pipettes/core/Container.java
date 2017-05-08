@@ -2,14 +2,18 @@ package pipettes.core;
 
 import java.util.Iterator;
 
+import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 
@@ -24,18 +28,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Container implements LibraryItem
+public class Container extends LibraryItem
 {
+  public static final String prefix = "Container";
+
   private static final char nestingSeparator = '/';
-  
+
   // TODO: Ideally, this should not be serialized and should be managed
   // only through housekeeping
   @XmlIDREF
   @XmlAttribute
   private Container parent;
-  
+
+  private Library<LibraryItem> library;
+
   private StringProperty localName = new SimpleStringProperty();
-  
+
   // Local position relative to parent
   // Defined as center of bottom of object to make rotation sensible
   private DoubleProperty localPositionX = new SimpleDoubleProperty();
@@ -45,38 +53,28 @@ public class Container implements LibraryItem
   private DoubleProperty sizeX = new SimpleDoubleProperty();
   private DoubleProperty sizeY = new SimpleDoubleProperty();
   private DoubleProperty sizeZ = new SimpleDoubleProperty();
-  
-  private ObjectProperty<ContainerShape> shape = new SimpleObjectProperty<ContainerShape>(ContainerShape.Cylindrical);
-  
+
+  private ObjectProperty<ContainerShape> shape = new SimpleObjectProperty<ContainerShape>(
+      ContainerShape.Cylindrical);
+
   private DoubleProperty drawHeightAboveBottom = new SimpleDoubleProperty();
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
-  
+
   @XmlElement
-  private ObservableMap<String, Container> subcontainers = FXCollections.observableHashMap();
-  
+  private ObservableList<Container> subcontainers;
+
   @XmlElement
   public String getLocalName()
   {
     return localName.get();
   }
-  
-  public void setLocalName(String name) throws NameConflictException
+
+  public void setLocalName(String name)
   {
-    // If this node has a parent, and the local name is changing, throw
-    // an exception if the new name conflicts with another subcontainer
-    // within the parent
-    if ((parent != null) && (!name.equals(getLocalName())))
-    {
-      if (parent.subcontainers.containsKey(name))
-      {
-        throw new NameConflictException();
-      }
-    }
-    
     localName.set(name);
   }
-  
+
   public StringProperty localNameProperty()
   {
     return localName;
@@ -86,17 +84,24 @@ public class Container implements LibraryItem
   {
     return getLocalName();
   }
-  
-  public void setLibraryName(String name) throws NameConflictException
+
+  public void setLibraryName(String name)
   {
     setLocalName(name);
   }
-  
+
   public StringProperty libraryNameProperty()
   {
     return localNameProperty();
   }
-  
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void setLibrary(Library<? extends LibraryItem> library)
+  {
+    this.library = (Library<LibraryItem>) library;
+  }
+
   @XmlID
   public String getName()
   {
@@ -109,12 +114,12 @@ public class Container implements LibraryItem
       return parent.getName() + nestingSeparator + getLocalName();
     }
   }
-  
+
   public Container getParent()
   {
     return parent;
   }
-  
+
   public void setParent(Container parent)
   {
     this.parent = parent;
@@ -124,52 +129,53 @@ public class Container implements LibraryItem
   {
     return localPositionX.get();
   }
-  
+
   public void setLocalPositionX(double x)
   {
     localPositionX.set(x);
   }
-  
+
   public DoubleProperty localPositionXProperty()
   {
     return localPositionX;
   }
-  
+
   public double getLocalPositionY()
   {
     return localPositionY.get();
   }
-  
+
   public void setLocalPositionY(double y)
   {
     localPositionY.set(y);
   }
-  
+
   public DoubleProperty localPositionYProperty()
   {
     return localPositionY;
   }
-  
+
   public double getLocalPositionZ()
   {
     return localPositionZ.get();
   }
-  
+
   public void setLocalPositionZ(double z)
   {
     localPositionZ.set(z);
   }
-  
+
   public DoubleProperty localPositionZProperty()
   {
     return localPositionZ;
   }
-  
+
   @XmlElement
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   public Point3D getLocalPosition()
   {
-    return new Point3D(getLocalPositionX(), getLocalPositionY(), getLocalPositionZ()); 
+    return new Point3D(getLocalPositionX(), getLocalPositionY(),
+        getLocalPositionZ());
   }
 
   public void setLocalPosition(Point3D position)
@@ -190,57 +196,57 @@ public class Container implements LibraryItem
       return parent.getPosition().add(getLocalPosition());
     }
   }
-  
+
   public double getSizeX()
   {
     return sizeX.get();
   }
-  
+
   public void setSizeX(double x)
   {
     sizeX.set(x);
   }
-  
+
   public DoubleProperty sizeXProperty()
   {
     return sizeX;
   }
-  
+
   public double getSizeY()
   {
     return sizeY.get();
   }
-  
+
   public void setSizeY(double y)
   {
     sizeY.set(y);
   }
-  
+
   public DoubleProperty sizeYProperty()
   {
     return sizeY;
   }
-  
+
   public double getSizeZ()
   {
     return sizeZ.get();
   }
-  
+
   public void setSizeZ(double z)
   {
     sizeZ.set(z);
   }
-  
+
   public DoubleProperty sizeZProperty()
   {
     return sizeZ;
   }
-  
+
   @XmlElement
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   public Point3D getSize()
   {
-    return new Point3D(getSizeX(), getSizeY(), getSizeZ()); 
+    return new Point3D(getSizeX(), getSizeY(), getSizeZ());
   }
 
   public void setSize(Point3D size)
@@ -249,23 +255,23 @@ public class Container implements LibraryItem
     setSizeY(size.getY());
     setSizeZ(size.getZ());
   }
-  
+
   @XmlElement
   public ContainerShape getShape()
   {
     return shape.get();
   }
-  
+
   public void setShape(ContainerShape shape)
   {
     this.shape.set(shape);
   }
-  
+
   public ObjectProperty<ContainerShape> shapeProperty()
   {
     return shape;
   }
-  
+
   @XmlElement
   public double getDrawHeightAboveBottom()
   {
@@ -281,39 +287,39 @@ public class Container implements LibraryItem
   {
     return drawHeightAboveBottom;
   }
-  
+
   @XmlElement
   public double getDispenseHeightAboveTop()
   {
     return dispenseHeightAboveTop.get();
   }
-  
+
   public void setDispenseHeightAboveTop(double height)
   {
     dispenseHeightAboveTop.set(height);
   }
-  
+
   public DoubleProperty dispenseHeightAboveTopProperty()
   {
     return dispenseHeightAboveTop;
   }
-  
+
   @XmlElement
   public double getClearanceHeightAboveTop()
   {
     return clearanceHeightAboveTop.get();
   }
-  
+
   public void setClearanceHeightAboveTop(double height)
   {
     clearanceHeightAboveTop.set(height);
   }
-  
+
   public DoubleProperty clearanceHeightAboveTopProperty()
   {
     return clearanceHeightAboveTop;
   }
-  
+
   public Point2D getDrawLocation()
   {
     return new Point2D(getPosition().getX(), getPosition().getY());
@@ -348,7 +354,7 @@ public class Container implements LibraryItem
   {
     return getTopHeight() + getClearanceHeightAboveTop();
   }
-  
+
   public boolean hasSubcontainers()
   {
     return (subcontainers.size() > 0);
@@ -356,24 +362,126 @@ public class Container implements LibraryItem
 
   public Iterator<Container> getSubcontainerIterator()
   {
-    return subcontainers.values().iterator();
+    return subcontainers.iterator();
   }
-  
-  public ObservableMap<String, Container> getSubcontainers()
+
+  public ObservableList<Container> getSubcontainers()
   {
     return subcontainers;
   }
-  
-  public void addSubcontainer(Container c) throws NameConflictException
+
+  public Container()
   {
-    String cLocalName = c.getLocalName();
+    subcontainers = FXCollections
+        .observableArrayList(container -> new Observable[] {
+            container.localNameProperty(), container.localPositionXProperty(),
+            container.localPositionYProperty(),
+            container.localPositionZProperty(), container.sizeXProperty(),
+            container.sizeYProperty(), container.sizeZProperty(),
+            container.shapeProperty(),
+            container.drawHeightAboveBottomProperty(),
+            container.dispenseHeightAboveTopProperty(),
+            container.clearanceHeightAboveTopProperty(),
+            container.getSubcontainers() });
+
+    initializeSubcontainerListeners();
     
-    // Prevent name collisions between subcontainers
-    if (subcontainers.containsKey(cLocalName))
+    localName.addListener(new ChangeListener<String>()
     {
-      throw new NameConflictException();
+      @Override
+      public void changed(ObservableValue<? extends String> observable,
+          String oldValue, String newValue)
+      {
+        if (library != null)
+        {
+          if (!library.isValidNameChange(newValue))
+          {
+            localName.set(oldValue);
+          }
+        }
+      }
+    });
+  }
+
+  public Container(ObservableList<Container> containers)
+  {
+    subcontainers = containers;
+    initializeSubcontainerListeners();
+  }
+
+  private void initializeSubcontainerListeners()
+  {
+    Container thisContainer = this;
+    
+    subcontainers.addListener(new ListChangeListener<Container>()
+    {
+      @Override
+      public void onChanged(
+          ListChangeListener.Change<? extends Container> change)
+      {
+        while (change.next())
+        {
+          for (Container subcontainer : change.getAddedSubList())
+          {
+            subcontainer.setParent(thisContainer);
+          }
+        }
+      }
+    });
+  }
+  
+  public Container clone()
+  {
+    Container newContainer = new Container();
+
+    newContainer.setLocalName(getLocalName());
+    newContainer.setLocalPosition(getLocalPosition());
+    newContainer.setSize(getSize());
+    newContainer.setShape(getShape());
+    newContainer.setDrawHeightAboveBottom(getDrawHeightAboveBottom());
+    newContainer.setDispenseHeightAboveTop(getDispenseHeightAboveTop());
+    newContainer.setClearanceHeightAboveTop(getClearanceHeightAboveTop());
+
+    for (Container subcontainer : subcontainers)
+    {
+      newContainer.subcontainers.add(subcontainer.clone());
+    }
+
+    return newContainer;
+  }
+
+  public String getAvailableSubcontainerName(String prefix)
+  {
+    String result = Common.removeTrailingInteger(prefix);
+    
+    if (result.length() == 0)
+    {
+      result = prefix;
     }
     
-    subcontainers.put(cLocalName, c);
+    boolean collision;
+    int number = 0;
+
+    do
+    {
+      collision = false;
+
+      for (Container container : subcontainers)
+      {
+        if (container.getLocalName().equals(Common.appendInteger(result, number)))
+        {
+          number++;
+          collision = true;
+          break;
+        }
+      }
+    } while (collision);
+
+    return Common.appendInteger(result, number);
+  }
+
+  public String toString()
+  {
+    return getLocalName();
   }
 }

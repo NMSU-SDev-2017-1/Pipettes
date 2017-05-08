@@ -46,7 +46,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="710.0" prefWidth="715.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="708.0" prefWidth="706.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -196,14 +196,16 @@
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="Container Library:" />
-                                    <ListView fx:id="containerLibraryListView" prefHeight="158.0" prefWidth="507.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="containerLibraryTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                      <columns>
+                                        <TableColumn fx:id="containerLibraryNameTableColumn" editable="false" prefWidth="75.0" text="Name" />
+                                        <TableColumn fx:id="containerLibraryShapeTableColumn" editable="false" prefWidth="75.0" text="Shape" />
+                                      </columns>
+                                    </TableView>
                                     <HBox>
                                        <children>
-                                          <Button fx:id="containersAddButton" mnemonicParsing="false" text="Add to Process" />
-                                          <Button fx:id="containersCopyToProcessButton" mnemonicParsing="false" text="Copy to Process" />
-                                          <Button fx:id="containersRemoveButton" mnemonicParsing="false" text="Remove from Process" />
-                                          <Button fx:id="containersCopyToLibraryButton" mnemonicParsing="false" text="Copy to Library" />
-                                          <Button fx:id="containersRemoveFromLibraryButton" mnemonicParsing="false" text="Remove from Library" />
+                                          <Button fx:id="containerLibraryRemoveButton" mnemonicParsing="false" onAction="#onRemoveLibraryContainer" text="Remove" />
+                                          <Button fx:id="containerLibraryCopyToProcessButton" mnemonicParsing="false" onAction="#onCopyToProcessContainer" text="Copy to Process" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -211,7 +213,15 @@
                               <VBox>
                                  <children>
                                     <Label text="Process Containers:" />
-                                    <TreeView fx:id="containersTreeView" VBox.vgrow="ALWAYS" />
+                                    <TreeView fx:id="containersTreeView" showRoot="false" VBox.vgrow="ALWAYS" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="containersAddButton" mnemonicParsing="false" onAction="#onAddContainer" text="Add" />
+                                          <Button fx:id="containersAddSubcontainerButton" mnemonicParsing="false" onAction="#onAddSubcontainer" text="Add Subcontainer" />
+                                          <Button fx:id="containersRemoveButton" mnemonicParsing="false" onAction="#onRemoveContainer" text="Remove" />
+                                          <Button fx:id="containersCopyToLibraryButton" mnemonicParsing="false" onAction="#onCopyToLibraryContainer" text="Copy to Library" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox>

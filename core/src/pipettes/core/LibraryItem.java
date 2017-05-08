@@ -2,11 +2,13 @@ package pipettes.core;
 
 import javafx.beans.property.StringProperty;
 
-public interface LibraryItem
+public abstract class LibraryItem
 {
-  String getLibraryName();
+  public abstract void setLibrary(Library<? extends LibraryItem> library);
   
-  void setLibraryName(String name) throws NameConflictException;
+  public abstract String getLibraryName();
   
-  StringProperty libraryNameProperty();
+  public abstract void setLibraryName(String name);
+  
+  public abstract StringProperty libraryNameProperty();
 }

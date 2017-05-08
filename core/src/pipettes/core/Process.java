@@ -10,7 +10,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -31,17 +30,17 @@ public class Process
 
   private ObjectProperty<File> file = new SimpleObjectProperty<File>();
 
-  private BooleanProperty dirty = new SimpleBooleanProperty();
-
   @XmlElement
-  private ObservableMap<String, Container> baseContainers = FXCollections
-      .observableHashMap();
+  private ObservableList<Container> baseContainers = FXCollections
+      .observableArrayList();
 
   @XmlElementWrapper(name = "procedures")
   @XmlAnyElement(lax = true)
   private ObservableList<Procedure> procedures = FXCollections
       .observableArrayList();
 
+  private BooleanProperty dirty = new SimpleBooleanProperty();
+  
   public File getFile()
   {
     return file.get();
@@ -100,6 +99,16 @@ public class Process
   // TODO: Complete change listener
   public Process()
   {
+    baseContainers.addListener(new ListChangeListener<Container>()
+    {
+      @Override
+      public void onChanged(
+          ListChangeListener.Change<? extends Container> change)
+      {
+        setDirty(true);
+      }
+    });
+    
     procedures.addListener(new ListChangeListener<Procedure>()
     {
       @Override
@@ -107,28 +116,6 @@ public class Process
           ListChangeListener.Change<? extends Procedure> change)
       {
         setDirty(true);
-        
-        while (change.next())
-        {
-          if (change.wasUpdated())
-          {
-            // System.out.println("Update detected");
-          }
-          else if (change.wasPermutated())
-          {
-          }
-          else
-          {
-            for (Procedure remitem : change.getRemoved())
-            {
-              // do things
-            }
-            for (Procedure additem : change.getAddedSubList())
-            {
-              // do things
-            }
-          }
-        }
       }
     });
   }
@@ -154,7 +141,7 @@ public class Process
   {
     ProcessContext context = new ProcessContext(device, logger);
 
-    for (Container container : baseContainers.values())
+    for (Container container : baseContainers)
     {
       addSubcontainersToContext(context, container);
     }
@@ -172,17 +159,32 @@ public class Process
     return container;
   }
 
+  private Container findBaseContainer(String name)
+  {
+    Container result = null;
+    
+    for (Container container : baseContainers)
+    {
+      if (container.getName().equals(name))
+      {
+        result = container;
+        break;
+      }
+    }
+    
+    return result;
+  }
+  
   private void verifyContainer(Container container)
   {
-    container = getBaseContainer(container);
-
-    Container mappedContainer = baseContainers.get(container.getName());
+    Container baseContainer = getBaseContainer(container);
+    Container mappedContainer = findBaseContainer(baseContainer.getName());
 
     if (mappedContainer == null)
     {
       // TODO: Container not included in mapping
     }
-    else if (mappedContainer != container)
+    else if (mappedContainer != baseContainer)
     {
       // TODO: Container names conflict
     }
@@ -225,7 +227,7 @@ public class Process
     }
   }
 
-  public ObservableMap<String, Container> getBaseContainers()
+  public ObservableList<Container> getBaseContainers()
   {
     return baseContainers;
   }
@@ -233,23 +235,6 @@ public class Process
   public ObservableList<Procedure> getProcedures()
   {
     return procedures;
-  }
-
-  public void addContainer(Container container)
-  {
-    container = getBaseContainer(container);
-
-    baseContainers.put(container.getName(), container);
-  }
-
-  public void addProcedure(Procedure procedure)
-  {
-    for (Container container : procedure.getReferencedContainers())
-    {
-      addContainer(container);
-    }
-
-    procedures.add(procedure);
   }
 
   public static Process open(File file) throws JAXBException

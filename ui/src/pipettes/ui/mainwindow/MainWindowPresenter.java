@@ -21,7 +21,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -29,6 +28,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -56,12 +56,12 @@ import pipettes.core.Procedure;
 import pipettes.core.Process;
 import pipettes.core.Processor;
 import pipettes.core.RectangularGCodeDevice;
-import pipettes.ui.ContainerListItem;
-import pipettes.ui.ContainerTreeItem;
+import pipettes.ui.RecursiveTreeItem;
 
 public class MainWindowPresenter implements Initializable
 {
   private static String title = "Pipette Process Editor";
+  private static String titleSeparator = " - ";
 
   private static FileChooser.ExtensionFilter extensionProcess = new FileChooser.ExtensionFilter(
       "Pipette Process File", "*.ppxml");
@@ -83,10 +83,16 @@ public class MainWindowPresenter implements Initializable
   private TableColumn<Device, String> devicesTypeTableColumn;
 
   @FXML
-  private ListView<ContainerListItem> containerLibraryListView;
+  private TableView<Container> containerLibraryTableView;
 
   @FXML
-  private TreeView<ContainerTreeItem> containersTreeView;
+  private TableColumn<Container, String> containerLibraryNameTableColumn;
+
+  @FXML
+  private TableColumn<Container, String> containerLibraryShapeTableColumn;
+
+  @FXML
+  private TreeView<Container> containersTreeView;
 
   @FXML
   private TableView<Procedure> proceduresTableView;
@@ -97,7 +103,6 @@ public class MainWindowPresenter implements Initializable
   @FXML
   private ChoiceBox<ContainerShape> containerShapeChoiceBox;
 
-  // Beginning of FXML
   @FXML
   private TextArea deviceRectangularFooterTextArea;
 
@@ -296,8 +301,6 @@ public class MainWindowPresenter implements Initializable
   @FXML
   private TextField containerPositionXTextField;
 
-  // End of FXML
-
   @Inject
   private Library<Device> deviceLibrary;
 
@@ -311,10 +314,15 @@ public class MainWindowPresenter implements Initializable
   private ObjectProperty<Device> activeDevice;
 
   @Inject
+  private ObjectProperty<Container> activeLibraryContainer;
+
+  @Inject
   private ObjectProperty<Container> activeContainer;
 
   @Inject
   private ObjectProperty<Procedure> activeProcedure;
+
+  private Container rootContainer;
 
   private RectangularGCodeDevice lastActiveDeviceRectangular;
   private CylindricalGCodeDevice lastActiveDeviceCylindrical;
@@ -350,9 +358,29 @@ public class MainWindowPresenter implements Initializable
     return (Stage) getWindow();
   }
 
+  private ObservableList<Device> getLibraryDevices()
+  {
+    return deviceLibrary.getItems();
+  }
+
+  private ObservableList<Container> getLibraryContainers()
+  {
+    return containerLibrary.getItems();
+  }
+
   private Device getActiveDevice()
   {
     return activeDevice.get();
+  }
+
+  private Container getActiveLibraryContainer()
+  {
+    return activeLibraryContainer.get();
+  }
+
+  private Container getActiveContainer()
+  {
+    return activeContainer.get();
   }
 
   private Process getActiveProcess()
@@ -360,9 +388,9 @@ public class MainWindowPresenter implements Initializable
     return activeProcess.get();
   }
 
-  private ObservableList<Device> getDevices()
+  private ObservableList<Container> getContainers()
   {
-    return deviceLibrary.getItems();
+    return getActiveProcess().getBaseContainers();
   }
 
   private ObservableList<Procedure> getProcedures()
@@ -426,11 +454,6 @@ public class MainWindowPresenter implements Initializable
       }
     });
 
-    for (Container container : containerLibrary.getItems())
-    {
-      containerLibraryListView.getItems().add(new ContainerListItem(container));
-    }
-
     devicesTableView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<Device>()
         {
@@ -458,23 +481,46 @@ public class MainWindowPresenter implements Initializable
           public ObservableValue<String> call(
               CellDataFeatures<Device, String> value)
           {
-            return new SimpleStringProperty(value.getValue().getType().toString());
+            return new SimpleStringProperty(value.getValue().getType()
+                .toString());
           }
         });
-    
-    devicesTableView.setItems(getDevices());
 
-    containerLibraryListView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<ContainerListItem>()
+    devicesTableView.setItems(getLibraryDevices());
+
+    containerLibraryTableView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<Container>()
         {
           @Override
-          public void changed(
-              ObservableValue<? extends ContainerListItem> observable,
-              ContainerListItem oldValue, ContainerListItem newValue)
+          public void changed(ObservableValue<? extends Container> observable,
+              Container oldValue, Container newValue)
           {
-            activeContainer.set(newValue.getContainer());
+            activeLibraryContainer.set(newValue);
           }
         });
+
+    containerLibraryNameTableColumn
+        .setCellValueFactory(new Callback<CellDataFeatures<Container, String>, ObservableValue<String>>()
+        {
+          public ObservableValue<String> call(
+              CellDataFeatures<Container, String> value)
+          {
+            return value.getValue().localNameProperty();
+          }
+        });
+
+    containerLibraryShapeTableColumn
+        .setCellValueFactory(new Callback<CellDataFeatures<Container, String>, ObservableValue<String>>()
+        {
+          public ObservableValue<String> call(
+              CellDataFeatures<Container, String> value)
+          {
+            return new SimpleStringProperty(value.getValue().getShape()
+                .toString());
+          }
+        });
+
+    containerLibraryTableView.setItems(getLibraryContainers());
 
     proceduresTableView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<Procedure>()
@@ -511,13 +557,17 @@ public class MainWindowPresenter implements Initializable
     if (device == null)
     {
       rebindActiveDeviceNoneControls();
+      rebindActiveDeviceRectangularControls(null);
+      rebindActiveDeviceCylindricalControls(null);
     }
     else if (device instanceof RectangularGCodeDevice)
     {
       rebindActiveDeviceRectangularControls((RectangularGCodeDevice) device);
+      rebindActiveDeviceCylindricalControls(null);
     }
     else if (device instanceof CylindricalGCodeDevice)
     {
+      rebindActiveDeviceRectangularControls(null);
       rebindActiveDeviceCylindricalControls((CylindricalGCodeDevice) device);
     }
   }
@@ -527,50 +577,46 @@ public class MainWindowPresenter implements Initializable
     Container container = activeContainer.get();
     Container last = lastActiveContainer;
 
-    if (container == null)
+    if (container != last)
     {
-      containerGridPane.setVisible(false);
-    }
-    else
-    {
-      if (container != last)
+      if (last != null)
       {
-        if (last != null)
-        {
-          containerNameTextField.textProperty().unbindBidirectional(
-              last.localNameProperty());
+        containerNameTextField.textProperty().unbindBidirectional(
+            last.localNameProperty());
 
-          containerShapeChoiceBox.valueProperty().unbindBidirectional(
-              last.shapeProperty());
+        containerShapeChoiceBox.valueProperty().unbindBidirectional(
+            last.shapeProperty());
 
-          containerPositionXTextField.textProperty().unbindBidirectional(
-              last.localPositionXProperty());
+        containerPositionXTextField.textProperty().unbindBidirectional(
+            last.localPositionXProperty());
 
-          containerPositionYTextField.textProperty().unbindBidirectional(
-              last.localPositionYProperty());
+        containerPositionYTextField.textProperty().unbindBidirectional(
+            last.localPositionYProperty());
 
-          containerPositionZTextField.textProperty().unbindBidirectional(
-              last.localPositionZProperty());
+        containerPositionZTextField.textProperty().unbindBidirectional(
+            last.localPositionZProperty());
 
-          containerSizeXTextField.textProperty().unbindBidirectional(
-              last.sizeXProperty());
+        containerSizeXTextField.textProperty().unbindBidirectional(
+            last.sizeXProperty());
 
-          containerSizeYTextField.textProperty().unbindBidirectional(
-              last.sizeYProperty());
+        containerSizeYTextField.textProperty().unbindBidirectional(
+            last.sizeYProperty());
 
-          containerSizeZTextField.textProperty().unbindBidirectional(
-              last.sizeZProperty());
+        containerSizeZTextField.textProperty().unbindBidirectional(
+            last.sizeZProperty());
 
-          containerDrawHeightTextField.textProperty().unbindBidirectional(
-              last.drawHeightAboveBottomProperty());
+        containerDrawHeightTextField.textProperty().unbindBidirectional(
+            last.drawHeightAboveBottomProperty());
 
-          containerDispenseHeightTextField.textProperty().unbindBidirectional(
-              last.dispenseHeightAboveTopProperty());
+        containerDispenseHeightTextField.textProperty().unbindBidirectional(
+            last.dispenseHeightAboveTopProperty());
 
-          containerClearanceHeightTextField.textProperty().unbindBidirectional(
-              last.clearanceHeightAboveTopProperty());
-        }
+        containerClearanceHeightTextField.textProperty().unbindBidirectional(
+            last.clearanceHeightAboveTopProperty());
+      }
 
+      if (container != null)
+      {
         containerNameTextField.textProperty().bindBidirectional(
             container.localNameProperty());
 
@@ -606,12 +652,12 @@ public class MainWindowPresenter implements Initializable
         containerClearanceHeightTextField.textProperty().bindBidirectional(
             container.clearanceHeightAboveTopProperty(),
             positionPropertyConverter);
-
-        lastActiveContainer = container;
       }
 
-      containerGridPane.setVisible(true);
+      lastActiveContainer = container;
     }
+
+    containerGridPane.setVisible(container != null);
   }
 
   private void onActiveProcedure()
@@ -621,17 +667,26 @@ public class MainWindowPresenter implements Initializable
     if (procedure == null)
     {
       rebindActiveProcedureNoneControls();
+      rebindActiveProcedureDispenseControls(null);
+      rebindActiveProcedureMixControls(null);
+      rebindActiveProcedureChangeTipControls(null);
     }
     else if (procedure instanceof DispenseProcedure)
     {
       rebindActiveProcedureDispenseControls((DispenseProcedure) procedure);
+      rebindActiveProcedureMixControls(null);
+      rebindActiveProcedureChangeTipControls(null);
     }
     else if (procedure instanceof MixProcedure)
     {
+      rebindActiveProcedureDispenseControls(null);
       rebindActiveProcedureMixControls((MixProcedure) procedure);
+      rebindActiveProcedureChangeTipControls(null);
     }
     else if (procedure instanceof ChangeTipProcedure)
     {
+      rebindActiveProcedureDispenseControls(null);
+      rebindActiveProcedureMixControls(null);
       rebindActiveProcedureChangeTipControls((ChangeTipProcedure) procedure);
     }
   }
@@ -639,9 +694,37 @@ public class MainWindowPresenter implements Initializable
   private void onActiveProcess()
   {
     updateTitle();
+    rebindContainerTreeView();
+    rebindProceduresTableView();
+  }
+
+  private void rebindContainerTreeView()
+  {
+    rootContainer = new Container(getContainers());
+
+    TreeItem<Container> rootItem = new RecursiveTreeItem<Container>(
+        rootContainer, Container::getSubcontainers);
+
+    containersTreeView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            activeContainer.set(newValue.getValue());
+          }
+        });
+
+    containersTreeView.setRoot(rootItem);
+  }
+
+  private void rebindProceduresTableView()
+  {
     proceduresTableView.setItems(getProcedures());
   }
-  
+
   private void rebindActiveDeviceNoneControls()
   {
     deviceRectangularGridPane.setVisible(false);
@@ -700,54 +783,58 @@ public class MainWindowPresenter implements Initializable
             last.footerProperty());
       }
 
-      deviceRectangularNameTextField.textProperty().bindBidirectional(
-          device.nameProperty());
+      if (device != null)
+      {
+        deviceRectangularNameTextField.textProperty().bindBidirectional(
+            device.nameProperty());
 
-      deviceRectangularHomeXTextField.textProperty().bindBidirectional(
-          device.homePositionXProperty(), positionPropertyConverter);
+        deviceRectangularHomeXTextField.textProperty().bindBidirectional(
+            device.homePositionXProperty(), positionPropertyConverter);
 
-      deviceRectangularHomeYTextField.textProperty().bindBidirectional(
-          device.homePositionYProperty(), positionPropertyConverter);
+        deviceRectangularHomeYTextField.textProperty().bindBidirectional(
+            device.homePositionYProperty(), positionPropertyConverter);
 
-      deviceRectangularHomeZTextField.textProperty().bindBidirectional(
-          device.homePositionZProperty(), positionPropertyConverter);
+        deviceRectangularHomeZTextField.textProperty().bindBidirectional(
+            device.homePositionZProperty(), positionPropertyConverter);
 
-      deviceRectangularMinimumXTextField.textProperty().bindBidirectional(
-          device.minimumExtentXProperty(), positionPropertyConverter);
+        deviceRectangularMinimumXTextField.textProperty().bindBidirectional(
+            device.minimumExtentXProperty(), positionPropertyConverter);
 
-      deviceRectangularMinimumYTextField.textProperty().bindBidirectional(
-          device.minimumExtentYProperty(), positionPropertyConverter);
+        deviceRectangularMinimumYTextField.textProperty().bindBidirectional(
+            device.minimumExtentYProperty(), positionPropertyConverter);
 
-      deviceRectangularMinimumZTextField.textProperty().bindBidirectional(
-          device.minimumExtentZProperty(), positionPropertyConverter);
+        deviceRectangularMinimumZTextField.textProperty().bindBidirectional(
+            device.minimumExtentZProperty(), positionPropertyConverter);
 
-      deviceRectangularMaximumXTextField.textProperty().bindBidirectional(
-          device.maximumExtentXProperty(), positionPropertyConverter);
+        deviceRectangularMaximumXTextField.textProperty().bindBidirectional(
+            device.maximumExtentXProperty(), positionPropertyConverter);
 
-      deviceRectangularMaximumYTextField.textProperty().bindBidirectional(
-          device.maximumExtentYProperty(), positionPropertyConverter);
+        deviceRectangularMaximumYTextField.textProperty().bindBidirectional(
+            device.maximumExtentYProperty(), positionPropertyConverter);
 
-      deviceRectangularMaximumZTextField.textProperty().bindBidirectional(
-          device.maximumExtentZProperty(), positionPropertyConverter);
+        deviceRectangularMaximumZTextField.textProperty().bindBidirectional(
+            device.maximumExtentZProperty(), positionPropertyConverter);
 
-      deviceRectangularExtrudeVolumeTextField.textProperty().bindBidirectional(
-          device.extrudePerVolumeProperty(), positionPropertyConverter);
+        deviceRectangularExtrudeVolumeTextField.textProperty()
+            .bindBidirectional(device.extrudePerVolumeProperty(),
+                positionPropertyConverter);
 
-      deviceRectangularDispenseExtrudeRatioTextField.textProperty()
-          .bindBidirectional(device.dispenseExtrudeRatioProperty(),
-              positionPropertyConverter);
+        deviceRectangularDispenseExtrudeRatioTextField.textProperty()
+            .bindBidirectional(device.dispenseExtrudeRatioProperty(),
+                positionPropertyConverter);
 
-      deviceRectangularHeaderTextArea.textProperty().bindBidirectional(
-          device.headerProperty());
+        deviceRectangularHeaderTextArea.textProperty().bindBidirectional(
+            device.headerProperty());
 
-      deviceRectangularFooterTextArea.textProperty().bindBidirectional(
-          device.footerProperty());
+        deviceRectangularFooterTextArea.textProperty().bindBidirectional(
+            device.footerProperty());
+
+        deviceRectangularGridPane.setVisible(true);
+        deviceCylindricalGridPane.setVisible(false);
+      }
 
       lastActiveDeviceRectangular = device;
     }
-
-    deviceRectangularGridPane.setVisible(true);
-    deviceCylindricalGridPane.setVisible(false);
   }
 
   private void rebindActiveDeviceCylindricalControls(
@@ -784,38 +871,42 @@ public class MainWindowPresenter implements Initializable
             last.footerProperty());
       }
 
-      deviceCylindricalNameTextField.textProperty().bindBidirectional(
-          device.nameProperty());
+      if (device != null)
+      {
+        deviceCylindricalNameTextField.textProperty().bindBidirectional(
+            device.nameProperty());
 
-      deviceCylindricalRadiusTextField.textProperty().bindBidirectional(
-          device.radiusProperty(), positionPropertyConverter);
+        deviceCylindricalRadiusTextField.textProperty().bindBidirectional(
+            device.radiusProperty(), positionPropertyConverter);
 
-      deviceCylindricalMinimumZTextField.textProperty().bindBidirectional(
-          device.minimumZProperty(), positionPropertyConverter);
+        deviceCylindricalMinimumZTextField.textProperty().bindBidirectional(
+            device.minimumZProperty(), positionPropertyConverter);
 
-      deviceCylindricalMaximumZTextField.textProperty().bindBidirectional(
-          device.maximumZProperty(), positionPropertyConverter);
+        deviceCylindricalMaximumZTextField.textProperty().bindBidirectional(
+            device.maximumZProperty(), positionPropertyConverter);
 
-      deviceCylindricalExtrudeVolumeTextField.textProperty().bindBidirectional(
-          device.extrudePerVolumeProperty(), positionPropertyConverter);
+        deviceCylindricalExtrudeVolumeTextField.textProperty()
+            .bindBidirectional(device.extrudePerVolumeProperty(),
+                positionPropertyConverter);
 
-      deviceCylindricalDispenseExtrudeRatioTextField.textProperty()
-          .bindBidirectional(device.dispenseExtrudeRatioProperty(),
-              positionPropertyConverter);
+        deviceCylindricalDispenseExtrudeRatioTextField.textProperty()
+            .bindBidirectional(device.dispenseExtrudeRatioProperty(),
+                positionPropertyConverter);
 
-      deviceCylindricalHeaderTextArea.textProperty().bindBidirectional(
-          device.headerProperty());
+        deviceCylindricalHeaderTextArea.textProperty().bindBidirectional(
+            device.headerProperty());
 
-      deviceCylindricalFooterTextArea.textProperty().bindBidirectional(
-          device.footerProperty());
+        deviceCylindricalFooterTextArea.textProperty().bindBidirectional(
+            device.footerProperty());
+
+        deviceRectangularGridPane.setVisible(false);
+        deviceCylindricalGridPane.setVisible(true);
+      }
 
       lastActiveDeviceCylindrical = device;
     }
-
-    deviceRectangularGridPane.setVisible(false);
-    deviceCylindricalGridPane.setVisible(true);
   }
-  
+
   private void rebindActiveProcedureNoneControls()
   {
     procedureDispenseGridPane.setVisible(false);
@@ -842,21 +933,25 @@ public class MainWindowPresenter implements Initializable
             last.volumeProperty());
       }
 
-      procedureDispenseSourceMenuButton.textProperty().bindBidirectional(
-          procedure.sourceProperty().getValue().localNameProperty());
+      if (procedure != null)
+      {
+        procedureDispenseSourceMenuButton.textProperty().bindBidirectional(
+            procedure.sourceProperty().getValue().localNameProperty());
 
-      procedureDispenseDestinationMenuButton.textProperty().bindBidirectional(
-          procedure.destinationProperty().getValue().localNameProperty());
+        procedureDispenseDestinationMenuButton.textProperty()
+            .bindBidirectional(
+                procedure.destinationProperty().getValue().localNameProperty());
 
-      procedureDispenseVolumeTextField.textProperty().bindBidirectional(
-          procedure.volumeProperty(), positionPropertyConverter);
+        procedureDispenseVolumeTextField.textProperty().bindBidirectional(
+            procedure.volumeProperty(), positionPropertyConverter);
+
+        procedureDispenseGridPane.setVisible(true);
+        procedureMixGridPane.setVisible(false);
+        procedureChangeTipGridPane.setVisible(false);
+      }
 
       lastActiveProcedureDispense = procedure;
     }
-
-    procedureDispenseGridPane.setVisible(true);
-    procedureMixGridPane.setVisible(false);
-    procedureChangeTipGridPane.setVisible(false);
   }
 
   private void rebindActiveProcedureMixControls(MixProcedure procedure)
@@ -874,18 +969,21 @@ public class MainWindowPresenter implements Initializable
             last.volumeProperty());
       }
 
-      procedureMixContainerMenuButton.textProperty().bindBidirectional(
-          procedure.destinationProperty().getValue().localNameProperty());
+      if (procedure != null)
+      {
+        procedureMixContainerMenuButton.textProperty().bindBidirectional(
+            procedure.destinationProperty().getValue().localNameProperty());
 
-      procedureMixVolumeTextField.textProperty().bindBidirectional(
-          procedure.volumeProperty(), positionPropertyConverter);
+        procedureMixVolumeTextField.textProperty().bindBidirectional(
+            procedure.volumeProperty(), positionPropertyConverter);
+
+        procedureDispenseGridPane.setVisible(false);
+        procedureMixGridPane.setVisible(true);
+        procedureChangeTipGridPane.setVisible(false);
+      }
 
       lastActiveProcedureMix = procedure;
     }
-
-    procedureDispenseGridPane.setVisible(false);
-    procedureMixGridPane.setVisible(true);
-    procedureChangeTipGridPane.setVisible(false);
   }
 
   private void rebindActiveProcedureChangeTipControls(
@@ -906,19 +1004,22 @@ public class MainWindowPresenter implements Initializable
                 last.tipDisposalProperty().getValue().localNameProperty());
       }
 
-      procedureTipChangeNewContainerMenuButton.textProperty()
-          .bindBidirectional(
-              procedure.newTipProperty().getValue().localNameProperty());
+      if (procedure != null)
+      {
+        procedureTipChangeNewContainerMenuButton.textProperty()
+            .bindBidirectional(
+                procedure.newTipProperty().getValue().localNameProperty());
 
-      procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
-          procedure.tipDisposalProperty().getValue().localNameProperty());
+        procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
+            procedure.tipDisposalProperty().getValue().localNameProperty());
+
+        procedureDispenseGridPane.setVisible(false);
+        procedureMixGridPane.setVisible(false);
+        procedureChangeTipGridPane.setVisible(true);
+      }
 
       lastActiveProcedureChangeTip = procedure;
     }
-
-    procedureDispenseGridPane.setVisible(false);
-    procedureMixGridPane.setVisible(false);
-    procedureChangeTipGridPane.setVisible(true);
   }
 
   private void onScene()
@@ -944,30 +1045,26 @@ public class MainWindowPresenter implements Initializable
       }
       else
       {
-        getStage().setTitle(getActiveProcess().getFileName() + " - " + title);
+        getStage().setTitle(getActiveProcess().getFileName() + titleSeparator + title);
       }
     }
   }
-  
+
   private void onWindow()
   {
     updateTitle();
-    
+
     getStage().setOnCloseRequest(windowEvent ->
     {
-      // TODO: Enable saving of libraries
-      //deviceLibrary.Save();
-      //containerLibrary.Save();
-      
-      if (allowClose())
-      {
-        getStage().close();
-      }
-      else
-      {
-        windowEvent.consume();
-      }
-    });
+        if (allowClose())
+        {
+          getStage().close();
+        }
+        else
+        {
+          windowEvent.consume();
+        }
+      });
   }
 
   public void onNew()
@@ -1140,15 +1237,13 @@ public class MainWindowPresenter implements Initializable
 
   private void addDevice(Device device)
   {
-    String deviceName = deviceLibrary.getAvailableName();
+    device.setLibrary(deviceLibrary);
+
+    String deviceName = deviceLibrary.getAvailableName(Device.prefix);
     device.setName(deviceName);
 
-    int selectionIndex = devicesTableView.getSelectionModel()
-        .getSelectedIndex();
-    selectionIndex++;
-    
-    getDevices().add(selectionIndex, device);
-    devicesTableView.getSelectionModel().select(selectionIndex);
+    getLibraryDevices().add(device);
+    devicesTableView.getSelectionModel().select(device);
   }
 
   public void onAddRectangularDevice()
@@ -1165,12 +1260,82 @@ public class MainWindowPresenter implements Initializable
 
   public void onRemoveDevice()
   {
-    int selectionIndex = devicesTableView.getSelectionModel()
-        .getSelectedIndex();
+    Device device = devicesTableView.getSelectionModel().getSelectedItem();
 
-    if (selectionIndex >= 0)
+    if (device != null)
     {
-      getDevices().remove(selectionIndex);
+      getLibraryDevices().remove(device);
+    }
+  }
+
+  public void onRemoveLibraryContainer()
+  {
+    Container container = containerLibraryTableView.getSelectionModel().getSelectedItem();
+
+    if (container != null)
+    {
+      getLibraryContainers().remove(container);
+    }
+  }
+
+  public void onCopyToProcessContainer()
+  {
+    if (getActiveLibraryContainer() != null)
+    {
+      Container container = getActiveLibraryContainer().clone();
+
+      String containerName = rootContainer.getAvailableSubcontainerName(container
+          .getLocalName());
+      container.setLocalName(containerName);
+
+      rootContainer.getSubcontainers().add(container);
+    }
+  }
+
+  private void addSubcontainer(Container container)
+  {
+    Container subcontainer = new Container();
+
+    String subcontainerName = container
+        .getAvailableSubcontainerName(Container.prefix);
+    subcontainer.setLocalName(subcontainerName);
+
+    container.getSubcontainers().add(subcontainer);
+  }
+
+  public void onAddContainer()
+  {
+    addSubcontainer(rootContainer);
+  }
+
+  public void onAddSubcontainer()
+  {
+    if (getActiveContainer() != null)
+    {
+      addSubcontainer(getActiveContainer());
+    }
+  }
+
+  public void onRemoveContainer()
+  {
+    if (getActiveContainer() != null)
+    {
+      getActiveContainer().getParent().getSubcontainers()
+          .remove(getActiveContainer());
+    }
+  }
+
+  public void onCopyToLibraryContainer()
+  {
+    if (getActiveContainer() != null)
+    {
+      Container container = getActiveContainer().clone();
+
+      String containerName = containerLibrary.getAvailableName(container
+          .getLocalName());
+      container.setLocalName(containerName);
+
+      containerLibrary.getItems().add(container);
     }
   }
 
@@ -1179,11 +1344,11 @@ public class MainWindowPresenter implements Initializable
     int selectionIndex = proceduresTableView.getSelectionModel()
         .getSelectedIndex();
     selectionIndex++;
-    
+
     getProcedures().add(selectionIndex, procedure);
     proceduresTableView.getSelectionModel().select(selectionIndex);
   }
-  
+
   public void onAddDispenseProcedure()
   {
     DispenseProcedure procedure = new DispenseProcedure();

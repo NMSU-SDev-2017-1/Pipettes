@@ -14,35 +14,35 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class Library<T extends LibraryItem>
 {
-  private String prefix;
-  
-  @XmlTransient
   private File libraryFile;
-  
+
   @XmlElement
   private ObservableList<T> items = FXCollections.observableArrayList();
-  
-  public Library(String prefix)
+
+  public Library()
   {
-    this.prefix = prefix;
+  }
+  
+  public Library(String fileName)
+  {
+    Open(fileName);
   }
   
   @SuppressWarnings("unchecked")
   public void Open(String fileName)
   {
     libraryFile = new File(fileName);
-    
+
     JAXBContext jaxbContext;
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(ObservableMap.class);
+      jaxbContext = JAXBContext.newInstance(Library.class);
       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
       items = (ObservableList<T>) jaxbUnmarshaller.unmarshal(libraryFile);
     }
@@ -50,21 +50,26 @@ public class Library<T extends LibraryItem>
     {
       e.printStackTrace();
     }
+
+    for (LibraryItem item : items)
+    {
+      item.setLibrary(this);
+    }
   }
-  
+
   public void Save(String fileName)
   {
     libraryFile = new File(fileName);
     Save();
   }
-  
+
   public void Save()
   {
     JAXBContext jaxbContext;
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(ObservableMap.class);
+      jaxbContext = JAXBContext.newInstance(Library.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       jaxbMarshaller.marshal(items, libraryFile);
@@ -74,31 +79,63 @@ public class Library<T extends LibraryItem>
       e.printStackTrace();
     }
   }
-  
+
   public ObservableList<T> getItems()
   {
     return items;
   }
-  
-  public String getAvailableName()
+
+  public String getAvailableName(String prefix)
   {
-    boolean collision;
-    int itemNumber = 1;
+    String result = Common.removeTrailingInteger(prefix);
     
-    do {
+    if (result.length() == 0)
+    {
+      result = prefix;
+    }
+    
+    boolean collision;
+    int number = 0;
+
+    do
+    {
       collision = false;
-      
+
       for (LibraryItem item : items)
       {
-        if (item.getLibraryName().equals(prefix + itemNumber))
+        if (item.getLibraryName().equals(Common.appendInteger(result, number)))
         {
-          itemNumber++;
+          number++;
           collision = true;
           break;
         }
       }
     } while (collision);
-    
-    return prefix + itemNumber;
+
+    return Common.appendInteger(result, number);
+  }
+
+  public boolean isValidNameChange(String name)
+  {
+    if (name.length() == 0)
+    {
+      return false;
+    }
+
+    int count = 0;
+    for (LibraryItem item : items)
+    {
+      if (item.getLibraryName().equals(name))
+      {
+        count++;
+
+        if (count > 1)
+        {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 }
