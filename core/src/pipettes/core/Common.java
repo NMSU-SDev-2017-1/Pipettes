@@ -7,7 +7,7 @@ public class Common
   @SuppressWarnings("rawtypes")
   public static final Class allClasses[] = { Process.class, Container.class,
       DispenseProcedure.class, CylindricalGCodeDevice.class,
-      RectangularGCodeDevice.class };
+      RectangularGCodeDevice.class, Library.class };
 
   // Point3D does not provide a clone method or a constructor that
   // copies a whole Point3D, so this is used

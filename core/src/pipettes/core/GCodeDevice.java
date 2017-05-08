@@ -2,6 +2,8 @@ package pipettes.core;
 
 import java.io.PrintStream;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import javafx.beans.property.DoubleProperty;
@@ -11,6 +13,7 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 
+@XmlAccessorType(XmlAccessType.NONE)
 public abstract class GCodeDevice extends Device
 {
   private StringProperty header = new SimpleStringProperty();

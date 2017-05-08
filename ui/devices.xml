@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<library>
+    <items>
+        <cylindricalGCodeDevice>
+            <name>SeeMeCNC Rostock MAX v2</name>
+            <dispenseExtrudeRatio>1.01</dispenseExtrudeRatio>
+            <extrudePerVolume>20.0</extrudePerVolume>
+            <footer>G28 ; Home all axes</footer>
+            <header>G21 ; Set units to millimeters
+G90 ; Switch to absolute coordinates
+M83 ; Set extruder to relative mode
+G28 ; Home all axes</header>
+            <maximumZ>375.0</maximumZ>
+            <minimumZ>0.0</minimumZ>
+            <radius>140.0</radius>
+        </cylindricalGCodeDevice>
+        <rectangularGCodeDevice>
+            <name>MakerBot Replicator</name>
+            <dispenseExtrudeRatio>1.01</dispenseExtrudeRatio>
+            <extrudePerVolume>20.0</extrudePerVolume>
+            <footer>G28 ; Home all axes</footer>
+            <header>G21 ; Set units to millimeters
+G90 ; Switch to absolute coordinates
+M83 ; Set extruder to relative mode
+G28 ; Home all axes</header>
+            <homePosition x="50.0" y="75.0" z="130.0"/>
+            <maximumExtent x="110.0" y="75.0" z="130.0"/>
+            <minimumExtent x="-110.0" y="-75.0" z="0.0"/>
+        </rectangularGCodeDevice>
+    </items>
+</library>

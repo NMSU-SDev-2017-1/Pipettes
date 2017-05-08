@@ -4,7 +4,6 @@ import java.io.File;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,7 +11,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -21,7 +21,8 @@ public class Library<T extends LibraryItem>
 {
   private File libraryFile;
 
-  @XmlElement
+  @XmlElementWrapper(name = "items")
+  @XmlAnyElement(lax = true)
   private ObservableList<T> items = FXCollections.observableArrayList();
 
   public Library()
@@ -30,11 +31,11 @@ public class Library<T extends LibraryItem>
   
   public Library(String fileName)
   {
-    Open(fileName);
+    open(fileName);
   }
   
   @SuppressWarnings("unchecked")
-  public void Open(String fileName)
+  public void open(String fileName)
   {
     libraryFile = new File(fileName);
 
@@ -42,9 +43,10 @@ public class Library<T extends LibraryItem>
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(Library.class);
+      jaxbContext = JAXBContext.newInstance(Common.allClasses);
       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      items = (ObservableList<T>) jaxbUnmarshaller.unmarshal(libraryFile);
+      Library<T> copy = (Library<T>) jaxbUnmarshaller.unmarshal(libraryFile);
+      this.items = copy.items;
     }
     catch (JAXBException e)
     {
@@ -57,22 +59,16 @@ public class Library<T extends LibraryItem>
     }
   }
 
-  public void Save(String fileName)
-  {
-    libraryFile = new File(fileName);
-    Save();
-  }
-
-  public void Save()
+  public void save()
   {
     JAXBContext jaxbContext;
 
     try
     {
-      jaxbContext = JAXBContext.newInstance(Library.class);
+      jaxbContext = JAXBContext.newInstance(Common.allClasses);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      jaxbMarshaller.marshal(items, libraryFile);
+      jaxbMarshaller.marshal(this, libraryFile);
     }
     catch (JAXBException e)
     {
