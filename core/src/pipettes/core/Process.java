@@ -18,7 +18,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,7 +29,8 @@ public class Process
 
   private ObjectProperty<File> file = new SimpleObjectProperty<File>();
 
-  @XmlElement
+  @XmlElementWrapper(name = "containers")
+  @XmlAnyElement(lax = true)
   private ObservableList<Container> baseContainers = FXCollections
       .observableArrayList();
 
@@ -241,7 +241,7 @@ public class Process
   {
     Process process = null;
 
-    JAXBContext jaxbContext = JAXBContext.newInstance(Process.class);
+    JAXBContext jaxbContext = JAXBContext.newInstance(Common.allClasses);
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
     process = (Process) jaxbUnmarshaller.unmarshal(file);
@@ -258,7 +258,7 @@ public class Process
 
   public void saveAs(File file) throws JAXBException
   {
-    JAXBContext jaxbContext = JAXBContext.newInstance(Process.class);
+    JAXBContext jaxbContext = JAXBContext.newInstance(Common.allClasses);
     Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
     jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
