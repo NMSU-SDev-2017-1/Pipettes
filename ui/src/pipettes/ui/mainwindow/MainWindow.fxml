@@ -271,6 +271,9 @@
                                           <TextField fx:id="containerClearanceHeightTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                           <ChoiceBox fx:id="containerShapeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                        </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
                                     </GridPane>
                                  </children>
                               </VBox>

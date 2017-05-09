@@ -922,12 +922,13 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        procedureDispenseSourceMenuButton.textProperty().unbindBidirectional(
-            last.sourceProperty().getValue().localNameProperty());
-
-        procedureDispenseDestinationMenuButton.textProperty()
-            .unbindBidirectional(
-                last.destinationProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureDispenseSourceMenuButton.textProperty().unbindBidirectional(
+//            last.sourceProperty().getValue().localNameProperty());
+//
+//        procedureDispenseDestinationMenuButton.textProperty()
+//            .unbindBidirectional(
+//                last.destinationProperty().getValue().localNameProperty());
 
         procedureDispenseVolumeTextField.textProperty().unbindBidirectional(
             last.volumeProperty());
@@ -935,12 +936,13 @@ public class MainWindowPresenter implements Initializable
 
       if (procedure != null)
       {
-        procedureDispenseSourceMenuButton.textProperty().bindBidirectional(
-            procedure.sourceProperty().getValue().localNameProperty());
-
-        procedureDispenseDestinationMenuButton.textProperty()
-            .bindBidirectional(
-                procedure.destinationProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureDispenseSourceMenuButton.textProperty().bindBidirectional(
+//            procedure.sourceProperty().getValue().localNameProperty());
+//
+//        procedureDispenseDestinationMenuButton.textProperty()
+//            .bindBidirectional(
+//                procedure.destinationProperty().getValue().localNameProperty());
 
         procedureDispenseVolumeTextField.textProperty().bindBidirectional(
             procedure.volumeProperty(), positionPropertyConverter);
@@ -962,8 +964,9 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        procedureMixContainerMenuButton.textProperty().unbindBidirectional(
-            last.destinationProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureMixContainerMenuButton.textProperty().unbindBidirectional(
+//            last.destinationProperty().getValue().localNameProperty());
 
         procedureMixVolumeTextField.textProperty().unbindBidirectional(
             last.volumeProperty());
@@ -971,8 +974,9 @@ public class MainWindowPresenter implements Initializable
 
       if (procedure != null)
       {
-        procedureMixContainerMenuButton.textProperty().bindBidirectional(
-            procedure.destinationProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureMixContainerMenuButton.textProperty().bindBidirectional(
+//            procedure.destinationProperty().getValue().localNameProperty());
 
         procedureMixVolumeTextField.textProperty().bindBidirectional(
             procedure.volumeProperty(), positionPropertyConverter);
@@ -995,23 +999,25 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        procedureTipChangeNewContainerMenuButton.textProperty()
-            .unbindBidirectional(
-                last.newTipProperty().getValue().localNameProperty());
-
-        procedureTipChangeDisposalMenuButton.textProperty()
-            .unbindBidirectional(
-                last.tipDisposalProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureTipChangeNewContainerMenuButton.textProperty()
+//            .unbindBidirectional(
+//                last.newTipProperty().getValue().localNameProperty());
+//
+//        procedureTipChangeDisposalMenuButton.textProperty()
+//            .unbindBidirectional(
+//                last.tipDisposalProperty().getValue().localNameProperty());
       }
 
       if (procedure != null)
       {
-        procedureTipChangeNewContainerMenuButton.textProperty()
-            .bindBidirectional(
-                procedure.newTipProperty().getValue().localNameProperty());
-
-        procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
-            procedure.tipDisposalProperty().getValue().localNameProperty());
+        // TODO: Implement
+//        procedureTipChangeNewContainerMenuButton.textProperty()
+//            .bindBidirectional(
+//                procedure.newTipProperty().getValue().localNameProperty());
+//
+//        procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
+//            procedure.tipDisposalProperty().getValue().localNameProperty());
 
         procedureDispenseGridPane.setVisible(false);
         procedureMixGridPane.setVisible(false);
