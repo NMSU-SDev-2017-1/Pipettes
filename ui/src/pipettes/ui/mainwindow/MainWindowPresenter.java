@@ -1,13 +1,13 @@
 package pipettes.ui.mainwindow;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,13 +21,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
@@ -40,7 +40,6 @@ import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
 import javax.inject.Inject;
-import javax.xml.bind.JAXBException;
 
 import pipettes.core.ChangeTipProcedure;
 import pipettes.core.Common;
@@ -62,6 +61,8 @@ public class MainWindowPresenter implements Initializable
 {
   private static String title = "Pipette Process Editor";
   private static String titleSeparator = " - ";
+
+  private static String unselectedContainer = "(Select a container)";
 
   private static FileChooser.ExtensionFilter extensionProcess = new FileChooser.ExtensionFilter(
       "Pipette Process File", "*.ppxml");
@@ -99,6 +100,36 @@ public class MainWindowPresenter implements Initializable
 
   @FXML
   private TableColumn<Procedure, String> proceduresTypeTableColumn;
+
+  @FXML
+  private TreeView<Container> procedureDispenseSourceContainersTreeView;
+
+  @FXML
+  private TitledPane procedureDispenseSourceContainersTitledPane;
+
+  @FXML
+  private TreeView<Container> procedureDispenseDestinationContainersTreeView;
+
+  @FXML
+  private TitledPane procedureDispenseDestinationContainersTitledPane;
+
+  @FXML
+  private TreeView<Container> procedureMixContainersTreeView;
+
+  @FXML
+  private TitledPane procedureMixContainersTitledPane;
+
+  @FXML
+  private TreeView<Container> procedureChangeTipNewContainersTreeView;
+
+  @FXML
+  private TitledPane procedureChangeTipNewContainersTitledPane;
+
+  @FXML
+  private TreeView<Container> procedureChangeTipDisposalContainersTreeView;
+
+  @FXML
+  private TitledPane procedureChangeTipDisposalContainersTitledPane;
 
   @FXML
   private ChoiceBox<ContainerShape> containerShapeChoiceBox;
@@ -146,6 +177,9 @@ public class MainWindowPresenter implements Initializable
   private TextField procedureMixVolumeTextField;
 
   @FXML
+  private TextField procedureMixCountTextField;
+
+  @FXML
   private MenuItem fileSaveMenuItem;
 
   @FXML
@@ -159,9 +193,6 @@ public class MainWindowPresenter implements Initializable
 
   @FXML
   private MenuItem fileNewMenuItem;
-
-  @FXML
-  private MenuButton procedureTipChangeDisposalMenuButton;
 
   @FXML
   private Button procedureMoveUpButton;
@@ -185,9 +216,6 @@ public class MainWindowPresenter implements Initializable
   private Button procedureRemoveButton;
 
   @FXML
-  private MenuButton procedureDispenseSourceMenuButton;
-
-  @FXML
   private TextField containerSizeYTextField;
 
   @FXML
@@ -200,9 +228,6 @@ public class MainWindowPresenter implements Initializable
   private GridPane deviceRectangularGridPane;
 
   @FXML
-  private MenuButton procedureMixContainerMenuButton;
-
-  @FXML
   private TextField deviceRectangularNameTextField;
 
   @FXML
@@ -213,9 +238,6 @@ public class MainWindowPresenter implements Initializable
 
   @FXML
   private TextField deviceCylindricalDispenseExtrudeRatioTextField;
-
-  @FXML
-  private MenuButton procedureTipChangeNewContainerMenuButton;
 
   @FXML
   private MenuItem procedureAddChangeTipMenuItem;
@@ -237,9 +259,6 @@ public class MainWindowPresenter implements Initializable
 
   @FXML
   private Button containersAddButton;
-
-  @FXML
-  private MenuButton procedureDispenseDestinationMenuButton;
 
   @FXML
   private MenuItem procedureAddMixMenuItem;
@@ -323,6 +342,13 @@ public class MainWindowPresenter implements Initializable
   private ObjectProperty<Procedure> activeProcedure;
 
   private Container rootContainer;
+  private TreeItem<Container> rootContainerTreeItem;
+
+  private ObjectProperty<Container> dispenseProcedureSource = new SimpleObjectProperty<Container>();
+  private ObjectProperty<Container> dispenseProcedureDestination = new SimpleObjectProperty<Container>();
+  private ObjectProperty<Container> mixProcedureContainer = new SimpleObjectProperty<Container>();
+  private ObjectProperty<Container> changeTipProcedureNew = new SimpleObjectProperty<Container>();
+  private ObjectProperty<Container> changeTipProcedureDisposal = new SimpleObjectProperty<Container>();
 
   private RectangularGCodeDevice lastActiveDeviceRectangular;
   private CylindricalGCodeDevice lastActiveDeviceCylindrical;
@@ -330,11 +356,13 @@ public class MainWindowPresenter implements Initializable
   private DispenseProcedure lastActiveProcedureDispense;
   private MixProcedure lastActiveProcedureMix;
   private ChangeTipProcedure lastActiveProcedureChangeTip;
+  private Container lastDispenseProcedureSource;
+  private Container lastDispenseProcedureDestination;
+  private Container lastMixProcedureContainer;
+  private Container lastChangeTipProcedureNew;
+  private Container lastChangeTipProcedureDisposal;
 
-  private ObjectProperty<Container> dispenseProcedureSource;
-  private ObjectProperty<Container> dispenseProcedureDestination;
-
-  private NumberStringConverter positionPropertyConverter = new NumberStringConverter();
+  private NumberStringConverter numberConverter = new NumberStringConverter();
 
   private Scene getScene()
   {
@@ -356,46 +384,6 @@ public class MainWindowPresenter implements Initializable
   private Stage getStage()
   {
     return (Stage) getWindow();
-  }
-
-  private ObservableList<Device> getLibraryDevices()
-  {
-    return deviceLibrary.getItems();
-  }
-
-  private ObservableList<Container> getLibraryContainers()
-  {
-    return containerLibrary.getItems();
-  }
-
-  private Device getActiveDevice()
-  {
-    return activeDevice.get();
-  }
-
-  private Container getActiveLibraryContainer()
-  {
-    return activeLibraryContainer.get();
-  }
-
-  private Container getActiveContainer()
-  {
-    return activeContainer.get();
-  }
-
-  private Process getActiveProcess()
-  {
-    return activeProcess.get();
-  }
-
-  private ObservableList<Container> getContainers()
-  {
-    return getActiveProcess().getBaseContainers();
-  }
-
-  private ObservableList<Procedure> getProcedures()
-  {
-    return getActiveProcess().getProcedures();
   }
 
   @Override
@@ -486,7 +474,7 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
-    devicesTableView.setItems(getLibraryDevices());
+    devicesTableView.setItems(deviceLibrary.getItems());
 
     containerLibraryTableView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<Container>()
@@ -520,7 +508,7 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
-    containerLibraryTableView.setItems(getLibraryContainers());
+    containerLibraryTableView.setItems(containerLibrary.getItems());
 
     proceduresTableView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<Procedure>()
@@ -543,9 +531,64 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
+    dispenseProcedureSource.addListener(new ChangeListener<Container>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Container> observableValue,
+          Container oldValue, Container newValue)
+      {
+        onActiveDispenseProcedureSource();
+      }
+    });
+
+    dispenseProcedureDestination.addListener(new ChangeListener<Container>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Container> observableValue,
+          Container oldValue, Container newValue)
+      {
+        onActiveDispenseProcedureDestination();
+      }
+    });
+
+    mixProcedureContainer.addListener(new ChangeListener<Container>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Container> observableValue,
+          Container oldValue, Container newValue)
+      {
+        onActiveMixProcedureContainer();
+      }
+    });
+
+    changeTipProcedureNew.addListener(new ChangeListener<Container>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Container> observableValue,
+          Container oldValue, Container newValue)
+      {
+        onActiveChangeTipProcedureNew();
+      }
+    });
+
+    changeTipProcedureDisposal.addListener(new ChangeListener<Container>()
+    {
+      @Override
+      public void changed(ObservableValue<? extends Container> observableValue,
+          Container oldValue, Container newValue)
+      {
+        onActiveChangeTipProcedureDisposal();
+      }
+    });
+
     onActiveDevice();
     onActiveContainer();
     onActiveProcedure();
+    onActiveDispenseProcedureSource();
+    onActiveDispenseProcedureDestination();
+    onActiveMixProcedureContainer();
+    onActiveChangeTipProcedureNew();
+    onActiveChangeTipProcedureDisposal();
 
     onActiveProcess();
   }
@@ -624,34 +667,31 @@ public class MainWindowPresenter implements Initializable
             container.shapeProperty());
 
         containerPositionXTextField.textProperty().bindBidirectional(
-            container.localPositionXProperty(), positionPropertyConverter);
+            container.localPositionXProperty(), numberConverter);
 
         containerPositionYTextField.textProperty().bindBidirectional(
-            container.localPositionYProperty(), positionPropertyConverter);
+            container.localPositionYProperty(), numberConverter);
 
         containerPositionZTextField.textProperty().bindBidirectional(
-            container.localPositionZProperty(), positionPropertyConverter);
+            container.localPositionZProperty(), numberConverter);
 
         containerSizeXTextField.textProperty().bindBidirectional(
-            container.sizeXProperty(), positionPropertyConverter);
+            container.sizeXProperty(), numberConverter);
 
         containerSizeYTextField.textProperty().bindBidirectional(
-            container.sizeYProperty(), positionPropertyConverter);
+            container.sizeYProperty(), numberConverter);
 
         containerSizeZTextField.textProperty().bindBidirectional(
-            container.sizeZProperty(), positionPropertyConverter);
+            container.sizeZProperty(), numberConverter);
 
         containerDrawHeightTextField.textProperty().bindBidirectional(
-            container.drawHeightAboveBottomProperty(),
-            positionPropertyConverter);
+            container.drawHeightAboveBottomProperty(), numberConverter);
 
         containerDispenseHeightTextField.textProperty().bindBidirectional(
-            container.dispenseHeightAboveTopProperty(),
-            positionPropertyConverter);
+            container.dispenseHeightAboveTopProperty(), numberConverter);
 
         containerClearanceHeightTextField.textProperty().bindBidirectional(
-            container.clearanceHeightAboveTopProperty(),
-            positionPropertyConverter);
+            container.clearanceHeightAboveTopProperty(), numberConverter);
       }
 
       lastActiveContainer = container;
@@ -698,12 +738,111 @@ public class MainWindowPresenter implements Initializable
     rebindProceduresTableView();
   }
 
+  private TreeItem<Container> findContainerTreeItem(Container container)
+  {
+    return findContainerTreeItem(rootContainerTreeItem, container);
+  }
+
+  private TreeItem<Container> findContainerTreeItem(TreeItem<Container> root,
+      Container container)
+  {
+    TreeItem<Container> result;
+
+    if (root.getValue() == container)
+    {
+      result = root;
+    }
+    else
+    {
+      result = null;
+
+      for (TreeItem<Container> subcontainer : root.getChildren())
+      {
+        result = findContainerTreeItem(subcontainer, container);
+
+        if (result != null)
+        {
+          break;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  private void onActiveProcedureContainer(Container last, Container container,
+      TitledPane pane, TreeView<Container> tree)
+  {
+    if (container != last)
+    {
+      if (last != null)
+      {
+        pane.textProperty().unbind();
+      }
+
+      if (container != null)
+      {
+        pane.textProperty().bind(container.localNameProperty());
+      }
+
+      tree.getSelectionModel().select(findContainerTreeItem(container));
+    }
+
+    if (container == null)
+    {
+      pane.textProperty().set(unselectedContainer);
+    }
+  }
+
+  private void onActiveDispenseProcedureSource()
+  {
+    onActiveProcedureContainer(lastDispenseProcedureSource,
+        dispenseProcedureSource.get(),
+        procedureDispenseSourceContainersTitledPane,
+        procedureDispenseSourceContainersTreeView);
+    lastDispenseProcedureSource = dispenseProcedureSource.get();
+  }
+
+  private void onActiveDispenseProcedureDestination()
+  {
+    onActiveProcedureContainer(lastDispenseProcedureDestination,
+        dispenseProcedureDestination.get(),
+        procedureDispenseDestinationContainersTitledPane,
+        procedureDispenseDestinationContainersTreeView);
+    lastDispenseProcedureDestination = dispenseProcedureDestination.get();
+  }
+
+  private void onActiveMixProcedureContainer()
+  {
+    onActiveProcedureContainer(lastMixProcedureContainer,
+        mixProcedureContainer.get(), procedureMixContainersTitledPane,
+        procedureMixContainersTreeView);
+    lastMixProcedureContainer = mixProcedureContainer.get();
+  }
+
+  private void onActiveChangeTipProcedureNew()
+  {
+    onActiveProcedureContainer(lastChangeTipProcedureNew,
+        changeTipProcedureNew.get(), procedureChangeTipNewContainersTitledPane,
+        procedureChangeTipNewContainersTreeView);
+    lastChangeTipProcedureNew = changeTipProcedureNew.get();
+  }
+
+  private void onActiveChangeTipProcedureDisposal()
+  {
+    onActiveProcedureContainer(lastChangeTipProcedureDisposal,
+        changeTipProcedureDisposal.get(),
+        procedureChangeTipDisposalContainersTitledPane,
+        procedureChangeTipDisposalContainersTreeView);
+    lastChangeTipProcedureDisposal = changeTipProcedureDisposal.get();
+  }
+
   private void rebindContainerTreeView()
   {
-    rootContainer = new Container(getContainers());
+    rootContainer = new Container(activeProcess.get().getBaseContainers());
 
-    TreeItem<Container> rootItem = new RecursiveTreeItem<Container>(
-        rootContainer, Container::getSubcontainers);
+    rootContainerTreeItem = new RecursiveTreeItem<Container>(rootContainer,
+        Container::getSubcontainers);
 
     containersTreeView.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<TreeItem<Container>>()
@@ -717,12 +856,122 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
-    containersTreeView.setRoot(rootItem);
+    containersTreeView.setRoot(rootContainerTreeItem);
+
+    procedureDispenseSourceContainersTreeView.getSelectionModel()
+        .selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            if (newValue == null)
+            {
+              dispenseProcedureSource.set(null);
+            }
+            else
+            {
+              dispenseProcedureSource.set(newValue.getValue());
+            }
+          }
+        });
+
+    procedureDispenseSourceContainersTreeView.setRoot(rootContainerTreeItem);
+
+    procedureDispenseDestinationContainersTreeView.getSelectionModel()
+        .selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            if (newValue == null)
+            {
+              dispenseProcedureDestination.set(null);
+            }
+            else
+            {
+              dispenseProcedureDestination.set(newValue.getValue());
+            }
+          }
+        });
+
+    procedureDispenseDestinationContainersTreeView
+        .setRoot(rootContainerTreeItem);
+
+    procedureMixContainersTreeView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            if (newValue == null)
+            {
+              mixProcedureContainer.set(null);
+            }
+            else
+            {
+              mixProcedureContainer.set(newValue.getValue());
+            }
+          }
+        });
+
+    procedureMixContainersTreeView.setRoot(rootContainerTreeItem);
+
+    procedureChangeTipNewContainersTreeView.getSelectionModel()
+        .selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            if (newValue == null)
+            {
+              changeTipProcedureNew.set(null);
+            }
+            else
+            {
+              changeTipProcedureNew.set(newValue.getValue());
+            }
+          }
+        });
+
+    procedureChangeTipNewContainersTreeView.setRoot(rootContainerTreeItem);
+
+    procedureChangeTipDisposalContainersTreeView.getSelectionModel()
+        .selectedItemProperty()
+        .addListener(new ChangeListener<TreeItem<Container>>()
+        {
+          @Override
+          public void changed(
+              ObservableValue<? extends TreeItem<Container>> observable,
+              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          {
+            if (newValue == null)
+            {
+              changeTipProcedureDisposal.set(null);
+            }
+            else
+            {
+              changeTipProcedureDisposal.set(newValue.getValue());
+            }
+          }
+        });
+
+    procedureChangeTipDisposalContainersTreeView.setRoot(rootContainerTreeItem);
   }
 
   private void rebindProceduresTableView()
   {
-    proceduresTableView.setItems(getProcedures());
+    proceduresTableView.setItems(activeProcess.get().getProcedures());
   }
 
   private void rebindActiveDeviceNoneControls()
@@ -789,39 +1038,39 @@ public class MainWindowPresenter implements Initializable
             device.nameProperty());
 
         deviceRectangularHomeXTextField.textProperty().bindBidirectional(
-            device.homePositionXProperty(), positionPropertyConverter);
+            device.homePositionXProperty(), numberConverter);
 
         deviceRectangularHomeYTextField.textProperty().bindBidirectional(
-            device.homePositionYProperty(), positionPropertyConverter);
+            device.homePositionYProperty(), numberConverter);
 
         deviceRectangularHomeZTextField.textProperty().bindBidirectional(
-            device.homePositionZProperty(), positionPropertyConverter);
+            device.homePositionZProperty(), numberConverter);
 
         deviceRectangularMinimumXTextField.textProperty().bindBidirectional(
-            device.minimumExtentXProperty(), positionPropertyConverter);
+            device.minimumExtentXProperty(), numberConverter);
 
         deviceRectangularMinimumYTextField.textProperty().bindBidirectional(
-            device.minimumExtentYProperty(), positionPropertyConverter);
+            device.minimumExtentYProperty(), numberConverter);
 
         deviceRectangularMinimumZTextField.textProperty().bindBidirectional(
-            device.minimumExtentZProperty(), positionPropertyConverter);
+            device.minimumExtentZProperty(), numberConverter);
 
         deviceRectangularMaximumXTextField.textProperty().bindBidirectional(
-            device.maximumExtentXProperty(), positionPropertyConverter);
+            device.maximumExtentXProperty(), numberConverter);
 
         deviceRectangularMaximumYTextField.textProperty().bindBidirectional(
-            device.maximumExtentYProperty(), positionPropertyConverter);
+            device.maximumExtentYProperty(), numberConverter);
 
         deviceRectangularMaximumZTextField.textProperty().bindBidirectional(
-            device.maximumExtentZProperty(), positionPropertyConverter);
+            device.maximumExtentZProperty(), numberConverter);
 
         deviceRectangularExtrudeVolumeTextField.textProperty()
             .bindBidirectional(device.extrudePerVolumeProperty(),
-                positionPropertyConverter);
+                numberConverter);
 
         deviceRectangularDispenseExtrudeRatioTextField.textProperty()
             .bindBidirectional(device.dispenseExtrudeRatioProperty(),
-                positionPropertyConverter);
+                numberConverter);
 
         deviceRectangularHeaderTextArea.textProperty().bindBidirectional(
             device.headerProperty());
@@ -877,21 +1126,21 @@ public class MainWindowPresenter implements Initializable
             device.nameProperty());
 
         deviceCylindricalRadiusTextField.textProperty().bindBidirectional(
-            device.radiusProperty(), positionPropertyConverter);
+            device.radiusProperty(), numberConverter);
 
         deviceCylindricalMinimumZTextField.textProperty().bindBidirectional(
-            device.minimumZProperty(), positionPropertyConverter);
+            device.minimumZProperty(), numberConverter);
 
         deviceCylindricalMaximumZTextField.textProperty().bindBidirectional(
-            device.maximumZProperty(), positionPropertyConverter);
+            device.maximumZProperty(), numberConverter);
 
         deviceCylindricalExtrudeVolumeTextField.textProperty()
             .bindBidirectional(device.extrudePerVolumeProperty(),
-                positionPropertyConverter);
+                numberConverter);
 
         deviceCylindricalDispenseExtrudeRatioTextField.textProperty()
             .bindBidirectional(device.dispenseExtrudeRatioProperty(),
-                positionPropertyConverter);
+                numberConverter);
 
         deviceCylindricalHeaderTextArea.textProperty().bindBidirectional(
             device.headerProperty());
@@ -922,13 +1171,9 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        // TODO: Implement
-//        procedureDispenseSourceMenuButton.textProperty().unbindBidirectional(
-//            last.sourceProperty().getValue().localNameProperty());
-//
-//        procedureDispenseDestinationMenuButton.textProperty()
-//            .unbindBidirectional(
-//                last.destinationProperty().getValue().localNameProperty());
+        dispenseProcedureSource.unbindBidirectional(last.sourceProperty());
+        dispenseProcedureDestination.unbindBidirectional(last
+            .destinationProperty());
 
         procedureDispenseVolumeTextField.textProperty().unbindBidirectional(
             last.volumeProperty());
@@ -936,16 +1181,12 @@ public class MainWindowPresenter implements Initializable
 
       if (procedure != null)
       {
-        // TODO: Implement
-//        procedureDispenseSourceMenuButton.textProperty().bindBidirectional(
-//            procedure.sourceProperty().getValue().localNameProperty());
-//
-//        procedureDispenseDestinationMenuButton.textProperty()
-//            .bindBidirectional(
-//                procedure.destinationProperty().getValue().localNameProperty());
+        dispenseProcedureSource.bindBidirectional(procedure.sourceProperty());
+        dispenseProcedureDestination.bindBidirectional(procedure
+            .destinationProperty());
 
         procedureDispenseVolumeTextField.textProperty().bindBidirectional(
-            procedure.volumeProperty(), positionPropertyConverter);
+            procedure.volumeProperty(), numberConverter);
 
         procedureDispenseGridPane.setVisible(true);
         procedureMixGridPane.setVisible(false);
@@ -964,22 +1205,25 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        // TODO: Implement
-//        procedureMixContainerMenuButton.textProperty().unbindBidirectional(
-//            last.destinationProperty().getValue().localNameProperty());
+        mixProcedureContainer.unbindBidirectional(last.destinationProperty());
 
         procedureMixVolumeTextField.textProperty().unbindBidirectional(
             last.volumeProperty());
+
+        procedureMixCountTextField.textProperty().unbindBidirectional(
+            last.countProperty());
       }
 
       if (procedure != null)
       {
-        // TODO: Implement
-//        procedureMixContainerMenuButton.textProperty().bindBidirectional(
-//            procedure.destinationProperty().getValue().localNameProperty());
+        mixProcedureContainer
+            .bindBidirectional(procedure.destinationProperty());
 
         procedureMixVolumeTextField.textProperty().bindBidirectional(
-            procedure.volumeProperty(), positionPropertyConverter);
+            procedure.volumeProperty(), numberConverter);
+
+        procedureMixCountTextField.textProperty().bindBidirectional(
+            procedure.countProperty(), numberConverter);
 
         procedureDispenseGridPane.setVisible(false);
         procedureMixGridPane.setVisible(true);
@@ -999,25 +1243,16 @@ public class MainWindowPresenter implements Initializable
     {
       if (last != null)
       {
-        // TODO: Implement
-//        procedureTipChangeNewContainerMenuButton.textProperty()
-//            .unbindBidirectional(
-//                last.newTipProperty().getValue().localNameProperty());
-//
-//        procedureTipChangeDisposalMenuButton.textProperty()
-//            .unbindBidirectional(
-//                last.tipDisposalProperty().getValue().localNameProperty());
+        changeTipProcedureNew.unbindBidirectional(last.newTipProperty());
+        changeTipProcedureDisposal.unbindBidirectional(last
+            .tipDisposalProperty());
       }
 
       if (procedure != null)
       {
-        // TODO: Implement
-//        procedureTipChangeNewContainerMenuButton.textProperty()
-//            .bindBidirectional(
-//                procedure.newTipProperty().getValue().localNameProperty());
-//
-//        procedureTipChangeDisposalMenuButton.textProperty().bindBidirectional(
-//            procedure.tipDisposalProperty().getValue().localNameProperty());
+        changeTipProcedureNew.bindBidirectional(procedure.newTipProperty());
+        changeTipProcedureDisposal.bindBidirectional(procedure
+            .tipDisposalProperty());
 
         procedureDispenseGridPane.setVisible(false);
         procedureMixGridPane.setVisible(false);
@@ -1045,15 +1280,23 @@ public class MainWindowPresenter implements Initializable
   {
     if (getStage() != null)
     {
-      if (getActiveProcess() == null)
+      if (activeProcess.get() == null)
       {
         getStage().setTitle(title);
       }
       else
       {
-        getStage().setTitle(getActiveProcess().getFileName() + titleSeparator + title);
+        getStage().setTitle(
+            activeProcess.get().getFileName() + titleSeparator + title);
       }
     }
+  }
+
+  private void displayAlert(AlertType type, String message)
+  {
+    Alert alert = new Alert(type, message, ButtonType.OK);
+    alert.setHeaderText(null);
+    alert.showAndWait();
   }
 
   private void onWindow()
@@ -1062,15 +1305,15 @@ public class MainWindowPresenter implements Initializable
 
     getStage().setOnCloseRequest(windowEvent ->
     {
-        if (allowClose())
-        {
-          getStage().close();
-        }
-        else
-        {
-          windowEvent.consume();
-        }
-      });
+      if (allowClose())
+      {
+        getStage().close();
+      }
+      else
+      {
+        windowEvent.consume();
+      }
+    });
   }
 
   public void onNew()
@@ -1094,35 +1337,37 @@ public class MainWindowPresenter implements Initializable
         Process process = Process.open(selectedFile);
         activeProcess.set(process);
       }
-      catch (JAXBException e)
+      catch (Exception e)
       {
-        // TODO: Show error message
         e.printStackTrace();
+        displayAlert(AlertType.ERROR, "Unable to open file.");
       }
     }
   }
 
-  public void onSave()
+  public boolean onSave()
   {
-    if (!getActiveProcess().hasSetFileName())
+    if (!activeProcess.get().hasSetFileName())
     {
-      onSaveAs();
+      return onSaveAs();
     }
     else
     {
       try
       {
-        getActiveProcess().save();
+        activeProcess.get().save();
+        return true;
       }
-      catch (JAXBException e)
+      catch (Exception e)
       {
-        // TODO: Show error message
         e.printStackTrace();
+        displayAlert(AlertType.ERROR, "Unable to save file.");
+        return false;
       }
     }
   }
 
-  public void onSaveAs()
+  public boolean onSaveAs()
   {
     FileChooser fileChooser = new FileChooser();
 
@@ -1136,24 +1381,38 @@ public class MainWindowPresenter implements Initializable
     {
       try
       {
-        getActiveProcess().saveAs(selectedFile);
+        activeProcess.get().saveAs(selectedFile);
         updateTitle();
+        return true;
       }
-      catch (JAXBException e)
+      catch (Exception e)
       {
-        // TODO: Show error message
         e.printStackTrace();
+        displayAlert(AlertType.ERROR, "Unable to save file.");
+        return false;
       }
     }
+
+    return true;
   }
 
   public void onExport()
   {
+    if (activeDevice.get() == null)
+    {
+      displayAlert(AlertType.INFORMATION,
+          "Select a device to perform an export of the process for that device.");
+      return;
+    }
+
+    String exportFileName = Common.removeFileNameExtension(activeProcess.get()
+        .getFileName());
+
     FileChooser fileChooser = new FileChooser();
 
     fileChooser.setTitle("Export G-Code");
     fileChooser.getExtensionFilters().addAll(extensionGCode, extensionAll);
-    fileChooser.setInitialFileName(activeProcess.get().getFileName());
+    fileChooser.setInitialFileName(exportFileName);
 
     File outputFile = fileChooser.showSaveDialog(getWindow());
 
@@ -1172,17 +1431,21 @@ public class MainWindowPresenter implements Initializable
         output = new PrintStream(outputFile);
         log = new PrintStream(logFile);
 
-        Processor.run(getActiveProcess(), getActiveDevice(), output, log);
-      }
-      catch (FileNotFoundException e)
-      {
-        // TODO: Show error message
-        e.printStackTrace();
+        Processor.run(activeProcess.get(), activeDevice.get(), output, log);
+
+        displayAlert(AlertType.INFORMATION, "Export complete.");
       }
       catch (PositioningException e)
       {
-        // TODO: Show error message
         e.printStackTrace();
+        displayAlert(
+            AlertType.ERROR,
+            "Unable to export files. The process requires movement outside the device boundaries.");
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+        displayAlert(AlertType.ERROR, "Unable to export files.");
       }
       finally
       {
@@ -1207,38 +1470,36 @@ public class MainWindowPresenter implements Initializable
 
   public void onAbout()
   {
+    displayAlert(
+        AlertType.INFORMATION,
+        title
+            + " 2017 by Sofia Bali, Michael Brumm, Chance T. Brunton, Alan Kato, Jonathan Navarro");
   }
 
   private boolean allowClose()
   {
-    if (getActiveProcess().getDirty())
+    if (activeProcess.get().getDirty())
     {
       Alert alert = new Alert(AlertType.CONFIRMATION,
           "Do you want to save changes to "
-              + getActiveProcess().getFileNameWithExtension() + "?",
+              + activeProcess.get().getFileNameWithExtension() + "?",
           ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+      alert.setHeaderText(null);
 
-      Optional<ButtonType> result = alert.showAndWait();
+      Optional<ButtonType> buttonPress = alert.showAndWait();
 
-      if (result.isPresent())
-      {
-        if (result.get() == ButtonType.YES)
-        {
-          onSave();
-        }
-
-        return true;
-      }
-      else
+      if (!buttonPress.isPresent())
       {
         return false;
       }
 
+      if (buttonPress.get() == ButtonType.YES)
+      {
+        return onSave();
+      }
     }
-    else
-    {
-      return true;
-    }
+
+    return true;
   }
 
   private void addDevice(Device device)
@@ -1248,7 +1509,7 @@ public class MainWindowPresenter implements Initializable
     String deviceName = deviceLibrary.getAvailableName(Device.prefix);
     device.setName(deviceName);
 
-    getLibraryDevices().add(device);
+    deviceLibrary.getItems().add(device);
     devicesTableView.getSelectionModel().select(device);
   }
 
@@ -1270,28 +1531,31 @@ public class MainWindowPresenter implements Initializable
 
     if (device != null)
     {
-      getLibraryDevices().remove(device);
+      deviceLibrary.getItems().remove(device);
     }
   }
 
   public void onRemoveLibraryContainer()
   {
-    Container container = containerLibraryTableView.getSelectionModel().getSelectedItem();
+    Container container = containerLibraryTableView.getSelectionModel()
+        .getSelectedItem();
 
     if (container != null)
     {
-      getLibraryContainers().remove(container);
+      containerLibrary.getItems().remove(container);
     }
   }
 
   public void onCopyToProcessContainer()
   {
-    if (getActiveLibraryContainer() != null)
-    {
-      Container container = getActiveLibraryContainer().clone();
+    Container container = activeLibraryContainer.get();
 
-      String containerName = rootContainer.getAvailableSubcontainerName(container
-          .getLocalName());
+    if (container != null)
+    {
+      container = container.clone();
+
+      String containerName = rootContainer
+          .getAvailableSubcontainerName(container.getLocalName());
       container.setLocalName(containerName);
 
       rootContainer.getSubcontainers().add(container);
@@ -1316,26 +1580,40 @@ public class MainWindowPresenter implements Initializable
 
   public void onAddSubcontainer()
   {
-    if (getActiveContainer() != null)
+    Container container = activeContainer.get();
+
+    if (container != null)
     {
-      addSubcontainer(getActiveContainer());
+      addSubcontainer(container);
     }
   }
 
   public void onRemoveContainer()
   {
-    if (getActiveContainer() != null)
+    Container container = activeContainer.get();
+
+    if (container != null)
     {
-      getActiveContainer().getParent().getSubcontainers()
-          .remove(getActiveContainer());
+      if (activeProcess.get().isContainerReferenced(container))
+      {
+        displayAlert(
+            AlertType.INFORMATION,
+            "This container cannot be removed because it is referenced by a procedure in the process.");
+      }
+      else
+      {
+        container.getParent().getSubcontainers().remove(container);
+      }
     }
   }
 
   public void onCopyToLibraryContainer()
   {
-    if (getActiveContainer() != null)
+    Container container = activeContainer.get();
+
+    if (container != null)
     {
-      Container container = getActiveContainer().clone();
+      container = container.clone();
 
       String containerName = containerLibrary.getAvailableName(container
           .getLocalName());
@@ -1351,7 +1629,7 @@ public class MainWindowPresenter implements Initializable
         .getSelectedIndex();
     selectionIndex++;
 
-    getProcedures().add(selectionIndex, procedure);
+    activeProcess.get().getProcedures().add(selectionIndex, procedure);
     proceduresTableView.getSelectionModel().select(selectionIndex);
   }
 
@@ -1380,7 +1658,7 @@ public class MainWindowPresenter implements Initializable
 
     if (selectionIndex >= 0)
     {
-      getProcedures().remove(selectionIndex);
+      activeProcess.get().getProcedures().remove(selectionIndex);
     }
   }
 
@@ -1391,9 +1669,11 @@ public class MainWindowPresenter implements Initializable
 
     if (selectionIndex > 0)
     {
-      Procedure procedure = getProcedures().get(selectionIndex);
-      getProcedures().remove(selectionIndex);
-      getProcedures().add(selectionIndex - 1, procedure);
+      ObservableList<Procedure> procedures = activeProcess.get()
+          .getProcedures();
+      Procedure procedure = procedures.get(selectionIndex);
+      procedures.remove(selectionIndex);
+      procedures.add(selectionIndex - 1, procedure);
       proceduresTableView.getSelectionModel().select(selectionIndex - 1);
     }
   }
@@ -1403,12 +1683,13 @@ public class MainWindowPresenter implements Initializable
     int selectionIndex = proceduresTableView.getSelectionModel()
         .getSelectedIndex();
 
-    if ((selectionIndex >= 0)
-        && (selectionIndex < (getProcedures().size() - 1)))
+    ObservableList<Procedure> procedures = activeProcess.get().getProcedures();
+
+    if ((selectionIndex >= 0) && (selectionIndex < (procedures.size() - 1)))
     {
-      Procedure procedure = getProcedures().get(selectionIndex);
-      getProcedures().remove(selectionIndex);
-      getProcedures().add(selectionIndex + 1, procedure);
+      Procedure procedure = procedures.get(selectionIndex);
+      procedures.remove(selectionIndex);
+      procedures.add(selectionIndex + 1, procedure);
       proceduresTableView.getSelectionModel().select(selectionIndex + 1);
     }
   }

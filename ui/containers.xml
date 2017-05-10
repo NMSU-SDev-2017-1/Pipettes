@@ -1,25 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <library>
-    <items>
-        <container>
-            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
-            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
-            <drawHeightAboveBottom>4.0</drawHeightAboveBottom>
-            <localName>Beaker1</localName>
-            <localPosition x="-70.0" y="-50.0" z="0.0"/>
-            <name>Beaker1</name>
-            <shape>Cylindrical</shape>
-            <size x="10.0" y="10.0" z="60.0"/>
-        </container>
-        <container>
-            <clearanceHeightAboveTop>10.0</clearanceHeightAboveTop>
-            <dispenseHeightAboveTop>10.0</dispenseHeightAboveTop>
-            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
-            <localName>Beaker2</localName>
-            <localPosition x="60.0" y="40.0" z="0.0"/>
-            <name>Beaker2</name>
-            <shape>Cylindrical</shape>
-            <size x="10.0" y="10.0" z="40.0"/>
-        </container>
-    </items>
+    <items/>
 </library>

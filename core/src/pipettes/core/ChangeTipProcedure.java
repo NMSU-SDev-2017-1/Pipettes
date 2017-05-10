@@ -21,7 +21,7 @@ public class ChangeTipProcedure extends Procedure
   {
     return "Change Tip";
   }
-  
+
   @XmlIDREF
   @XmlAttribute
   public Container getTipDisposal()
@@ -84,24 +84,33 @@ public class ChangeTipProcedure extends Procedure
       Container newTip) throws PositioningException
   {
     Device device = context.getDevice();
+    ProcessLogger logger = context.getLogger();
     Point2D startLocation = device.getLocation();
     Point2D disposalLocation = tipDisposal.getDispenseLocation();
     Point2D newTipLocation = newTip.getDrawLocation();
     double startToDisposeClearance = context.getClearanceHeight(startLocation,
         disposalLocation);
-    Point2D knockOffLocation = new Point2D((tipDisposal.getLocalPositionX()
-        + tipDisposal.getSizeX() + 1), tipDisposal.getLocalPositionY());
+    double knockOffX = tipDisposal.getLocalPositionX()
+        + (tipDisposal.getSizeX() * 0.5);
+    double knockOffY = tipDisposal.getLocalPositionY()
+        + (tipDisposal.getSizeY() * 0.5);
+    Point2D knockOffLocation = new Point2D(knockOffX, knockOffY);
     double disposeToNewTipClearance = context.getClearanceHeight(
-        disposalLocation, newTipLocation);
+        knockOffLocation, newTipLocation);
 
     device.moveHeight(startToDisposeClearance);
+
     device.move(disposalLocation);
-    device.moveHeight(tipDisposal.getDrawHeight());
+    device.moveHeight(tipDisposal.getDispenseHeight());
+
     device.move(knockOffLocation);
+    logger.logTipDrop(tipDisposal.getName());
+
     device.moveHeight(disposeToNewTipClearance);
+
     device.move(newTipLocation);
     device.moveHeight(newTip.getDrawHeight());
-
+    logger.logTipNew(newTip.getName());
   }
 
   public void perform(ProcessContext context) throws PositioningException

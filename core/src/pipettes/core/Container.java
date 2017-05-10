@@ -19,10 +19,8 @@ import javafx.geometry.Point3D;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -34,10 +32,6 @@ public class Container extends LibraryItem
 
   private static final char nestingSeparator = '/';
 
-  // TODO: Ideally, this should not be serialized and should be managed
-  // only through housekeeping
-  @XmlIDREF
-  @XmlAttribute
   private Container parent;
 
   private Library<LibraryItem> library;
@@ -61,7 +55,7 @@ public class Container extends LibraryItem
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
 
-  @XmlElement
+  @XmlElement(name="subcontainer")
   private ObservableList<Container> subcontainers;
 
   @XmlElement
@@ -448,6 +442,21 @@ public class Container extends LibraryItem
     }
 
     return newContainer;
+  }
+  
+  public boolean isAtOrAbove(Container container)
+  {
+    if (this == container)
+    {
+      return true;
+    }
+    
+    if (container.parent == null)
+    {
+      return false;
+    }
+    
+    return isAtOrAbove(container.parent);
   }
 
   public String getAvailableSubcontainerName(String prefix)

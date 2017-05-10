@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<VBox fx:id="root" prefHeight="714.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
+<VBox fx:id="root" prefHeight="732.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pipettes.ui.mainwindow.MainWindowPresenter">
    <children>
       <MenuBar>
         <menus>
@@ -46,7 +46,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="708.0" prefWidth="706.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7407407407407407" prefHeight="722.0" prefWidth="723.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -288,7 +288,7 @@
                               <VBox>
                                  <children>
                                     <Label text="Procedures in Process:" VBox.vgrow="ALWAYS" />
-                                    <TableView fx:id="proceduresTableView">
+                                    <TableView fx:id="proceduresTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                       <columns>
                                         <TableColumn fx:id="proceduresTypeTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Type" />
                                         <TableColumn fx:id="proceduresPropertiesTableColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Properties" />
@@ -315,36 +315,20 @@
                                     <Label text="Selected Procedure:" />
                                     <StackPane prefHeight="150.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane fx:id="procedureDispenseGridPane" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
-                                            <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <children>
-                                                <Label text="Type:" />
-                                                <Label text="Dispense" GridPane.columnIndex="1" />
-                                                <Label text="Source Container:" GridPane.rowIndex="1" />
-                                                <Label text="Destination Container:" GridPane.rowIndex="2" />
-                                                <MenuButton fx:id="procedureDispenseSourceMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <MenuButton fx:id="procedureDispenseDestinationMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <Label text="Volume (ml):" GridPane.rowIndex="3" />
-                                                <TextField fx:id="procedureDispenseVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                             </children>
-                                          </GridPane>
                                           <GridPane fx:id="procedureMixGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" StackPane.alignment="TOP_CENTER">
                                              <children>
                                                 <Label text="Type:" />
                                                 <Label text="Mix" GridPane.columnIndex="1" />
                                                 <Label text="Mix Container:" GridPane.rowIndex="1" />
-                                                <MenuButton fx:id="procedureMixContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <Label text="Volume (ml):" GridPane.rowIndex="2" />
                                                 <TextField fx:id="procedureMixVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                              <TitledPane fx:id="procedureMixContainersTitledPane" animated="false" expanded="false" text="Mix Container" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <content>
+                                                      <TreeView fx:id="procedureMixContainersTreeView" showRoot="false" />
+                                                   </content>
+                                                </TitledPane>
+                                                <Label text="Mix Count:" GridPane.rowIndex="3" />
+                                                <TextField fx:id="procedureMixCountTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -352,6 +336,7 @@
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
@@ -362,8 +347,16 @@
                                                 <Label text="Change Tip" GridPane.columnIndex="1" />
                                                 <Label text="New Tip Container:" GridPane.rowIndex="1" />
                                                 <Label text="Disposal Container:" GridPane.rowIndex="2" />
-                                                <MenuButton fx:id="procedureTipChangeNewContainerMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <MenuButton fx:id="procedureTipChangeDisposalMenuButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TitledPane fx:id="procedureChangeTipDisposalContainersTitledPane" animated="false" expanded="false" text="Disposal Container" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <content>
+                                                      <TreeView fx:id="procedureChangeTipDisposalContainersTreeView" showRoot="false" />
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="procedureChangeTipNewContainersTitledPane" animated="false" expanded="false" text="New Tip Container" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <content>
+                                                      <TreeView fx:id="procedureChangeTipNewContainersTreeView" showRoot="false" />
+                                                   </content>
+                                                </TitledPane>
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -371,9 +364,39 @@
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
+                                          </GridPane>
+                                          <GridPane fx:id="procedureDispenseGridPane" maxHeight="-Infinity" minHeight="-Infinity" visible="false" StackPane.alignment="TOP_CENTER">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Type:" />
+                                                <Label text="Dispense" GridPane.columnIndex="1" />
+                                                <Label text="Source Container:" GridPane.rowIndex="1" />
+                                                <Label text="Destination Container:" GridPane.rowIndex="2" />
+                                                <Label text="Volume (ml):" GridPane.rowIndex="3" />
+                                                <TextField fx:id="procedureDispenseVolumeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TitledPane fx:id="procedureDispenseSourceContainersTitledPane" animated="false" expanded="false" text="Source Container" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <content>
+                                                      <TreeView fx:id="procedureDispenseSourceContainersTreeView" showRoot="false" />
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="procedureDispenseDestinationContainersTitledPane" animated="false" expanded="false" layoutX="265.0" layoutY="73.0" text="Destination Container" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <content>
+                                                      <TreeView fx:id="procedureDispenseDestinationContainersTreeView" showRoot="false" />
+                                                   </content>
+                                                </TitledPane>
+                                             </children>
                                           </GridPane>
                                        </children>
                                     </StackPane>

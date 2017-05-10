@@ -57,4 +57,14 @@ public class ProcessLogger
   {
     logOperation(containerName, "Dispense", volume);
   }
+
+  public void logTipDrop(String containerName)
+  {
+    logOperation(containerName, "Dispose Tip", 0);
+  }
+
+  public void logTipNew(String containerName)
+  {
+    logOperation(containerName, "New Tip", 0);
+  }
 }

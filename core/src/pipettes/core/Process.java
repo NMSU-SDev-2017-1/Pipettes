@@ -40,7 +40,7 @@ public class Process
       .observableArrayList();
 
   private BooleanProperty dirty = new SimpleBooleanProperty();
-  
+
   public File getFile()
   {
     return file.get();
@@ -90,7 +90,7 @@ public class Process
   {
     this.dirty.set(dirty);
   }
-  
+
   public BooleanProperty dirtyProperty()
   {
     return dirty;
@@ -108,7 +108,7 @@ public class Process
         setDirty(true);
       }
     });
-    
+
     procedures.addListener(new ListChangeListener<Procedure>()
     {
       @Override
@@ -135,8 +135,6 @@ public class Process
     }
   }
 
-  // TODO: Initialize with information necessary for procedures to perform
-  // their operation
   public ProcessContext createContext(Device device, ProcessLogger logger)
   {
     ProcessContext context = new ProcessContext(device, logger);
@@ -149,44 +147,32 @@ public class Process
     return context;
   }
 
-  private Container getBaseContainer(Container container)
+  public boolean isContainerReferenced(Container container)
   {
-    while (container.getParent() != null)
+    for (Procedure procedure : procedures)
     {
-      container = container.getParent();
-    }
-
-    return container;
-  }
-
-  private Container findBaseContainer(String name)
-  {
-    Container result = null;
-    
-    for (Container container : baseContainers)
-    {
-      if (container.getName().equals(name))
+      for (Container procedureContainer : procedure.getReferencedContainers())
       {
-        result = container;
-        break;
+        if (container.isAtOrAbove(procedureContainer))
+        {
+          return true;
+        }
       }
     }
     
-    return result;
+    return false;
   }
   
-  private void verifyContainer(Container container)
+  private void verifyContainers()
   {
-    Container baseContainer = getBaseContainer(container);
-    Container mappedContainer = findBaseContainer(baseContainer.getName());
-
-    if (mappedContainer == null)
+    for (Object container : baseContainers)
     {
-      // TODO: Container not included in mapping
-    }
-    else if (mappedContainer != baseContainer)
-    {
-      // TODO: Container names conflict
+      // This can happen if a procedure is incorrectly defined in XML
+      if (!Container.class.isAssignableFrom(container.getClass()))
+      {
+        throw new ClassCastException(container.getClass().getName()
+            + " cannot be cast to " + Container.class.getName() + ".");
+      }
     }
   }
 
@@ -197,18 +183,8 @@ public class Process
       // This can happen if a procedure is incorrectly defined in XML
       if (!Procedure.class.isAssignableFrom(procedure.getClass()))
       {
-        // TODO: Throw an exception
-      }
-    }
-  }
-
-  private void verifyContainers()
-  {
-    for (Procedure procedure : procedures)
-    {
-      for (Container container : procedure.getReferencedContainers())
-      {
-        verifyContainer(container);
+        throw new ClassCastException(procedure.getClass().getName()
+            + " cannot be cast to " + Procedure.class.getName() + ".");
       }
     }
   }
@@ -216,8 +192,8 @@ public class Process
   public void run(Device device, ProcessLogger logger)
       throws PositioningException
   {
-    verifyProcedures();
     verifyContainers();
+    verifyProcedures();
 
     ProcessContext context = createContext(device, logger);
 
@@ -247,6 +223,9 @@ public class Process
     process = (Process) jaxbUnmarshaller.unmarshal(file);
 
     process.setFile(file);
+
+    process.verifyContainers();
+    process.verifyProcedures();
 
     return process;
   }

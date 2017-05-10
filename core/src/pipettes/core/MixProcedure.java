@@ -3,8 +3,10 @@ package pipettes.core;
 import java.util.Iterator;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 
@@ -20,6 +22,7 @@ public class MixProcedure extends Procedure
 {
   private ObjectProperty<Container> destination = new SimpleObjectProperty<Container>();
   private DoubleProperty volume = new SimpleDoubleProperty();
+  private IntegerProperty count = new SimpleIntegerProperty();
 
   public String getName()
   {
@@ -67,12 +70,31 @@ public class MixProcedure extends Procedure
   {
     return volume;
   }
+  
+  @XmlAttribute
+  public double getCount()
+  {
+    return count.get();
+  }
 
+  public void setCount(int count)
+  {
+    this.count.set(count);
+  }
+
+  public IntegerProperty countProperty()
+  {
+    return count;
+  }
+
+  public MixProcedure()
+  {
+    setCount(1);
+  }
+  
   private void performRecursively(ProcessContext context, Container destination)
       throws PositioningException
   {
-    Device device = context.getDevice();
-    
     if (destination.hasSubcontainers())
     {
       Iterator<Container> subcontainers = destination.getSubcontainerIterator();
@@ -83,20 +105,27 @@ public class MixProcedure extends Procedure
     }
     else
     {
+      Device device = context.getDevice();
+      ProcessLogger logger = context.getLogger();
       Point2D startLocation = device.getLocation();
       Point2D mixLocation = destination.getDispenseLocation();
       double startToDrawClearance = context.getClearanceHeight(startLocation,
           mixLocation);
+      double volume = getVolume();
 
       device.moveHeight(startToDrawClearance);
+      
       device.move(mixLocation);
       device.moveHeight(destination.getDrawHeight());
-      for (int i = 0; i < 10; i++)
+      
+      for (int i = 0; i < getCount(); i++)
       {
-        device.drawFluid(getVolume() * 0.8);
-        device.dispenseFluid(getVolume() * 0.8);
+        device.drawFluid(volume);
+        logger.logDraw(destination.getName(), volume);
+        
+        device.dispenseFluid(volume);
+        logger.logDispense(destination.getName(), volume);
       }
-      device.dispenseFluid(getVolume() * 0.05);
     }
   }
 
