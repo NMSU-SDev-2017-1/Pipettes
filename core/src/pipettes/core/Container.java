@@ -54,10 +54,18 @@ public class Container extends LibraryItem
   private DoubleProperty drawHeightAboveBottom = new SimpleDoubleProperty();
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
+<<<<<<< HEAD
 
   @XmlElement(name="subcontainer")
   private ObservableList<Container> subcontainers;
 
+=======
+  
+  private boolean full = true; 
+  @XmlElement
+  private ObservableMap<String, Container> subcontainers = FXCollections.observableHashMap();
+  
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   @XmlElement
   public String getLocalName()
   {
@@ -227,6 +235,7 @@ public class Container extends LibraryItem
   }
 
   public void setSizeZ(double z)
+
   {
     sizeZ.set(z);
   }
@@ -348,7 +357,19 @@ public class Container extends LibraryItem
   {
     return getTopHeight() + getClearanceHeightAboveTop();
   }
+<<<<<<< HEAD
 
+=======
+  public boolean getFull()
+  {
+    return full;
+  }
+  public void setFull(boolean isFull)
+  {
+    full = isFull; 
+  }
+  
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   public boolean hasSubcontainers()
   {
     return (subcontainers.size() > 0);
@@ -363,6 +384,7 @@ public class Container extends LibraryItem
   {
     return subcontainers;
   }
+<<<<<<< HEAD
 
   public Container()
   {
@@ -492,5 +514,16 @@ public class Container extends LibraryItem
   public String toString()
   {
     return getLocalName();
+=======
+  public void addSubcontainer(Container containerToAdd) throws IllegalArgumentException
+  {
+      if(!subcontainers.containsKey(containerToAdd.getLocalName())){
+        subcontainers.put(containerToAdd.getLocalName(), 
+            containerToAdd); 
+      }
+      else{
+        throw new IllegalArgumentException("Container Name already in subcontainers");
+      }
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   }
 }

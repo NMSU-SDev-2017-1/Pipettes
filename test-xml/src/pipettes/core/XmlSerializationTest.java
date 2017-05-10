@@ -25,6 +25,7 @@ public class XmlSerializationTest
     Container source = new Container();
     Container destination = new Container();
     Container sample = new Container();
+<<<<<<< HEAD
     
     try
     {
@@ -56,6 +57,42 @@ public class XmlSerializationTest
     {
       e1.printStackTrace();
     }
+=======
+    sample.setLocalName("Beaker 3");
+    sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
+    sample.setSize(new Point3D(10.0, 10.0, 40.0));
+    sample.setShape(ContainerShape.Rectangular);
+    sample.setDrawHeightAboveBottom(6.0);
+    sample.setDispenseHeightAboveTop(7.0);
+    sample.setClearanceHeightAboveTop(7.0);
+
+    Container sampleRack = new Container();
+    sampleRack.setLocalName("Tips container");
+    sampleRack.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
+    sampleRack.setSize(new Point3D(8.85,2.625,1.125));
+    sampleRack.setShape(ContainerShape.Rectangular);
+    sampleRack.setDrawHeightAboveBottom(0.125);
+    sampleRack.setClearanceHeightAboveTop(2.0);
+    
+    double positionX = sampleRack.getSizeX()/32;
+    double positionY = sampleRack.getSizeY()/10;
+    for(int i = 1; i<=80;i++){
+      Container subcontainer = new Container();
+      subcontainer.setLocalName(Integer.toString(i));
+      subcontainer.setLocalPosition(new Point3D(positionX,positionY,0.0));
+      subcontainer.setSize(new Point3D(6.0, 2.0, 0.0));
+      subcontainer.setShape(ContainerShape.Cylindrical);
+      subcontainer.setDrawHeightAboveBottom(0.125);
+      subcontainer.setClearanceHeightAboveTop(2.5);
+      sampleRack.addSubcontainer(subcontainer);
+      positionX = positionX + 2*positionX;
+      if (i%16==0){
+        positionX = sampleRack.getSizeX()/32;
+        positionY = positionY + 2*positionY;
+      }
+    }
+
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
     
     Process process = new Process();
     

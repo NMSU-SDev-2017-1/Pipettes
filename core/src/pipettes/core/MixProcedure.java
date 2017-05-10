@@ -71,6 +71,7 @@ public class MixProcedure extends Procedure
     return volume;
   }
   
+<<<<<<< HEAD
   @XmlAttribute
   public double getCount()
   {
@@ -94,6 +95,10 @@ public class MixProcedure extends Procedure
   
   private void performRecursively(ProcessContext context, Container destination)
       throws PositioningException
+=======
+  private void performRecursively(ProcessContext context,
+      Container destination) throws PositioningException
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   {
     if (destination.hasSubcontainers())
     {
@@ -106,7 +111,10 @@ public class MixProcedure extends Procedure
     else
     {
       Device device = context.getDevice();
+<<<<<<< HEAD
       ProcessLogger logger = context.getLogger();
+=======
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
       Point2D startLocation = device.getLocation();
       Point2D mixLocation = destination.getDispenseLocation();
       double startToDrawClearance = context.getClearanceHeight(startLocation,
@@ -129,7 +137,12 @@ public class MixProcedure extends Procedure
     }
   }
 
+<<<<<<< HEAD
   public void perform(ProcessContext context) throws PositioningException
+=======
+  public void perform(ProcessContext context)
+      throws PositioningException
+>>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   {
     performRecursively(context, getDestination());
   }
