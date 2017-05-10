@@ -852,7 +852,14 @@ public class MainWindowPresenter implements Initializable
               ObservableValue<? extends TreeItem<Container>> observable,
               TreeItem<Container> oldValue, TreeItem<Container> newValue)
           {
-            activeContainer.set(newValue.getValue());
+            if (newValue == null)
+            {
+              activeContainer.set(null);
+            }
+            else
+            {
+              activeContainer.set(newValue.getValue());
+            }
           }
         });
 
