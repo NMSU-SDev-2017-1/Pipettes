@@ -76,63 +76,13 @@ public class ChangeTipProcedure extends Procedure
         return new Container[] { getNewTip() };
       }
     }
-<<<<<<< HEAD
 
     return new Container[] {};
-=======
-    
-    return new Container[] { };
-  }  
-  
-  private void performChange(ProcessContext context, Container tipDisposal, 
-      Container newTip) throws PositioningException
-  {
-      Device device = context.getDevice();
-      Point2D startLocation = device.getLocation();
-      Point2D disposalLocation = tipDisposal.getDispenseLocation();
-      if (newTip.hasSubcontainers()){
-        Iterator<Container> subcontainers = newTip.getSubcontainerIterator();
-        boolean full = false;
-        while (!full){
-          newTip = subcontainers.next();
-          full = newTip.getFull();
-          if (!subcontainers.hasNext())
-          {
-            throw new IllegalArgumentException("newTip Container is empty");
-          }
-        }          
-      }
-      else
-        throw new IllegalArgumentException("newTip container has no subcontainers");
-     
-      Point2D newTipLocation = newTip.getDrawLocation();
-      double startToDisposeClearance = context.getClearanceHeight(startLocation,
-          disposalLocation);
-      Point2D knockOffLocation = new Point2D((tipDisposal.getLocalPositionX() + 
-          tipDisposal.getSizeX()+1),tipDisposal.getLocalPositionY());
-      double disposeToNewTipClearance = context.getClearanceHeight(disposalLocation,
-          newTipLocation);
-      
-      device.moveHeight(startToDisposeClearance);
-      device.move(disposalLocation);
-      device.moveHeight(tipDisposal.getDispenseHeight());
-      device.move(knockOffLocation);
-      device.moveHeight(disposeToNewTipClearance);
-      device.move(newTipLocation);
-      device.moveHeight(newTip.getDispenseHeight());   
-   
->>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   }
 
-<<<<<<< HEAD
   private void performChange(ProcessContext context, Container tipDisposal,
       Container newTip) throws PositioningException
-=======
-  public void perform(ProcessContext context)
-      throws PositioningException
->>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   {
-<<<<<<< HEAD
     Device device = context.getDevice();
     ProcessLogger logger = context.getLogger();
     Point2D startLocation = device.getLocation();
@@ -166,10 +116,5 @@ public class ChangeTipProcedure extends Procedure
   public void perform(ProcessContext context) throws PositioningException
   {
     performChange(context, getTipDisposal(), getNewTip());
-=======
-    performChange(context, getTipDisposal(),getNewTip());
->>>>>>> branch 'master' of https://github.com/NMSU-SDev-2017-1/Pipettes
   }
-
-  
 }
