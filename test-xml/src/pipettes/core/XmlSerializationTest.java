@@ -26,36 +26,29 @@ public class XmlSerializationTest
     Container destination = new Container();
     Container sample = new Container();
     
-    try
-    {
-      source.setLocalName("Beaker 1");
-      source.setLocalPosition(new Point3D(-70.0, -50.0, 0.0));
-      source.setSize(new Point3D(10.0, 10.0, 60.0));
-      source.setShape(ContainerShape.Cylindrical);
-      source.setDrawHeightAboveBottom(4.0);
-      source.setDispenseHeightAboveTop(5.0);
-      source.setClearanceHeightAboveTop(5.0);
-      
-      destination.setLocalName("Beaker 2");
-      destination.setLocalPosition(new Point3D(60.0, 40.0, 0.0));
-      destination.setSize(new Point3D(10.0, 10.0, 40.0));
-      destination.setShape(ContainerShape.Cylindrical);
-      destination.setDrawHeightAboveBottom(5.0);
-      destination.setDispenseHeightAboveTop(10.0);
-      destination.setClearanceHeightAboveTop(10.0);
+    source.setLocalName("Beaker 1");
+    source.setLocalPosition(new Point3D(-70.0, -50.0, 0.0));
+    source.setSize(new Point3D(10.0, 10.0, 60.0));
+    source.setShape(ContainerShape.Cylindrical);
+    source.setDrawHeightAboveBottom(4.0);
+    source.setDispenseHeightAboveTop(5.0);
+    source.setClearanceHeightAboveTop(5.0);
+    
+    destination.setLocalName("Beaker 2");
+    destination.setLocalPosition(new Point3D(60.0, 40.0, 0.0));
+    destination.setSize(new Point3D(10.0, 10.0, 40.0));
+    destination.setShape(ContainerShape.Cylindrical);
+    destination.setDrawHeightAboveBottom(5.0);
+    destination.setDispenseHeightAboveTop(10.0);
+    destination.setClearanceHeightAboveTop(10.0);
 
-      sample.setLocalName("Beaker 3");
-      sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
-      sample.setSize(new Point3D(10.0, 10.0, 40.0));
-      sample.setShape(ContainerShape.Rectangular);
-      sample.setDrawHeightAboveBottom(6.0);
-      sample.setDispenseHeightAboveTop(7.0);
-      sample.setClearanceHeightAboveTop(7.0);
-    }
-    catch (NameConflictException e1)
-    {
-      e1.printStackTrace();
-    }
+    sample.setLocalName("Beaker 3");
+    sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
+    sample.setSize(new Point3D(10.0, 10.0, 40.0));
+    sample.setShape(ContainerShape.Rectangular);
+    sample.setDrawHeightAboveBottom(6.0);
+    sample.setDispenseHeightAboveTop(7.0);
+    sample.setClearanceHeightAboveTop(7.0);
     
     Process process = new Process();
     
@@ -63,25 +56,25 @@ public class XmlSerializationTest
     procedure1.setSource(source);
     procedure1.setDestination(destination);
     procedure1.setVolume(10.0);
-    process.addProcedure(procedure1);
+    process.getProcedures().add(procedure1);
     
     DispenseProcedure procedure2 = new DispenseProcedure();
     procedure2.setSource(source);
     procedure2.setDestination(destination);
     procedure2.setVolume(10.0);
-    process.addProcedure(procedure2);
+    process.getProcedures().add(procedure2);
 
     DispenseProcedure procedure3 = new DispenseProcedure();
     procedure3.setSource(source);
     procedure3.setDestination(destination);
     procedure3.setVolume(10.0);
-    process.addProcedure(procedure3);
+    process.getProcedures().add(procedure3);
     
     DispenseProcedure procedure4 = new DispenseProcedure();
     procedure4.setSource(destination);
     procedure4.setDestination(sample);
     procedure4.setVolume(5.0);
-    process.addProcedure(procedure4);
+    process.getProcedures().add(procedure4);
     
     CylindricalGCodeDevice deviceCylindrical = new CylindricalGCodeDevice();
     deviceCylindrical.setName("SeeMeCNC Rostock MAX v2");
