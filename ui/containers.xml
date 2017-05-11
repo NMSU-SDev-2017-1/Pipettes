@@ -1,4 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <library>
-    <items/>
+    <items>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker 50ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker 50ml</name>
+            <shape>Cylindrical</shape>
+            <size x="40.0" y="40.0" z="60.0"/>
+        </container>
+        <container>
+            <subcontainer>
+                <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
+                <localName>Microtube 2ml 1</localName>
+                <localPosition x="-60.0" y="0.0" z="5.0"/>
+                <name>Microtube Rack 1x5 2ml/Microtube 2ml 1</name>
+                <shape>Cylindrical</shape>
+                <size x="11.0" y="11.0" z="44.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
+                <localName>Microtube 2ml 2</localName>
+                <localPosition x="-30.0" y="0.0" z="5.0"/>
+                <name>Microtube Rack 1x5 2ml/Microtube 2ml 2</name>
+                <shape>Cylindrical</shape>
+                <size x="11.0" y="11.0" z="44.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
+                <localName>Microtube 2ml 3</localName>
+                <localPosition x="0.0" y="0.0" z="5.0"/>
+                <name>Microtube Rack 1x5 2ml/Microtube 2ml 3</name>
+                <shape>Cylindrical</shape>
+                <size x="11.0" y="11.0" z="44.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
+                <localName>Microtube 2ml 4</localName>
+                <localPosition x="30.0" y="0.0" z="5.0"/>
+                <name>Microtube Rack 1x5 2ml/Microtube 2ml 4</name>
+                <shape>Cylindrical</shape>
+                <size x="11.0" y="11.0" z="44.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
+                <localName>Microtube 2ml 5</localName>
+                <localPosition x="60.0" y="0.0" z="5.0"/>
+                <name>Microtube Rack 1x5 2ml/Microtube 2ml 5</name>
+                <shape>Cylindrical</shape>
+                <size x="11.0" y="11.0" z="44.0"/>
+            </subcontainer>
+            <clearanceHeightAboveTop>0.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>0.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>0.0</drawHeightAboveBottom>
+            <localName>Microtube Rack 1x5 2ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Microtube Rack 1x5 2ml</name>
+            <shape>Rectangular</shape>
+            <size x="88.0" y="15.0" z="24.0"/>
+        </container>
+    </items>
 </library>
