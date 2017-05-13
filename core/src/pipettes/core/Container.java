@@ -55,7 +55,7 @@ public class Container extends LibraryItem
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
 
-  @XmlElement(name="subcontainer")
+  @XmlElement(name = "subcontainer")
   private ObservableList<Container> subcontainers;
 
   @XmlElement
@@ -379,7 +379,7 @@ public class Container extends LibraryItem
             container.getSubcontainers() });
 
     initializeSubcontainerListeners();
-    
+
     localName.addListener(new ChangeListener<String>()
     {
       @Override
@@ -406,7 +406,7 @@ public class Container extends LibraryItem
   private void initializeSubcontainerListeners()
   {
     Container thisContainer = this;
-    
+
     subcontainers.addListener(new ListChangeListener<Container>()
     {
       @Override
@@ -423,7 +423,7 @@ public class Container extends LibraryItem
       }
     });
   }
-  
+
   public Container clone()
   {
     Container newContainer = new Container();
@@ -443,31 +443,31 @@ public class Container extends LibraryItem
 
     return newContainer;
   }
-  
+
   public boolean isAtOrAbove(Container container)
   {
     if (this == container)
     {
       return true;
     }
-    
+
     if (container.parent == null)
     {
       return false;
     }
-    
+
     return isAtOrAbove(container.parent);
   }
 
   public String getAvailableSubcontainerName(String prefix)
   {
     String result = Common.removeTrailingInteger(prefix);
-    
+
     if (result.length() == 0)
     {
       result = prefix;
     }
-    
+
     boolean collision;
     int number = 0;
 
@@ -477,7 +477,8 @@ public class Container extends LibraryItem
 
       for (Container container : subcontainers)
       {
-        if (container.getLocalName().equals(Common.appendInteger(result, number)))
+        if (container.getLocalName().equals(
+            Common.appendInteger(result, number)))
         {
           number++;
           collision = true;

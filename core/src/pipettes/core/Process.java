@@ -159,10 +159,10 @@ public class Process
         }
       }
     }
-    
+
     return false;
   }
-  
+
   private void verifyContainers()
   {
     for (Object container : baseContainers)

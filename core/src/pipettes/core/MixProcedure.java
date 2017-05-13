@@ -28,7 +28,7 @@ public class MixProcedure extends Procedure
   {
     return "Mix";
   }
-  
+
   @XmlIDREF
   @XmlAttribute
   public Container getDestination()
@@ -70,7 +70,7 @@ public class MixProcedure extends Procedure
   {
     return volume;
   }
-  
+
   @XmlAttribute
   public double getCount()
   {
@@ -91,7 +91,7 @@ public class MixProcedure extends Procedure
   {
     setCount(1);
   }
-  
+
   private void performRecursively(ProcessContext context, Container destination)
       throws PositioningException
   {
@@ -114,15 +114,15 @@ public class MixProcedure extends Procedure
       double volume = getVolume();
 
       device.moveHeight(startToDrawClearance);
-      
+
       device.move(mixLocation);
       device.moveHeight(destination.getDrawHeight());
-      
+
       for (int i = 0; i < getCount(); i++)
       {
         device.drawFluid(volume);
         logger.logDraw(destination.getName(), volume);
-        
+
         device.dispenseFluid(volume);
         logger.logDispense(destination.getName(), volume);
       }

@@ -46,7 +46,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.7407407407407407" prefHeight="722.0" prefWidth="723.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.5" prefHeight="722.0" prefWidth="723.0" VBox.vgrow="ALWAYS">
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -408,11 +408,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Label alignment="CENTER" layoutX="294.0" layoutY="324.0" prefHeight="20.0" prefWidth="219.0" text="Display Area">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <BorderPane fx:id="previewBorderPane" prefHeight="200.0" prefWidth="200.0" />
          </items>
       </SplitPane>
    </children>

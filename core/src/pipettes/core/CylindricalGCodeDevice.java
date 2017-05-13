@@ -33,7 +33,7 @@ public class CylindricalGCodeDevice extends GCodeDevice
   {
     radius.set(r);
   }
-  
+
   public DoubleProperty radiusProperty()
   {
     return radius;
@@ -49,7 +49,7 @@ public class CylindricalGCodeDevice extends GCodeDevice
   {
     minimumZ.set(z);
   }
-  
+
   public DoubleProperty minimumZProperty()
   {
     return minimumZ;
@@ -65,12 +65,12 @@ public class CylindricalGCodeDevice extends GCodeDevice
   {
     maximumZ.set(z);
   }
-  
+
   public DoubleProperty maximumZProperty()
   {
     return maximumZ;
   }
-  
+
   @Override
   public Point3D getHomePosition()
   {
