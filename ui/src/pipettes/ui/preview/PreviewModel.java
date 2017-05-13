@@ -31,16 +31,19 @@
  */
 package pipettes.ui.preview;
 
+import pipettes.core.CylindricalGCodeDevice;
+import pipettes.core.Device;
+import pipettes.core.RectangularGCodeDevice;
 import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.input.KeyEvent;
@@ -59,18 +62,19 @@ import javafx.scene.transform.Translate;
 
 public class PreviewModel
 {
-  private final double CAMERA_CLIP_NEAR = 1;
-  private final double CAMERA_CLIP_FAR = 10000;
-  private final double CAMERA_ANGLE = 45;
-  private final double CAMERA_DISTANCE = 2000;
+  private final double cameraClipNear = 1;
+  private final double cameraClipFar = 10000;
+  private final double cameraResetAngle = 45;
+  private final double cameraResetDistance = 500;
 
-  private final double AXIS_LENGTH = 1000;
-  private final double AXIS_WIDTH = 0.2;
-  private final double AXIS_RADIUS = 2.0;
+  private final double axisLength = 1000;
+  private final double axisWidth = 0.2;
+  private final double axisSphereRadius = 2.0;
 
-  private final double PLATE_THICKNESS = 1;
-  private final double PRINT_HEAD_RADIUS = 5;
-  private final double PRINT_HEAD_HEIGHT = 50;
+  private final double deviceAreaOpacity = 0.05;
+
+  private final double printHeadWidth = 2.5;
+  private final double printHeadHeight = 25;
 
   private final PhongMaterial redMaterial = createMaterial(Color.DARKRED,
       Color.RED);
@@ -78,31 +82,45 @@ public class PreviewModel
       Color.GREEN);
   private final PhongMaterial blueMaterial = createMaterial(Color.DARKBLUE,
       Color.BLUE);
-  private final PhongMaterial plateMaterial = createMaterial(Color.WHEAT,
-      Color.WHEAT, 10d);
+  private final PhongMaterial deviceAreaMaterial = createMaterial(createColor(
+      Color.CADETBLUE, deviceAreaOpacity));
   private final PhongMaterial printHeadMaterial = createMaterial(Color.YELLOW,
       Color.YELLOW);
 
-  private final SimpleObjectProperty<SubScene> subScene = new SimpleObjectProperty<>();
-  private final Group sceneGroup = new Group();
+  private final Rotate rotateX180 = new Rotate(180, 0, 0, 0, Rotate.X_AXIS);
+  private final Rotate rotateX90 = new Rotate(90, 0, 0, 0, Rotate.X_AXIS);
 
-  private final PerspectiveCamera camera = new PerspectiveCamera(true);
-  private final Translate cameraPosition = new Translate(0, 0, 0);
-  private final Translate contentTranslate = new Translate(0, 0, 0);
-  private final Xform cameraRotate = new Xform();
-  private final Xform cameraTranslate = new Xform();
+  private SimpleObjectProperty<SubScene> subScene = new SimpleObjectProperty<>();
+  private Group sceneGroup = new Group();
+
+  private PerspectiveCamera camera = new PerspectiveCamera(true);
+  private Translate cameraPosition = new Translate(0, 0, 0);
+  private Xform cameraRotate = new Xform();
+  private Xform cameraTranslate = new Xform();
+
+  private Translate deviceAreaTranslate = new Translate(0, 0, 0);
+  private Translate contentTranslate = new Translate(0, 0, 0);
 
   private ObjectProperty<Node> content = new SimpleObjectProperty<>();
   private ObjectProperty<Node> highlite = new SimpleObjectProperty<>();
   private AutoScalingGroup autoScalingGroup = new AutoScalingGroup(2);
-  private Group axisGroup, plateView;
-  private Group printHeadView;
-  private Sphere xSphere, ySphere, zSphere;
-  private Box xAxis, yAxis, zAxis, plate;
-  private Cylinder printHead;
+  private Group axisGroup;
+  private Group deviceAreaGroup;
+  private Group printHeadGroup;
+  private Sphere xSphere;
+  private Sphere ySphere;
+  private Sphere zSphere;
+  private Box xAxis;
+  private Box yAxis;
+  private Box zAxis;
+  private Box deviceAreaRectangular;
+  private Cylinder deviceAreaCylindrical;
+  private Box printHead;
   private AmbientLight ambientLight = new AmbientLight(Color.DARKGREY);
-  private PointLight pointLight = new PointLight(Color.LIGHTGRAY);
   private SimpleObjectProperty<Timeline> timeline = new SimpleObjectProperty<>();
+
+  private RectangularGCodeDevice deviceRectangular;
+  private CylindricalGCodeDevice deviceCylindrical;
 
   private double mousePosX;
   private double mousePosY;
@@ -110,7 +128,8 @@ public class PreviewModel
   private double mouseOldY;
   private double mouseDeltaX;
   private double mouseDeltaY;
-  Node picked = null;
+
+  private Node picked = null;
 
   public Timeline getTimeline()
   {
@@ -125,11 +144,6 @@ public class PreviewModel
   public void setTimeline(Timeline timeline)
   {
     this.timeline.set(timeline);
-  }
-
-  public AutoScalingGroup getAutoScalingGroup()
-  {
-    return autoScalingGroup;
   }
 
   public ObjectProperty<Node> contentProperty()
@@ -172,31 +186,6 @@ public class PreviewModel
     return subScene;
   }
 
-  public PerspectiveCamera getCamera()
-  {
-    return camera;
-  }
-
-  public Translate getCameraPosition()
-  {
-    return cameraPosition;
-  }
-
-  public Xform getCameraRotate()
-  {
-    return cameraRotate;
-  }
-
-  public Xform getCameraTranslate()
-  {
-    return cameraTranslate;
-  }
-
-  public Group getPrintHeadView()
-  {
-    return printHeadView;
-  }
-
   public PreviewModel()
   {
     content.addListener((ObservableValue<? extends Node> ov, Node oldContent,
@@ -207,16 +196,156 @@ public class PreviewModel
       newContent.getTransforms().add(contentTranslate);
     });
 
+    initializeLights();
     initializeCamera();
 
     sceneGroup.getChildren().add(autoScalingGroup);
 
-    sceneGroup.getChildren().add(ambientLight);
-    sceneGroup.getChildren().add(pointLight);
-
     createFeatures();
 
     rebuildSubScene();
+  }
+
+  private ChangeListener<Number> rectangularDevicelistener = new ChangeListener<Number>()
+  {
+    @Override
+    public void changed(ObservableValue<? extends Number> observable,
+        Number oldValue, Number newValue)
+    {
+      onDeviceAreaRectangularResize();
+    }
+  };
+
+  public void rebindRectangularDevice(RectangularGCodeDevice device)
+  {
+    RectangularGCodeDevice last = deviceRectangular;
+
+    if (last != null)
+    {
+      last.minimumExtentXProperty().removeListener(rectangularDevicelistener);
+      last.minimumExtentYProperty().removeListener(rectangularDevicelistener);
+      last.minimumExtentZProperty().removeListener(rectangularDevicelistener);
+      last.maximumExtentXProperty().removeListener(rectangularDevicelistener);
+      last.maximumExtentYProperty().removeListener(rectangularDevicelistener);
+      last.maximumExtentZProperty().removeListener(rectangularDevicelistener);
+    }
+
+    deviceRectangular = device;
+    
+    if (device != null)
+    {
+      device.minimumExtentXProperty().addListener(rectangularDevicelistener);
+      device.minimumExtentYProperty().addListener(rectangularDevicelistener);
+      device.minimumExtentZProperty().addListener(rectangularDevicelistener);
+      device.maximumExtentXProperty().addListener(rectangularDevicelistener);
+      device.maximumExtentYProperty().addListener(rectangularDevicelistener);
+      device.maximumExtentZProperty().addListener(rectangularDevicelistener);
+
+      onDeviceAreaRectangularResize();
+    }
+
+    deviceAreaRectangular.setVisible(device != null);
+  }
+
+  private ChangeListener<Number> cylindricalDevicelistener = new ChangeListener<Number>()
+  {
+    @Override
+    public void changed(ObservableValue<? extends Number> observable,
+        Number oldValue, Number newValue)
+    {
+      onDeviceAreaCylindricalResize();
+    }
+  };
+
+  public void rebindCylindricalDevice(CylindricalGCodeDevice device)
+  {
+    CylindricalGCodeDevice last = deviceCylindrical;
+
+    if (last != null)
+    {
+      last.radiusProperty().removeListener(cylindricalDevicelistener);
+      last.minimumZProperty().removeListener(cylindricalDevicelistener);
+      last.maximumZProperty().removeListener(cylindricalDevicelistener);
+    }
+    
+    deviceCylindrical = device;
+
+    if (device != null)
+    {
+      device.radiusProperty().addListener(cylindricalDevicelistener);
+      device.minimumZProperty().addListener(cylindricalDevicelistener);
+      device.maximumZProperty().addListener(cylindricalDevicelistener);
+
+      onDeviceAreaCylindricalResize();
+    }
+
+    deviceAreaCylindrical.setVisible(device != null);
+  }
+
+  public void setDevice(Device device)
+  {
+    if (device == null)
+    {
+      rebindRectangularDevice(null);
+      rebindCylindricalDevice(null);
+    }
+    else if (device instanceof RectangularGCodeDevice)
+    {
+      rebindRectangularDevice((RectangularGCodeDevice) device);
+      rebindCylindricalDevice(null);
+    }
+    else if (device instanceof CylindricalGCodeDevice)
+    {
+      rebindRectangularDevice(null);
+      rebindCylindricalDevice((CylindricalGCodeDevice) device);
+    }
+  }
+
+  private void positionDeviceAreaBox(Box box, double minX, double minY,
+      double minZ, double maxX, double maxY, double maxZ)
+  {
+    double width = maxX - minX;
+    double height = maxZ - minZ;
+    double depth = maxY - minY;
+
+    box.setWidth(width);
+    box.setDepth(height);
+    box.setHeight(depth);
+
+    deviceAreaTranslate.setX(minX + (width * 0.5));
+    deviceAreaTranslate.setY(minY + (depth * 0.5));
+    deviceAreaTranslate.setZ(minZ + (height * 0.5));
+  }
+
+  private void onDeviceAreaRectangularResize()
+  {
+    positionDeviceAreaBox(deviceAreaRectangular,
+        deviceRectangular.getMinimumExtentX(),
+        deviceRectangular.getMinimumExtentY(),
+        deviceRectangular.getMinimumExtentZ(),
+        deviceRectangular.getMaximumExtentX(),
+        deviceRectangular.getMaximumExtentY(),
+        deviceRectangular.getMaximumExtentZ());
+  }
+
+  private void positionDeviceAreaCylinder(Cylinder cylinder, double radius,
+      double minZ, double maxZ)
+  {
+    double height = maxZ - minZ;
+
+    cylinder.setRadius(radius);
+    cylinder.setHeight(height);
+
+    deviceAreaTranslate.setX(0);
+    deviceAreaTranslate.setY(0);
+    deviceAreaTranslate.setZ(minZ + (height * 0.5));
+  }
+
+  private void onDeviceAreaCylindricalResize()
+  {
+    positionDeviceAreaCylinder(deviceAreaCylindrical,
+        deviceCylindrical.getRadius(), deviceCylindrical.getMinimumZ(),
+        deviceCylindrical.getMaximumZ());
   }
 
   private final EventHandler<MouseEvent> mouseEventHandler = event ->
@@ -468,14 +597,16 @@ public class PreviewModel
     }
   };
 
-  public void initializeCamera()
+  private void initializeLights()
   {
-    camera.setNearClip(CAMERA_CLIP_NEAR);
-    camera.setFarClip(CAMERA_CLIP_FAR);
+    sceneGroup.getChildren().add(ambientLight);
+  }
 
-    Rotate yUpRotate = new Rotate(180, 0, 0, 0, Rotate.X_AXIS);
-
-    camera.getTransforms().addAll(yUpRotate, cameraPosition);
+  private void initializeCamera()
+  {
+    camera.setNearClip(cameraClipNear);
+    camera.setFarClip(cameraClipFar);
+    camera.getTransforms().addAll(rotateX180, cameraPosition);
 
     cameraRotate.getChildren().add(cameraTranslate);
     cameraTranslate.getChildren().add(camera);
@@ -487,11 +618,11 @@ public class PreviewModel
 
   public void resetCamera()
   {
-    cameraRotate.rx.setAngle(CAMERA_ANGLE);
+    cameraRotate.rx.setAngle(cameraResetAngle);
     cameraRotate.ry.setAngle(0);
     cameraRotate.rz.setAngle(0);
 
-    cameraPosition.setZ(-CAMERA_DISTANCE);
+    cameraPosition.setZ(-cameraResetDistance);
 
     cameraTranslate.t.setX(0);
     cameraTranslate.t.setY(0);
@@ -544,6 +675,18 @@ public class PreviewModel
     }
   }
 
+  private Color createColor(Color color, double opacity)
+  {
+    return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
+  }
+
+  private PhongMaterial createMaterial(Color diffuse)
+  {
+    final PhongMaterial material = new PhongMaterial();
+    material.setDiffuseColor(diffuse);
+    return material;
+  }
+
   private PhongMaterial createMaterial(Color diffuse, Color specular)
   {
     final PhongMaterial material = new PhongMaterial();
@@ -562,60 +705,64 @@ public class PreviewModel
 
   private void createFeatures()
   {
-    xSphere = new Sphere(AXIS_RADIUS);
-    ySphere = new Sphere(AXIS_RADIUS);
-    zSphere = new Sphere(AXIS_RADIUS);
+    xSphere = new Sphere(axisSphereRadius);
+    ySphere = new Sphere(axisSphereRadius);
+    zSphere = new Sphere(axisSphereRadius);
 
-    xSphere.setTranslateX(AXIS_LENGTH);
+    xSphere.setTranslateX(axisLength);
     xSphere.setMaterial(redMaterial);
 
-    ySphere.setTranslateY(AXIS_LENGTH);
+    ySphere.setTranslateY(axisLength);
     ySphere.setMaterial(greenMaterial);
 
-    zSphere.setTranslateZ(AXIS_LENGTH);
+    zSphere.setTranslateZ(axisLength);
     zSphere.setMaterial(blueMaterial);
 
-    xAxis = new Box(1, AXIS_WIDTH, AXIS_WIDTH);
-    yAxis = new Box(AXIS_WIDTH, 1, AXIS_WIDTH);
-    zAxis = new Box(AXIS_WIDTH, AXIS_WIDTH, 1);
+    xAxis = new Box(1, axisWidth, axisWidth);
+    yAxis = new Box(axisWidth, 1, axisWidth);
+    zAxis = new Box(axisWidth, axisWidth, 1);
 
-    xAxis.setScaleX(AXIS_LENGTH);
-    xAxis.setTranslateX(AXIS_LENGTH * 0.5);
+    xAxis.setScaleX(axisLength);
+    xAxis.setTranslateX(axisLength * 0.5);
     xAxis.setMaterial(redMaterial);
 
-    yAxis.setScaleY(AXIS_LENGTH);
-    yAxis.setTranslateY(AXIS_LENGTH * 0.5);
+    yAxis.setScaleY(axisLength);
+    yAxis.setTranslateY(axisLength * 0.5);
     yAxis.setMaterial(greenMaterial);
 
-    zAxis.setScaleZ(AXIS_LENGTH);
-    zAxis.setTranslateZ(AXIS_LENGTH * 0.5);
+    zAxis.setScaleZ(axisLength);
+    zAxis.setTranslateZ(axisLength * 0.5);
     zAxis.setMaterial(blueMaterial);
 
-    plate = new Box(1, 1, PLATE_THICKNESS);
-    plate.setMaterial(plateMaterial);
-    plate.setTranslateZ(-PLATE_THICKNESS * 0.5);
-    plate.setScaleX(AXIS_LENGTH);
-    plate.setScaleY(AXIS_LENGTH);
-    plate.setTranslateX(AXIS_LENGTH * 0.5);
-    plate.setTranslateY(AXIS_LENGTH * 0.5);
+    deviceAreaRectangular = new Box();
+    deviceAreaRectangular.setMaterial(deviceAreaMaterial);
+    deviceAreaRectangular.setOpacity(deviceAreaOpacity);
 
-    printHead = new Cylinder(PRINT_HEAD_RADIUS, PRINT_HEAD_HEIGHT);
+    deviceAreaCylindrical = new Cylinder();
+    deviceAreaCylindrical.setMaterial(deviceAreaMaterial);
+    deviceAreaCylindrical.setOpacity(deviceAreaOpacity);
+    deviceAreaCylindrical.getTransforms().add(rotateX90);
+
+    printHead = new Box(printHeadWidth, printHeadWidth, printHeadHeight);
     printHead.setMaterial(printHeadMaterial);
-    printHead.setTranslateZ(-PRINT_HEAD_HEIGHT / 2);
+    printHead.setTranslateZ(printHeadHeight * 0.5);
 
     axisGroup = new Group();
     axisGroup.getChildren().addAll(xSphere, xAxis, ySphere, yAxis, zSphere,
         zAxis);
     axisGroup.getTransforms().add(contentTranslate);
 
-    plateView = new Group();
-    plateView.getChildren().add(plate);
-    plateView.getTransforms().add(contentTranslate);
+    deviceAreaGroup = new Group();
+    deviceAreaGroup.getChildren().addAll(deviceAreaRectangular,
+        deviceAreaCylindrical);
+    deviceAreaGroup.getTransforms().addAll(deviceAreaTranslate,
+        contentTranslate);
 
-    printHeadView = new Group();
-    printHeadView.getChildren().add(printHead);
-    printHeadView.getTransforms().add(contentTranslate);
+    printHeadGroup = new Group();
+    printHeadGroup.getChildren().add(printHead);
+    printHeadGroup.getTransforms().add(contentTranslate);
 
-    autoScalingGroup.getChildren().addAll(axisGroup, plateView, printHeadView);
+    autoScalingGroup.getChildren().addAll(axisGroup, printHeadGroup,
+        deviceAreaGroup);
   }
 }

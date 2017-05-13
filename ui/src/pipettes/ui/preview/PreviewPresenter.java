@@ -5,10 +5,8 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
-import pipettes.core.CylindricalGCodeDevice;
 import pipettes.core.Device;
 import pipettes.core.Process;
-import pipettes.core.RectangularGCodeDevice;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -105,20 +103,7 @@ public class PreviewPresenter implements Initializable
 
   private void onActiveDevice()
   {
-    Device device = activeDevice.get();
-
-    if (device == null)
-    {
-      // TODO: Implement
-    }
-    else if (device instanceof RectangularGCodeDevice)
-    {
-      // rebindActiveDeviceRectangularControls((RectangularGCodeDevice) device);
-    }
-    else if (device instanceof CylindricalGCodeDevice)
-    {
-      // rebindActiveDeviceCylindricalControls((CylindricalGCodeDevice) device);
-    }
+    model.setDevice(activeDevice.get());
   }
 
   private void onActiveProcess()

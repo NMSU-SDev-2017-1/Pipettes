@@ -1429,7 +1429,7 @@ public class MainWindowPresenter implements Initializable
 
     fileChooser.setTitle("Export G-Code");
     fileChooser.getExtensionFilters().addAll(extensionGCode, extensionAll);
-    fileChooser.setInitialFileName(exportFileName);
+    fileChooser.setInitialFileName(exportFileName + ".gcode");
 
     File outputFile = fileChooser.showSaveDialog(getWindow());
 

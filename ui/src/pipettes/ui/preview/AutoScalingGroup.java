@@ -152,9 +152,9 @@ public class AutoScalingGroup extends Group
       final double h = maxY - minY;
       final double d = maxZ - minZ;
 
-      final double centerX = minX + (w / 2);
-      final double centerY = minY + (h / 2);
-      final double centerZ = minZ + (d / 2);
+      final double centerX = minX + (w * 0.5);
+      final double centerY = minY + (h * 0.5);
+      final double centerZ = minZ + (d * 0.5);
 
       double scaleX = twoSize / w;
       double scaleY = twoSize / h;

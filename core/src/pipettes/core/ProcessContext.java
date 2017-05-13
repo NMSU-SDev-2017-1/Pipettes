@@ -51,10 +51,10 @@ public class ProcessContext
       Point2D toLocation)
   {
     // Calculate extents of container
-    double minX = container.getLocalPositionX() - (container.getSizeX() / 2);
-    double maxX = container.getLocalPositionX() + (container.getSizeX() / 2);
-    double minY = container.getLocalPositionY() - (container.getSizeY() / 2);
-    double maxY = container.getLocalPositionY() + (container.getSizeY() / 2);
+    double minX = container.getLocalPositionX() - (container.getSizeX() * 0.5);
+    double maxX = container.getLocalPositionX() + (container.getSizeX() * 0.5);
+    double minY = container.getLocalPositionY() - (container.getSizeY() * 0.5);
+    double maxY = container.getLocalPositionY() + (container.getSizeY() * 0.5);
 
     // Create corners of container
     Point2D corner1 = new Point2D(minX, maxY);
