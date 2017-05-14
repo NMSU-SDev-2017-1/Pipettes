@@ -22,19 +22,19 @@ public class App extends Application
 {
   private Library<Device> deviceLibrary;
   private Library<Container> containerLibrary;
-  
+
   @Override
   public void start(Stage stage) throws Exception
   {
     deviceLibrary = new Library<Device>("devices.xml");
     containerLibrary = new Library<Container>("containers.xml");
-    
+
     Map<Object, Object> customProperties = new HashMap<>();
 
     Injector.setConfigurationSource(customProperties::get);
 
     customProperties.put("scene", deviceLibrary);
-    
+
     customProperties.put("deviceLibrary", deviceLibrary);
     customProperties.put("containerLibrary", containerLibrary);
 
@@ -46,7 +46,7 @@ public class App extends Application
 
     ObjectProperty<Container> activeLibraryContainer = new SimpleObjectProperty<Container>();
     customProperties.put("activeLibraryContainer", activeLibraryContainer);
-    
+
     ObjectProperty<Container> activeContainer = new SimpleObjectProperty<Container>();
     customProperties.put("activeContainer", activeContainer);
 
@@ -54,7 +54,7 @@ public class App extends Application
     customProperties.put("activeProcedure", activeProcedure);
 
     activeProcess.set(new Process());
-    
+
     MainWindowView appView = new MainWindowView();
     Scene scene = new Scene(appView.getView());
     stage.setScene(scene);
@@ -66,7 +66,7 @@ public class App extends Application
   {
     deviceLibrary.save();
     containerLibrary.save();
-    
+
     Injector.forgetAll();
   }
 

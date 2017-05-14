@@ -17,11 +17,11 @@ import javafx.geometry.Point3D;
 public abstract class Device extends LibraryItem
 {
   public static final String prefix = "Device";
-  
-  private StringProperty name =  new SimpleStringProperty();
+
+  private StringProperty name = new SimpleStringProperty();
 
   private Library<LibraryItem> library;
-  
+
   @XmlElement
   public String getName()
   {
@@ -32,22 +32,22 @@ public abstract class Device extends LibraryItem
   {
     this.name.set(name);
   }
-  
+
   public StringProperty nameProperty()
   {
     return name;
   }
-  
+
   public String getLibraryName()
   {
     return getName();
   }
-  
+
   public void setLibraryName(String name)
   {
     setName(name);
   }
-  
+
   public StringProperty libraryNameProperty()
   {
     return nameProperty();
@@ -59,14 +59,14 @@ public abstract class Device extends LibraryItem
   {
     this.library = (Library<LibraryItem>) library;
   }
-  
+
   public Device()
   {
     name.addListener(new ChangeListener<String>()
     {
       @Override
-      public void changed(ObservableValue<? extends String> observable, String oldValue,
-          String newValue)
+      public void changed(ObservableValue<? extends String> observable,
+          String oldValue, String newValue)
       {
         if (library != null)
         {
@@ -78,9 +78,9 @@ public abstract class Device extends LibraryItem
       }
     });
   }
-  
+
   public abstract DeviceType getType();
-  
+
   public abstract void beginProcess(PrintStream output);
 
   public abstract void endProcess();
@@ -100,7 +100,7 @@ public abstract class Device extends LibraryItem
   public abstract void move(Point3D position) throws PositioningException;
 
   // TODO: Define maximum draw/dispense volume
-  
+
   public abstract void drawFluid(double volume);
 
   public abstract void dispenseFluid(double volume);

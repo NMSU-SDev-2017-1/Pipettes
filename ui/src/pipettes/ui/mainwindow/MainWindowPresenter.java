@@ -21,6 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -30,7 +31,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -56,6 +59,7 @@ import pipettes.core.Process;
 import pipettes.core.Processor;
 import pipettes.core.RectangularGCodeDevice;
 import pipettes.ui.RecursiveTreeItem;
+import pipettes.ui.preview.PreviewView;
 
 public class MainWindowPresenter implements Initializable
 {
@@ -319,6 +323,9 @@ public class MainWindowPresenter implements Initializable
 
   @FXML
   private TextField containerPositionXTextField;
+
+  @FXML
+  private BorderPane previewBorderPane;
 
   @Inject
   private Library<Device> deviceLibrary;
@@ -591,6 +598,9 @@ public class MainWindowPresenter implements Initializable
     onActiveChangeTipProcedureDisposal();
 
     onActiveProcess();
+
+    PreviewView preview = new PreviewView();
+    preview.getViewAsync(previewBorderPane::setCenter);
   }
 
   private void onActiveDevice()
@@ -1419,7 +1429,7 @@ public class MainWindowPresenter implements Initializable
 
     fileChooser.setTitle("Export G-Code");
     fileChooser.getExtensionFilters().addAll(extensionGCode, extensionAll);
-    fileChooser.setInitialFileName(exportFileName);
+    fileChooser.setInitialFileName(exportFileName + ".gcode");
 
     File outputFile = fileChooser.showSaveDialog(getWindow());
 
@@ -1477,10 +1487,55 @@ public class MainWindowPresenter implements Initializable
 
   public void onAbout()
   {
-    displayAlert(
-        AlertType.INFORMATION,
-        title
-            + " 2017 by Sofia Bali, Michael Brumm, Chance T. Brunton, Alan Kato, Jonathan Navarro");
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("About " + title);
+    alert.setHeaderText(title);
+    alert
+        .setContentText("Copyright (c) 2017 by "
+            + "Sofia Bali, Michael Brumm, Chance T. Brunton, Alan Kato, Jonathan Navarro");
+
+    Label label = new Label("Legal notices:");
+
+    String legalText = "This software contains third party components subject to the following licenses.\n"
+        + "\n"
+        + "afterburner.fx\n"
+        + "Copyright (C) 2013 - 2016 Adam Bien\n"
+        + "\n"
+        + "Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0\n"
+        + "\n"
+        + "Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n"
+        + "\n"
+        + "\n"
+        + "GCodeFXViewer\n"
+        + "Copyright (c) 2010, 2016 Oracle and/or its affiliates.\n"
+        + "All rights reserved. Use is subject to license terms.\n"
+        + "\n"
+        + "This file is available and licensed under the following license:\n"
+        + "\n"
+        + "Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n"
+        + "\n"
+        + " - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n"
+        + " - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n"
+        + " - Neither the name of Oracle Corporation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n"
+        + "\n"
+        + "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+
+    TextArea textArea = new TextArea(legalText);
+    textArea.setEditable(false);
+    textArea.setWrapText(true);
+    textArea.setMaxWidth(Double.MAX_VALUE);
+    textArea.setMaxHeight(Double.MAX_VALUE);
+    GridPane.setVgrow(textArea, Priority.ALWAYS);
+    GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+    GridPane contentPane = new GridPane();
+    contentPane.setMaxWidth(Double.MAX_VALUE);
+    contentPane.add(label, 0, 0);
+    contentPane.add(textArea, 0, 1);
+
+    alert.getDialogPane().setExpandableContent(contentPane);
+
+    alert.showAndWait();
   }
 
   private boolean allowClose()
@@ -1609,7 +1664,16 @@ public class MainWindowPresenter implements Initializable
       }
       else
       {
-        container.getParent().getSubcontainers().remove(container);
+        Container parent = container.getParent();
+        
+        if (parent == null)
+        {
+          activeProcess.get().getBaseContainers().remove(container);
+        }
+        else
+        {
+          parent.getSubcontainers().remove(container);
+        }
       }
     }
   }

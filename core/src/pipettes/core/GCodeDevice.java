@@ -21,7 +21,7 @@ public abstract class GCodeDevice extends Device
 
   private DoubleProperty extrudePerVolume = new SimpleDoubleProperty();
   private DoubleProperty dispenseExtrudeRatio = new SimpleDoubleProperty();
-  
+
   private PrintStream output;
   private Point3D position;
 
@@ -30,14 +30,14 @@ public abstract class GCodeDevice extends Device
     header.set(getDefaultHeader());
     footer.set(getDefaultFooter());
   }
-  
+
   public String getDefaultHeader()
   {
     return "G21 ; Set units to millimeters\n"
         + "G90 ; Switch to absolute coordinates\n"
         + "M83 ; Set extruder to relative mode\n" + "G28 ; Home all axes";
   }
-  
+
   public String getDefaultFooter()
   {
     return "G28 ; Home all axes";
@@ -58,7 +58,7 @@ public abstract class GCodeDevice extends Device
   {
     return header;
   }
-  
+
   @XmlElement
   public String getFooter()
   {
@@ -69,7 +69,7 @@ public abstract class GCodeDevice extends Device
   {
     this.footer.set(footer);
   }
-  
+
   public StringProperty footerProperty()
   {
     return footer;
@@ -90,7 +90,7 @@ public abstract class GCodeDevice extends Device
   {
     return extrudePerVolume;
   }
-  
+
   @XmlElement
   public double getDispenseExtrudeRatio()
   {
@@ -101,7 +101,7 @@ public abstract class GCodeDevice extends Device
   {
     dispenseExtrudeRatio.set(ratio);
   }
-  
+
   public DoubleProperty dispenseExtrudeRatioProperty()
   {
     return dispenseExtrudeRatio;
@@ -110,23 +110,23 @@ public abstract class GCodeDevice extends Device
   public void beginProcess(PrintStream output)
   {
     this.output = output;
-    
+
     // TODO: Print slic3r parameters like bed_shape as comments
-    
+
     output.print(getHeader());
     output.printf("\n");
-    
+
     position = getHomePosition();
   }
 
   public void endProcess()
   {
     output.print(getFooter());
-	
+
     output.flush();
     output = null;
   }
-  
+
   public Point2D getLocation()
   {
     return new Point2D(position.getX(), position.getY());

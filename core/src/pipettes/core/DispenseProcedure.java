@@ -26,7 +26,7 @@ public class DispenseProcedure extends Procedure
   {
     return "Dispense";
   }
-  
+
   @XmlIDREF
   @XmlAttribute
   public Container getSource()

@@ -25,63 +25,64 @@ public class RectangularGCodeDevice extends GCodeDevice
   private DoubleProperty maximumExtentX = new SimpleDoubleProperty();
   private DoubleProperty maximumExtentY = new SimpleDoubleProperty();
   private DoubleProperty maximumExtentZ = new SimpleDoubleProperty();
-  
+
   public DeviceType getType()
   {
     return DeviceType.RectangularGCode;
   }
-  
+
   public double getHomePositionX()
   {
     return homePositionX.get();
   }
-  
+
   public void setHomePositionX(double x)
   {
     homePositionX.set(x);
   }
-  
+
   public DoubleProperty homePositionXProperty()
   {
     return homePositionX;
   }
-  
+
   public double getHomePositionY()
   {
     return homePositionY.get();
   }
-  
+
   public void setHomePositionY(double y)
   {
     homePositionY.set(y);
   }
-  
+
   public DoubleProperty homePositionYProperty()
   {
     return homePositionY;
   }
-  
+
   public double getHomePositionZ()
   {
     return homePositionZ.get();
   }
-  
+
   public void setHomePositionZ(double z)
   {
     homePositionZ.set(z);
   }
-  
+
   public DoubleProperty homePositionZProperty()
   {
     return homePositionZ;
   }
-  
+
   @XmlElement
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   @Override
   public Point3D getHomePosition()
   {
-    return new Point3D(getHomePositionX(), getHomePositionY(), getHomePositionZ()); 
+    return new Point3D(getHomePositionX(), getHomePositionY(),
+        getHomePositionZ());
   }
 
   public void setHomePosition(Point3D homePosition)
@@ -95,52 +96,53 @@ public class RectangularGCodeDevice extends GCodeDevice
   {
     return minimumExtentX.get();
   }
-  
+
   public void setMinimumExtentX(double x)
   {
     minimumExtentX.set(x);
   }
-  
+
   public DoubleProperty minimumExtentXProperty()
   {
     return minimumExtentX;
   }
-  
+
   public double getMinimumExtentY()
   {
     return minimumExtentY.get();
   }
-  
+
   public void setMinimumExtentY(double y)
   {
     minimumExtentY.set(y);
   }
-  
+
   public DoubleProperty minimumExtentYProperty()
   {
     return minimumExtentY;
   }
-  
+
   public double getMinimumExtentZ()
   {
     return minimumExtentZ.get();
   }
-  
+
   public void setMinimumExtentZ(double z)
   {
     minimumExtentZ.set(z);
   }
-  
+
   public DoubleProperty minimumExtentZProperty()
   {
     return minimumExtentZ;
   }
-  
+
   @XmlElement
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   public Point3D getMinimumExtent()
   {
-    return new Point3D(getMinimumExtentX(), getMinimumExtentY(), getMinimumExtentZ()); 
+    return new Point3D(getMinimumExtentX(), getMinimumExtentY(),
+        getMinimumExtentZ());
   }
 
   public void setMinimumExtent(Point3D minimumExtent)
@@ -154,52 +156,53 @@ public class RectangularGCodeDevice extends GCodeDevice
   {
     return maximumExtentX.get();
   }
-  
+
   public void setMaximumExtentX(double x)
   {
     maximumExtentX.set(x);
   }
-  
+
   public DoubleProperty maximumExtentXProperty()
   {
     return maximumExtentX;
   }
-  
+
   public double getMaximumExtentY()
   {
     return maximumExtentY.get();
   }
-  
+
   public void setMaximumExtentY(double y)
   {
     maximumExtentY.set(y);
   }
-  
+
   public DoubleProperty maximumExtentYProperty()
   {
     return maximumExtentY;
   }
-  
+
   public double getMaximumExtentZ()
   {
     return maximumExtentZ.get();
   }
-  
+
   public void setMaximumExtentZ(double z)
   {
     maximumExtentZ.set(z);
   }
-  
+
   public DoubleProperty maximumExtentZProperty()
   {
     return maximumExtentZ;
   }
-  
+
   @XmlElement
   @XmlJavaTypeAdapter(Point3DXmlAdapter.class)
   public Point3D getMaximumExtent()
   {
-    return new Point3D(getMaximumExtentX(), getMaximumExtentY(), getMaximumExtentZ()); 
+    return new Point3D(getMaximumExtentX(), getMaximumExtentY(),
+        getMaximumExtentZ());
   }
 
   public void setMaximumExtent(Point3D maximumExtent)
@@ -208,17 +211,19 @@ public class RectangularGCodeDevice extends GCodeDevice
     setMaximumExtentY(maximumExtent.getY());
     setMaximumExtentZ(maximumExtent.getZ());
   }
-  
+
   @Override
   protected void checkPosition(Point3D position) throws PositioningException
   {
-    if ((position.getX() < getMinimumExtentX()) || (position.getY() < getMinimumExtentY())
+    if ((position.getX() < getMinimumExtentX())
+        || (position.getY() < getMinimumExtentY())
         || (position.getZ() < getMinimumExtentZ()))
     {
       throw new PositioningException();
     }
 
-    if ((position.getX() > getMaximumExtentX()) || (position.getY() > getMaximumExtentY())
+    if ((position.getX() > getMaximumExtentX())
+        || (position.getY() > getMaximumExtentY())
         || (position.getZ() > getMaximumExtentZ()))
     {
       throw new PositioningException();

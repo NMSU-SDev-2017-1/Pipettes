@@ -5,6 +5,8 @@ import java.util.Iterator;
 import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,8 +40,12 @@ public class Container extends LibraryItem
 
   private StringProperty localName = new SimpleStringProperty();
 
+  private ReadOnlyDoubleWrapper positionX = new ReadOnlyDoubleWrapper();
+  private ReadOnlyDoubleWrapper positionY = new ReadOnlyDoubleWrapper();
+  private ReadOnlyDoubleWrapper positionZ = new ReadOnlyDoubleWrapper();
+  
   // Local position relative to parent
-  // Defined as center of bottom of object to make rotation sensible
+  // Defined as center of bottom of object
   private DoubleProperty localPositionX = new SimpleDoubleProperty();
   private DoubleProperty localPositionY = new SimpleDoubleProperty();
   private DoubleProperty localPositionZ = new SimpleDoubleProperty();
@@ -55,7 +61,7 @@ public class Container extends LibraryItem
   private DoubleProperty dispenseHeightAboveTop = new SimpleDoubleProperty();
   private DoubleProperty clearanceHeightAboveTop = new SimpleDoubleProperty();
 
-  @XmlElement(name="subcontainer")
+  @XmlElement(name = "subcontainer")
   private ObservableList<Container> subcontainers;
 
   @XmlElement
@@ -99,7 +105,7 @@ public class Container extends LibraryItem
   @XmlID
   public String getName()
   {
-    if (parent == null)
+    if ((parent == null) || (parent.getName() == null))
     {
       return getLocalName();
     }
@@ -117,8 +123,41 @@ public class Container extends LibraryItem
   public void setParent(Container parent)
   {
     this.parent = parent;
+    updatePositionX();
+    updatePositionY();
+    updatePositionZ();
   }
 
+  public ReadOnlyDoubleProperty positionXProperty()
+  {
+    return positionX.getReadOnlyProperty();
+  }
+
+  public double getPositionX()
+  {
+    return positionX.get();
+  }
+  
+  public ReadOnlyDoubleProperty positionYProperty()
+  {
+    return positionY.getReadOnlyProperty();
+  }
+
+  public double getPositionY()
+  {
+    return positionY.get();
+  }
+  
+  public ReadOnlyDoubleProperty positionZProperty()
+  {
+    return positionZ.getReadOnlyProperty();
+  }
+  
+  public double getPositionZ()
+  {
+    return positionZ.get();
+  }
+  
   public double getLocalPositionX()
   {
     return localPositionX.get();
@@ -181,14 +220,7 @@ public class Container extends LibraryItem
 
   public Point3D getPosition()
   {
-    if (parent == null)
-    {
-      return getLocalPosition();
-    }
-    else
-    {
-      return parent.getPosition().add(getLocalPosition());
-    }
+    return new Point3D(positionX.get(), positionY.get(), positionZ.get());
   }
 
   public double getSizeX()
@@ -378,8 +410,9 @@ public class Container extends LibraryItem
             container.clearanceHeightAboveTopProperty(),
             container.getSubcontainers() });
 
+    initializeMovementListeners();
     initializeSubcontainerListeners();
-    
+
     localName.addListener(new ChangeListener<String>()
     {
       @Override
@@ -397,16 +430,33 @@ public class Container extends LibraryItem
     });
   }
 
+  // Used to create a root container that holds an existing list of
+  // subcontainers
   public Container(ObservableList<Container> containers)
   {
     subcontainers = containers;
-    initializeSubcontainerListeners();
   }
 
+  private void initializeMovementListeners()
+  {
+    localPositionX.addListener((observable, oldValue, newValue) ->
+    {
+      updatePositionX();
+    });
+    
+    localPositionY.addListener((observable, oldValue, newValue) ->
+    {
+      updatePositionY();
+    });
+    
+    localPositionZ.addListener((observable, oldValue, newValue) ->
+    {
+      updatePositionZ();
+    });
+  }
+  
   private void initializeSubcontainerListeners()
   {
-    Container thisContainer = this;
-    
     subcontainers.addListener(new ListChangeListener<Container>()
     {
       @Override
@@ -417,13 +467,13 @@ public class Container extends LibraryItem
         {
           for (Container subcontainer : change.getAddedSubList())
           {
-            subcontainer.setParent(thisContainer);
+            subcontainer.setParent(Container.this);
           }
         }
       }
     });
   }
-  
+
   public Container clone()
   {
     Container newContainer = new Container();
@@ -444,30 +494,81 @@ public class Container extends LibraryItem
     return newContainer;
   }
   
+  public void updatePositionX()
+  {
+    if (parent == null)
+    {
+      positionX.set(getLocalPositionX());
+    }
+    else
+    {
+      positionX.set(parent.getPositionX() + getLocalPositionX());
+    }
+    
+    for (Container subcontainer : subcontainers)
+    {
+      subcontainer.updatePositionX();
+    }
+  }
+
+  public void updatePositionY()
+  {
+    if (parent == null)
+    {
+      positionY.set(getLocalPositionY());
+    }
+    else
+    {
+      positionY.set(parent.getPositionY() + getLocalPositionY());
+    }
+    
+    for (Container subcontainer : subcontainers)
+    {
+      subcontainer.updatePositionY();
+    }
+  }
+
+  public void updatePositionZ()
+  {
+    if (parent == null)
+    {
+      positionZ.set(getLocalPositionZ());
+    }
+    else
+    {
+      positionZ.set(parent.getPositionZ() + getLocalPositionZ());
+    }
+    
+    for (Container subcontainer : subcontainers)
+    {
+      subcontainer.updatePositionZ();
+    }
+  }
+  
   public boolean isAtOrAbove(Container container)
   {
     if (this == container)
     {
       return true;
     }
-    
+
     if (container.parent == null)
     {
       return false;
     }
-    
+
     return isAtOrAbove(container.parent);
   }
 
   public String getAvailableSubcontainerName(String prefix)
   {
     String result = Common.removeTrailingInteger(prefix);
-    
+
     if (result.length() == 0)
     {
       result = prefix;
     }
-    
+
     boolean collision;
     int number = 0;
 
@@ -477,7 +578,8 @@ public class Container extends LibraryItem
 
       for (Container container : subcontainers)
       {
-        if (container.getLocalName().equals(Common.appendInteger(result, number)))
+        if (container.getLocalName().equals(
+            Common.appendInteger(result, number)))
         {
           number++;
           collision = true;

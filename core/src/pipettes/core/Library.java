@@ -28,12 +28,12 @@ public class Library<T extends LibraryItem>
   public Library()
   {
   }
-  
+
   public Library(String fileName)
   {
     open(fileName);
   }
-  
+
   @SuppressWarnings("unchecked")
   public void open(String fileName)
   {
@@ -84,12 +84,12 @@ public class Library<T extends LibraryItem>
   public String getAvailableName(String prefix)
   {
     String result = Common.removeTrailingInteger(prefix);
-    
+
     if (result.length() == 0)
     {
       result = prefix;
     }
-    
+
     boolean collision;
     int number = 0;
 
