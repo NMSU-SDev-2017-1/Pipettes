@@ -2,16 +2,6 @@
 <library>
     <items>
         <container>
-            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
-            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
-            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
-            <localName>Beaker 50ml</localName>
-            <localPosition x="0.0" y="0.0" z="0.0"/>
-            <name>Beaker 50ml</name>
-            <shape>Cylindrical</shape>
-            <size x="40.0" y="40.0" z="60.0"/>
-        </container>
-        <container>
             <subcontainer>
                 <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
@@ -70,6 +60,126 @@
             <name>Microtube Rack 1x5 2ml</name>
             <shape>Rectangular</shape>
             <size x="88.0" y="15.0" z="24.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker50ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker50ml</name>
+            <shape>Cylindrical</shape>
+            <size x="40.0" y="40.0" z="55.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker100ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker100ml</name>
+            <shape>Cylindrical</shape>
+            <size x="50.0" y="50.0" z="72.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker150mL</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker150mL</name>
+            <shape>Cylindrical</shape>
+            <size x="60.0" y="60.0" z="85.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker250ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker250ml</name>
+            <shape>Cylindrical</shape>
+            <size x="70.0" y="70.0" z="90.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker400ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker400ml</name>
+            <shape>Cylindrical</shape>
+            <size x="80.0" y="80.0" z="110.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker600ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker600ml</name>
+            <shape>Cylindrical</shape>
+            <size x="90.0" y="90.0" z="125.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>6.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>6.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>10.0</drawHeightAboveBottom>
+            <localName>Beaker1L</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker1L</name>
+            <shape>Cylindrical</shape>
+            <size x="110.0" y="110.0" z="155.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask125ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask125ml</name>
+            <shape>Cylindrical</shape>
+            <size x="67.0" y="67.0" z="114.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask250ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask250ml</name>
+            <shape>Cylindrical</shape>
+            <size x="82.0" y="82.0" z="132.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask500ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask500ml</name>
+            <shape>Cylindrical</shape>
+            <size x="101.0" y="101.0" z="176.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask1L</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask1L</name>
+            <shape>Cylindrical</shape>
+            <size x="129.0" y="129.0" z="216.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask50mL</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask50mL</name>
+            <shape>Cylindrical</shape>
+            <size x="51.0" y="51.0" z="78.0"/>
         </container>
     </items>
 </library>
