@@ -96,7 +96,6 @@ public class Process
     return dirty;
   }
 
-  // TODO: Complete change listener
   public Process()
   {
     baseContainers.addListener(new ListChangeListener<Container>()

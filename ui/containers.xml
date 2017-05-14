@@ -17,7 +17,7 @@
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
                 <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
                 <localName>Microtube 2ml 1</localName>
-                <localPosition x="-60.0" y="0.0" z="5.0"/>
+                <localPosition x="-34.0" y="0.0" z="5.0"/>
                 <name>Microtube Rack 1x5 2ml/Microtube 2ml 1</name>
                 <shape>Cylindrical</shape>
                 <size x="11.0" y="11.0" z="44.0"/>
@@ -27,7 +27,7 @@
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
                 <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
                 <localName>Microtube 2ml 2</localName>
-                <localPosition x="-30.0" y="0.0" z="5.0"/>
+                <localPosition x="-17.0" y="0.0" z="5.0"/>
                 <name>Microtube Rack 1x5 2ml/Microtube 2ml 2</name>
                 <shape>Cylindrical</shape>
                 <size x="11.0" y="11.0" z="44.0"/>
@@ -47,7 +47,7 @@
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
                 <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
                 <localName>Microtube 2ml 4</localName>
-                <localPosition x="30.0" y="0.0" z="5.0"/>
+                <localPosition x="17.0" y="0.0" z="5.0"/>
                 <name>Microtube Rack 1x5 2ml/Microtube 2ml 4</name>
                 <shape>Cylindrical</shape>
                 <size x="11.0" y="11.0" z="44.0"/>
@@ -57,7 +57,7 @@
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
                 <drawHeightAboveBottom>2.0</drawHeightAboveBottom>
                 <localName>Microtube 2ml 5</localName>
-                <localPosition x="60.0" y="0.0" z="5.0"/>
+                <localPosition x="34.0" y="0.0" z="5.0"/>
                 <name>Microtube Rack 1x5 2ml/Microtube 2ml 5</name>
                 <shape>Cylindrical</shape>
                 <size x="11.0" y="11.0" z="44.0"/>

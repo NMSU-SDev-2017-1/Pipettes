@@ -1664,7 +1664,16 @@ public class MainWindowPresenter implements Initializable
       }
       else
       {
-        container.getParent().getSubcontainers().remove(container);
+        Container parent = container.getParent();
+        
+        if (parent == null)
+        {
+          activeProcess.get().getBaseContainers().remove(container);
+        }
+        else
+        {
+          parent.getSubcontainers().remove(container);
+        }
       }
     }
   }

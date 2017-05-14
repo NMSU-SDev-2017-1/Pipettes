@@ -31,6 +31,8 @@
  */
 package pipettes.ui.preview;
 
+import pipettes.ui.Common;
+import pipettes.core.Container;
 import pipettes.core.CylindricalGCodeDevice;
 import pipettes.core.Device;
 import pipettes.core.RectangularGCodeDevice;
@@ -39,6 +41,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
@@ -57,7 +60,6 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class PreviewModel
@@ -66,6 +68,7 @@ public class PreviewModel
   private final double cameraClipFar = 10000;
   private final double cameraResetAngle = 45;
   private final double cameraResetDistance = 500;
+  private final double cameraZoomOutMax = 2000;
 
   private final double axisLength = 1000;
   private final double axisWidth = 0.2;
@@ -76,19 +79,16 @@ public class PreviewModel
   private final double printHeadWidth = 2.5;
   private final double printHeadHeight = 25;
 
-  private final PhongMaterial redMaterial = createMaterial(Color.DARKRED,
-      Color.RED);
-  private final PhongMaterial greenMaterial = createMaterial(Color.DARKGREEN,
-      Color.GREEN);
-  private final PhongMaterial blueMaterial = createMaterial(Color.DARKBLUE,
-      Color.BLUE);
-  private final PhongMaterial deviceAreaMaterial = createMaterial(createColor(
-      Color.CADETBLUE, deviceAreaOpacity));
-  private final PhongMaterial printHeadMaterial = createMaterial(Color.YELLOW,
-      Color.YELLOW);
-
-  private final Rotate rotateX180 = new Rotate(180, 0, 0, 0, Rotate.X_AXIS);
-  private final Rotate rotateX90 = new Rotate(90, 0, 0, 0, Rotate.X_AXIS);
+  private final PhongMaterial redMaterial = Common.createMaterial(
+      Color.DARKRED, Color.RED);
+  private final PhongMaterial greenMaterial = Common.createMaterial(
+      Color.DARKGREEN, Color.GREEN);
+  private final PhongMaterial blueMaterial = Common.createMaterial(
+      Color.DARKBLUE, Color.BLUE);
+  private final PhongMaterial deviceAreaMaterial = Common.createMaterial(Common
+      .createColor(Color.CADETBLUE, deviceAreaOpacity));
+  private final PhongMaterial printHeadMaterial = Common.createMaterial(
+      Color.GOLD, Color.YELLOW);
 
   private SimpleObjectProperty<SubScene> subScene = new SimpleObjectProperty<>();
   private Group sceneGroup = new Group();
@@ -99,7 +99,6 @@ public class PreviewModel
   private Xform cameraTranslate = new Xform();
 
   private Translate deviceAreaTranslate = new Translate(0, 0, 0);
-  private Translate contentTranslate = new Translate(0, 0, 0);
 
   private ObjectProperty<Node> content = new SimpleObjectProperty<>();
   private ObjectProperty<Node> highlite = new SimpleObjectProperty<>();
@@ -107,20 +106,26 @@ public class PreviewModel
   private Group axisGroup;
   private Group deviceAreaGroup;
   private Group printHeadGroup;
+  private Group containersGroup;
+
   private Sphere xSphere;
   private Sphere ySphere;
   private Sphere zSphere;
   private Box xAxis;
   private Box yAxis;
   private Box zAxis;
-  private Box deviceAreaRectangular;
-  private Cylinder deviceAreaCylindrical;
-  private Box printHead;
-  private AmbientLight ambientLight = new AmbientLight(Color.DARKGREY);
-  private SimpleObjectProperty<Timeline> timeline = new SimpleObjectProperty<>();
 
   private RectangularGCodeDevice deviceRectangular;
   private CylindricalGCodeDevice deviceCylindrical;
+
+  private Box deviceAreaRectangular;
+  private Cylinder deviceAreaCylindrical;
+
+  private Box printHead;
+
+  private AmbientLight ambientLight = new AmbientLight(Color.DARKGREY);
+
+  private SimpleObjectProperty<Timeline> timeline = new SimpleObjectProperty<>();
 
   private double mousePosX;
   private double mousePosY;
@@ -193,7 +198,6 @@ public class PreviewModel
     {
       autoScalingGroup.getChildren().remove(oldContent);
       autoScalingGroup.getChildren().add(newContent);
-      newContent.getTransforms().add(contentTranslate);
     });
 
     initializeLights();
@@ -231,7 +235,7 @@ public class PreviewModel
     }
 
     deviceRectangular = device;
-    
+
     if (device != null)
     {
       device.minimumExtentXProperty().addListener(rectangularDevicelistener);
@@ -267,7 +271,7 @@ public class PreviewModel
       last.minimumZProperty().removeListener(cylindricalDevicelistener);
       last.maximumZProperty().removeListener(cylindricalDevicelistener);
     }
-    
+
     deviceCylindrical = device;
 
     if (device != null)
@@ -308,6 +312,7 @@ public class PreviewModel
     double height = maxZ - minZ;
     double depth = maxY - minY;
 
+    // Depth and height are swapped
     box.setWidth(width);
     box.setDepth(height);
     box.setHeight(depth);
@@ -348,6 +353,16 @@ public class PreviewModel
         deviceCylindrical.getMaximumZ());
   }
 
+  public void setContainers(ObservableList<Container> baseContainers)
+  {
+    containersGroup.getChildren().clear();
+    
+    Container rootContainer = new Container(baseContainers);
+    ContainerNode rootContainerNode = new ContainerNode(rootContainer, false);
+    
+    containersGroup.getChildren().add(rootContainerNode);
+  }
+  
   private final EventHandler<MouseEvent> mouseEventHandler = event ->
   {
     double yFlip = 1.0;
@@ -385,33 +400,24 @@ public class PreviewModel
 
       if (event.isPrimaryButtonDown())
       {
-        if (event.isShiftDown() && event.isControlDown())
+        if (event.isControlDown())
         {
           cameraRotate.ry.setAngle(cameraRotate.ry.getAngle() - yFlip
               * mouseDeltaX * modifierFactor * modifier * 2.0);
-          contentTranslate.setZ(contentTranslate.getZ() - yFlip * mouseDeltaY
-              * modifierFactor * modifier * 0.3); // -
-        }
-        else if (event.isControlDown())
-        {
-          contentTranslate.setX(contentTranslate.getX() - flip * mouseDeltaX
-              * modifierFactor * modifier * 0.3); // -
-          contentTranslate.setY(contentTranslate.getY() - yFlip * mouseDeltaY
-              * modifierFactor * modifier * 0.3); // -
         }
         else if (event.isShiftDown())
         {
           cameraTranslate.t.setX(cameraTranslate.t.getX() + flip * mouseDeltaX
-              * modifierFactor * modifier * 0.3); // -
+              * modifierFactor * modifier * 0.3);
           cameraTranslate.t.setY(cameraTranslate.t.getY() + yFlip * mouseDeltaY
-              * modifierFactor * modifier * 0.3); // -
+              * modifierFactor * modifier * 0.3);
         }
         else
         {
           cameraRotate.rz.setAngle(cameraRotate.rz.getAngle() + flip
-              * mouseDeltaX * modifierFactor * modifier * 2.0); // -
+              * mouseDeltaX * modifierFactor * modifier * 2.0);
           cameraRotate.rx.setAngle(cameraRotate.rx.getAngle() + flip
-              * mouseDeltaY * modifierFactor * modifier * 2.0); // -
+              * mouseDeltaY * modifierFactor * modifier * 2.0);
         }
       }
     }
@@ -435,7 +441,7 @@ public class PreviewModel
     else
     {
       double z = cameraPosition.getZ() + (event.getDeltaY() * 0.2);
-      z = Math.max(z, -1000);
+      z = Math.max(z, -cameraZoomOutMax);
       z = Math.min(z, 0);
       cameraPosition.setZ(z);
     }
@@ -447,7 +453,7 @@ public class PreviewModel
         && event.getZoomFactor() < 1.2)
     {
       double z = cameraPosition.getZ() / event.getZoomFactor();
-      z = Math.max(z, -1000);
+      z = Math.max(z, -cameraZoomOutMax);
       z = Math.min(z, 0);
       cameraPosition.setZ(z);
     }
@@ -606,7 +612,7 @@ public class PreviewModel
   {
     camera.setNearClip(cameraClipNear);
     camera.setFarClip(cameraClipFar);
-    camera.getTransforms().addAll(rotateX180, cameraPosition);
+    camera.getTransforms().addAll(Common.rotateX180, cameraPosition);
 
     cameraRotate.getChildren().add(cameraTranslate);
     cameraTranslate.getChildren().add(camera);
@@ -626,8 +632,6 @@ public class PreviewModel
 
     cameraTranslate.t.setX(0);
     cameraTranslate.t.setY(0);
-
-    setViewPoint(0d, 0d, 0d);
   }
 
   private void rebuildSubScene()
@@ -644,7 +648,7 @@ public class PreviewModel
     }
 
     SubScene subScene = new SubScene(sceneGroup, 400, 400, true,
-        SceneAntialiasing.DISABLED);
+        SceneAntialiasing.BALANCED);
 
     this.subScene.set(subScene);
 
@@ -655,52 +659,6 @@ public class PreviewModel
     subScene.addEventHandler(KeyEvent.ANY, keyEventHandler);
     subScene.addEventHandler(ZoomEvent.ANY, zoomEventHandler);
     subScene.addEventHandler(ScrollEvent.ANY, scrollEventHandler);
-  }
-
-  public void setViewPoint(Double x, Double y, Double z)
-  {
-    if (x != null)
-    {
-      contentTranslate.setX(x);
-    }
-
-    if (y != null)
-    {
-      contentTranslate.setY(y);
-    }
-
-    if (z != null)
-    {
-      contentTranslate.setZ(z);
-    }
-  }
-
-  private Color createColor(Color color, double opacity)
-  {
-    return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
-  }
-
-  private PhongMaterial createMaterial(Color diffuse)
-  {
-    final PhongMaterial material = new PhongMaterial();
-    material.setDiffuseColor(diffuse);
-    return material;
-  }
-
-  private PhongMaterial createMaterial(Color diffuse, Color specular)
-  {
-    final PhongMaterial material = new PhongMaterial();
-    material.setDiffuseColor(diffuse);
-    material.setSpecularColor(specular);
-    return material;
-  }
-
-  private PhongMaterial createMaterial(Color diffuse, Color specular,
-      Double specularPower)
-  {
-    PhongMaterial material = createMaterial(diffuse, specular);
-    material.setSpecularPower(specularPower);
-    return material;
   }
 
   private void createFeatures()
@@ -736,12 +694,10 @@ public class PreviewModel
 
     deviceAreaRectangular = new Box();
     deviceAreaRectangular.setMaterial(deviceAreaMaterial);
-    deviceAreaRectangular.setOpacity(deviceAreaOpacity);
 
     deviceAreaCylindrical = new Cylinder();
     deviceAreaCylindrical.setMaterial(deviceAreaMaterial);
-    deviceAreaCylindrical.setOpacity(deviceAreaOpacity);
-    deviceAreaCylindrical.getTransforms().add(rotateX90);
+    deviceAreaCylindrical.getTransforms().add(Common.rotateX90);
 
     printHead = new Box(printHeadWidth, printHeadWidth, printHeadHeight);
     printHead.setMaterial(printHeadMaterial);
@@ -750,19 +706,18 @@ public class PreviewModel
     axisGroup = new Group();
     axisGroup.getChildren().addAll(xSphere, xAxis, ySphere, yAxis, zSphere,
         zAxis);
-    axisGroup.getTransforms().add(contentTranslate);
 
     deviceAreaGroup = new Group();
     deviceAreaGroup.getChildren().addAll(deviceAreaRectangular,
         deviceAreaCylindrical);
-    deviceAreaGroup.getTransforms().addAll(deviceAreaTranslate,
-        contentTranslate);
+    deviceAreaGroup.getTransforms().addAll(deviceAreaTranslate);
 
     printHeadGroup = new Group();
     printHeadGroup.getChildren().add(printHead);
-    printHeadGroup.getTransforms().add(contentTranslate);
+    
+    containersGroup = new Group();
 
     autoScalingGroup.getChildren().addAll(axisGroup, printHeadGroup,
-        deviceAreaGroup);
+        containersGroup, deviceAreaGroup);
   }
 }

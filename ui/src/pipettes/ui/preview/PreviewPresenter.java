@@ -9,8 +9,6 @@ import pipettes.core.Device;
 import pipettes.core.Process;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
@@ -60,24 +58,14 @@ public class PreviewPresenter implements Initializable
         rewindButton, playButton, fastForwardButton, endButton, loopButton);
     timelineController.timelineProperty().bind(model.timelineProperty());
 
-    activeProcess.addListener(new ChangeListener<Process>()
+    activeProcess.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Process> observableValue,
-          Process oldValue, Process newValue)
-      {
-        onActiveProcess();
-      }
+      onActiveProcess();
     });
 
-    activeDevice.addListener(new ChangeListener<Device>()
+    activeDevice.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Device> observableValue,
-          Device oldValue, Device newValue)
-      {
-        onActiveDevice();
-      }
+      onActiveDevice();
     });
 
     onActiveDevice();
@@ -86,7 +74,7 @@ public class PreviewPresenter implements Initializable
     initializeSubScene();
 
     // TODO: Needed?
-    model.subSceneProperty().addListener((ov, oldVal, newVal) ->
+    model.subSceneProperty().addListener((observable, oldValue, newValue) ->
     {
       viewPane.getChildren().clear();
       initializeSubScene();
@@ -108,6 +96,7 @@ public class PreviewPresenter implements Initializable
 
   private void onActiveProcess()
   {
+    model.setContainers(activeProcess.get().getBaseContainers());
   }
 
   public void onReset()
