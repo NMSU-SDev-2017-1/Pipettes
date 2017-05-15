@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -396,68 +395,38 @@ public class MainWindowPresenter implements Initializable
   @Override
   public void initialize(URL arg0, ResourceBundle arg1)
   {
-    root.sceneProperty().addListener(new ChangeListener<Scene>()
+    root.sceneProperty().addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Scene> observableValue,
-          Scene oldValue, Scene newValue)
-      {
-        onScene();
-      }
+      onScene();
     });
 
     containerShapeChoiceBox.setItems(FXCollections
         .observableArrayList(ContainerShape.values()));
 
-    activeProcess.addListener(new ChangeListener<Process>()
+    activeProcess.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Process> observableValue,
-          Process oldValue, Process newValue)
-      {
-        onActiveProcess();
-      }
+      onActiveProcess();
     });
 
-    activeDevice.addListener(new ChangeListener<Device>()
+    activeDevice.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Device> observableValue,
-          Device oldValue, Device newValue)
-      {
-        onActiveDevice();
-      }
+      onActiveDevice();
     });
 
-    activeContainer.addListener(new ChangeListener<Container>()
+    activeContainer.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveContainer();
-      }
+      onActiveContainer();
     });
 
-    activeProcedure.addListener(new ChangeListener<Procedure>()
+    activeProcedure.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Procedure> observableValue,
-          Procedure oldValue, Procedure newValue)
-      {
-        onActiveProcedure();
-      }
+      onActiveProcedure();
     });
 
     devicesTableView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<Device>()
+        .addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(ObservableValue<? extends Device> observable,
-              Device oldValue, Device newValue)
-          {
-            activeDevice.set(newValue);
-          }
+          activeDevice.set(newValue);
         });
 
     devicesNameTableColumn
@@ -484,14 +453,9 @@ public class MainWindowPresenter implements Initializable
     devicesTableView.setItems(deviceLibrary.getItems());
 
     containerLibraryTableView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<Container>()
+        .addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(ObservableValue<? extends Container> observable,
-              Container oldValue, Container newValue)
-          {
-            activeLibraryContainer.set(newValue);
-          }
+          activeLibraryContainer.set(newValue);
         });
 
     containerLibraryNameTableColumn
@@ -518,14 +482,9 @@ public class MainWindowPresenter implements Initializable
     containerLibraryTableView.setItems(containerLibrary.getItems());
 
     proceduresTableView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<Procedure>()
+        .addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(ObservableValue<? extends Procedure> observable,
-              Procedure oldValue, Procedure newValue)
-          {
-            activeProcedure.set(newValue);
-          }
+          activeProcedure.set(newValue);
         });
 
     proceduresTypeTableColumn
@@ -538,54 +497,30 @@ public class MainWindowPresenter implements Initializable
           }
         });
 
-    dispenseProcedureSource.addListener(new ChangeListener<Container>()
+    dispenseProcedureSource.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveDispenseProcedureSource();
-      }
+      onActiveDispenseProcedureSource();
     });
 
-    dispenseProcedureDestination.addListener(new ChangeListener<Container>()
+    dispenseProcedureDestination
+        .addListener((observable, oldValue, newValue) ->
+        {
+          onActiveDispenseProcedureDestination();
+        });
+
+    mixProcedureContainer.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveDispenseProcedureDestination();
-      }
+      onActiveMixProcedureContainer();
     });
 
-    mixProcedureContainer.addListener(new ChangeListener<Container>()
+    changeTipProcedureNew.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveMixProcedureContainer();
-      }
+      onActiveChangeTipProcedureNew();
     });
 
-    changeTipProcedureNew.addListener(new ChangeListener<Container>()
+    changeTipProcedureDisposal.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveChangeTipProcedureNew();
-      }
-    });
-
-    changeTipProcedureDisposal.addListener(new ChangeListener<Container>()
-    {
-      @Override
-      public void changed(ObservableValue<? extends Container> observableValue,
-          Container oldValue, Container newValue)
-      {
-        onActiveChangeTipProcedureDisposal();
-      }
+      onActiveChangeTipProcedureDisposal();
     });
 
     onActiveDevice();
@@ -855,65 +790,45 @@ public class MainWindowPresenter implements Initializable
         Container::getSubcontainers);
 
     containersTreeView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              activeContainer.set(null);
-            }
-            else
-            {
-              activeContainer.set(newValue.getValue());
-            }
+            activeContainer.set(null);
+          }
+          else
+          {
+            activeContainer.set(newValue.getValue());
           }
         });
 
     containersTreeView.setRoot(rootContainerTreeItem);
 
     procedureDispenseSourceContainersTreeView.getSelectionModel()
-        .selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              dispenseProcedureSource.set(null);
-            }
-            else
-            {
-              dispenseProcedureSource.set(newValue.getValue());
-            }
+            dispenseProcedureSource.set(null);
+          }
+          else
+          {
+            dispenseProcedureSource.set(newValue.getValue());
           }
         });
 
     procedureDispenseSourceContainersTreeView.setRoot(rootContainerTreeItem);
 
     procedureDispenseDestinationContainersTreeView.getSelectionModel()
-        .selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              dispenseProcedureDestination.set(null);
-            }
-            else
-            {
-              dispenseProcedureDestination.set(newValue.getValue());
-            }
+            dispenseProcedureDestination.set(null);
+          }
+          else
+          {
+            dispenseProcedureDestination.set(newValue.getValue());
           }
         });
 
@@ -921,65 +836,45 @@ public class MainWindowPresenter implements Initializable
         .setRoot(rootContainerTreeItem);
 
     procedureMixContainersTreeView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              mixProcedureContainer.set(null);
-            }
-            else
-            {
-              mixProcedureContainer.set(newValue.getValue());
-            }
+            mixProcedureContainer.set(null);
+          }
+          else
+          {
+            mixProcedureContainer.set(newValue.getValue());
           }
         });
 
     procedureMixContainersTreeView.setRoot(rootContainerTreeItem);
 
     procedureChangeTipNewContainersTreeView.getSelectionModel()
-        .selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              changeTipProcedureNew.set(null);
-            }
-            else
-            {
-              changeTipProcedureNew.set(newValue.getValue());
-            }
+            changeTipProcedureNew.set(null);
+          }
+          else
+          {
+            changeTipProcedureNew.set(newValue.getValue());
           }
         });
 
     procedureChangeTipNewContainersTreeView.setRoot(rootContainerTreeItem);
 
     procedureChangeTipDisposalContainersTreeView.getSelectionModel()
-        .selectedItemProperty()
-        .addListener(new ChangeListener<TreeItem<Container>>()
+        .selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-          @Override
-          public void changed(
-              ObservableValue<? extends TreeItem<Container>> observable,
-              TreeItem<Container> oldValue, TreeItem<Container> newValue)
+          if (newValue == null)
           {
-            if (newValue == null)
-            {
-              changeTipProcedureDisposal.set(null);
-            }
-            else
-            {
-              changeTipProcedureDisposal.set(newValue.getValue());
-            }
+            changeTipProcedureDisposal.set(null);
+          }
+          else
+          {
+            changeTipProcedureDisposal.set(newValue.getValue());
           }
         });
 
@@ -1282,14 +1177,9 @@ public class MainWindowPresenter implements Initializable
 
   private void onScene()
   {
-    getScene().windowProperty().addListener(new ChangeListener<Window>()
+    getScene().windowProperty().addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends Window> observableValue,
-          Window oldValue, Window newValue)
-      {
-        onWindow();
-      }
+      onWindow();
     });
   }
 
@@ -1665,7 +1555,7 @@ public class MainWindowPresenter implements Initializable
       else
       {
         Container parent = container.getParent();
-        
+
         if (parent == null)
         {
           activeProcess.get().getBaseContainers().remove(container);

@@ -15,13 +15,13 @@ public class XmlSerializationTest
     String processFileName = args[0];
     String deviceCylindricalFileName = args[1];
     String deviceRectangularFileName = args[2];
-    // String deviceLibraryFileName = args[3];
-    // String containerLibraryFileName = args[4];
 
     File processFile = new File(processFileName);
     File deviceCylindricalFile = new File(deviceCylindricalFileName);
     File deviceRectangularFile = new File(deviceRectangularFileName);
 
+    Process process = new Process();
+    
     Container source = new Container();
     Container destination = new Container();
     Container sample = new Container();
@@ -33,6 +33,7 @@ public class XmlSerializationTest
     source.setDrawHeightAboveBottom(4.0);
     source.setDispenseHeightAboveTop(5.0);
     source.setClearanceHeightAboveTop(5.0);
+    process.getBaseContainers().add(source);
     
     destination.setLocalName("Beaker 2");
     destination.setLocalPosition(new Point3D(60.0, 40.0, 0.0));
@@ -41,6 +42,7 @@ public class XmlSerializationTest
     destination.setDrawHeightAboveBottom(5.0);
     destination.setDispenseHeightAboveTop(10.0);
     destination.setClearanceHeightAboveTop(10.0);
+    process.getBaseContainers().add(destination);
 
     sample.setLocalName("Beaker 3");
     sample.setLocalPosition(new Point3D(-90.0, 90.0, 0.0));
@@ -49,8 +51,7 @@ public class XmlSerializationTest
     sample.setDrawHeightAboveBottom(6.0);
     sample.setDispenseHeightAboveTop(7.0);
     sample.setClearanceHeightAboveTop(7.0);
-    
-    Process process = new Process();
+    process.getBaseContainers().add(sample);
     
     DispenseProcedure procedure1 = new DispenseProcedure();
     procedure1.setSource(source);
@@ -91,9 +92,6 @@ public class XmlSerializationTest
     deviceRectangular.setHomePosition(new Point3D(50.0, 75.0, 130.0));
     deviceRectangular.setMinimumExtent(new Point3D(-110.0, -75.0, 0.0));
     deviceRectangular.setMaximumExtent(new Point3D(110.0, 75.0, 130.0));
-    
-    // Library<Device> deviceLibrary = new Library<Device>();
-    // Library<Container> containerLibrary = new Library<Container>();
     
     JAXBContext jaxbContext;
 

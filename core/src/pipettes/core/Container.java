@@ -11,8 +11,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -43,7 +41,7 @@ public class Container extends LibraryItem
   private ReadOnlyDoubleWrapper positionX = new ReadOnlyDoubleWrapper();
   private ReadOnlyDoubleWrapper positionY = new ReadOnlyDoubleWrapper();
   private ReadOnlyDoubleWrapper positionZ = new ReadOnlyDoubleWrapper();
-  
+
   // Local position relative to parent
   // Defined as center of bottom of object
   private DoubleProperty localPositionX = new SimpleDoubleProperty();
@@ -137,7 +135,7 @@ public class Container extends LibraryItem
   {
     return positionX.get();
   }
-  
+
   public ReadOnlyDoubleProperty positionYProperty()
   {
     return positionY.getReadOnlyProperty();
@@ -147,17 +145,17 @@ public class Container extends LibraryItem
   {
     return positionY.get();
   }
-  
+
   public ReadOnlyDoubleProperty positionZProperty()
   {
     return positionZ.getReadOnlyProperty();
   }
-  
+
   public double getPositionZ()
   {
     return positionZ.get();
   }
-  
+
   public double getLocalPositionX()
   {
     return localPositionX.get();
@@ -413,18 +411,13 @@ public class Container extends LibraryItem
     initializeMovementListeners();
     initializeSubcontainerListeners();
 
-    localName.addListener(new ChangeListener<String>()
+    localName.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends String> observable,
-          String oldValue, String newValue)
+      if (library != null)
       {
-        if (library != null)
+        if (!library.isValidNameChange(newValue))
         {
-          if (!library.isValidNameChange(newValue))
-          {
-            localName.set(oldValue);
-          }
+          localName.set(oldValue);
         }
       }
     });
@@ -443,18 +436,18 @@ public class Container extends LibraryItem
     {
       updatePositionX();
     });
-    
+
     localPositionY.addListener((observable, oldValue, newValue) ->
     {
       updatePositionY();
     });
-    
+
     localPositionZ.addListener((observable, oldValue, newValue) ->
     {
       updatePositionZ();
     });
   }
-  
+
   private void initializeSubcontainerListeners()
   {
     subcontainers.addListener(new ListChangeListener<Container>()
@@ -493,7 +486,7 @@ public class Container extends LibraryItem
 
     return newContainer;
   }
-  
+
   public void updatePositionX()
   {
     if (parent == null)
@@ -504,7 +497,7 @@ public class Container extends LibraryItem
     {
       positionX.set(parent.getPositionX() + getLocalPositionX());
     }
-    
+
     for (Container subcontainer : subcontainers)
     {
       subcontainer.updatePositionX();
@@ -521,7 +514,7 @@ public class Container extends LibraryItem
     {
       positionY.set(parent.getPositionY() + getLocalPositionY());
     }
-    
+
     for (Container subcontainer : subcontainers)
     {
       subcontainer.updatePositionY();
@@ -538,13 +531,13 @@ public class Container extends LibraryItem
     {
       positionZ.set(parent.getPositionZ() + getLocalPositionZ());
     }
-    
+
     for (Container subcontainer : subcontainers)
     {
       subcontainer.updatePositionZ();
     }
   }
-  
+
   public boolean isAtOrAbove(Container container)
   {
     if (this == container)

@@ -37,7 +37,6 @@ import pipettes.core.CylindricalGCodeDevice;
 import pipettes.core.Device;
 import pipettes.core.RectangularGCodeDevice;
 import javafx.animation.Timeline;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -100,8 +99,6 @@ public class PreviewModel
 
   private Translate deviceAreaTranslate = new Translate(0, 0, 0);
 
-  private ObjectProperty<Node> content = new SimpleObjectProperty<>();
-  private ObjectProperty<Node> highlite = new SimpleObjectProperty<>();
   private AutoScalingGroup autoScalingGroup = new AutoScalingGroup(2);
   private Group axisGroup;
   private Group deviceAreaGroup;
@@ -151,36 +148,6 @@ public class PreviewModel
     this.timeline.set(timeline);
   }
 
-  public ObjectProperty<Node> contentProperty()
-  {
-    return content;
-  }
-
-  public Node getContent()
-  {
-    return content.get();
-  }
-
-  public void setContent(Node content)
-  {
-    this.content.set(content);
-  }
-
-  public ObjectProperty<Node> highlightProperty()
-  {
-    return highlite;
-  }
-
-  public Node getHighlight()
-  {
-    return highlite.get();
-  }
-
-  public void setHighlight(Node content)
-  {
-    this.highlite.set(content);
-  }
-
   public SubScene getSubScene()
   {
     return subScene.get();
@@ -193,13 +160,6 @@ public class PreviewModel
 
   public PreviewModel()
   {
-    content.addListener((ObservableValue<? extends Node> ov, Node oldContent,
-        Node newContent) ->
-    {
-      autoScalingGroup.getChildren().remove(oldContent);
-      autoScalingGroup.getChildren().add(newContent);
-    });
-
     initializeLights();
     initializeCamera();
 
@@ -356,13 +316,13 @@ public class PreviewModel
   public void setContainers(ObservableList<Container> baseContainers)
   {
     containersGroup.getChildren().clear();
-    
+
     Container rootContainer = new Container(baseContainers);
     ContainerNode rootContainerNode = new ContainerNode(rootContainer, false);
-    
+
     containersGroup.getChildren().add(rootContainerNode);
   }
-  
+
   private final EventHandler<MouseEvent> mouseEventHandler = event ->
   {
     double yFlip = 1.0;
@@ -714,7 +674,7 @@ public class PreviewModel
 
     printHeadGroup = new Group();
     printHeadGroup.getChildren().add(printHead);
-    
+
     containersGroup = new Group();
 
     autoScalingGroup.getChildren().addAll(axisGroup, printHeadGroup,

@@ -39,7 +39,7 @@ public class ContainerNode extends Group
     this.draw = draw;
 
     containerMaterial = getRandomMaterial();
-    
+
     container.shapeProperty().addListener((observable, oldValue, newValue) ->
     {
       onShape();
@@ -53,17 +53,18 @@ public class ContainerNode extends Group
   private PhongMaterial getRandomMaterial()
   {
     double hue = Math.random() * 360;
-    Color color = Color.hsb(hue, containerSaturation, containerBrightness, containerOpacity);
-    
+    Color color = Color.hsb(hue, containerSaturation, containerBrightness,
+        containerOpacity);
+
     return Common.createMaterial(color);
   }
-  
+
   private void bindShape(Shape3D shape)
   {
     shape.translateXProperty().bind(container.positionXProperty());
     shape.translateYProperty().bind(container.positionYProperty());
     shape.translateZProperty().bind(container.positionZProperty());
-    
+
     shape.scaleXProperty().bind(container.sizeXProperty());
     shape.scaleYProperty().bind(container.sizeYProperty());
     shape.scaleZProperty().bind(container.sizeZProperty());
@@ -74,12 +75,12 @@ public class ContainerNode extends Group
     shape.translateXProperty().unbind();
     shape.translateYProperty().unbind();
     shape.translateZProperty().unbind();
-    
+
     shape.scaleXProperty().unbind();
     shape.scaleYProperty().unbind();
     shape.scaleZProperty().unbind();
   }
-  
+
   private void onShape()
   {
     if (container.getShape() == ContainerShape.Rectangular)
@@ -111,7 +112,7 @@ public class ContainerNode extends Group
         containerCylinder.getTransforms().addAll(Common.translateZ0_5,
             Common.rotateX90);
         getChildren().add(containerCylinder);
-        
+
         bindShape(containerCylinder);
       }
 
@@ -153,7 +154,7 @@ public class ContainerNode extends Group
           if (change.wasRemoved())
           {
             ArrayList<Node> nodesToRemove = new ArrayList<Node>();
-            
+
             for (Container subcontainer : change.getRemoved())
             {
               for (Node node : getChildren())
@@ -166,7 +167,7 @@ public class ContainerNode extends Group
                 }
               }
             }
-            
+
             getChildren().removeAll(nodesToRemove);
           }
         }

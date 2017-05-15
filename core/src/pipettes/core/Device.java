@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 
@@ -62,18 +60,13 @@ public abstract class Device extends LibraryItem
 
   public Device()
   {
-    name.addListener(new ChangeListener<String>()
+    name.addListener((observable, oldValue, newValue) ->
     {
-      @Override
-      public void changed(ObservableValue<? extends String> observable,
-          String oldValue, String newValue)
+      if (library != null)
       {
-        if (library != null)
+        if (!library.isValidNameChange(newValue))
         {
-          if (!library.isValidNameChange(newValue))
-          {
-            name.set(oldValue);
-          }
+          name.set(oldValue);
         }
       }
     });
@@ -98,8 +91,6 @@ public abstract class Device extends LibraryItem
   public abstract void move(Point2D location) throws PositioningException;
 
   public abstract void move(Point3D position) throws PositioningException;
-
-  // TODO: Define maximum draw/dispense volume
 
   public abstract void drawFluid(double volume);
 
