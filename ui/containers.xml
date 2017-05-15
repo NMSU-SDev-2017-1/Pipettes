@@ -2,16 +2,6 @@
 <library>
     <items>
         <container>
-            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
-            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
-            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
-            <localName>Beaker 50ml</localName>
-            <localPosition x="0.0" y="0.0" z="0.0"/>
-            <name>Beaker 50ml</name>
-            <shape>Cylindrical</shape>
-            <size x="40.0" y="40.0" z="60.0"/>
-        </container>
-        <container>
             <subcontainer>
                 <clearanceHeightAboveTop>2.0</clearanceHeightAboveTop>
                 <dispenseHeightAboveTop>1.0</dispenseHeightAboveTop>
@@ -70,6 +60,2066 @@
             <name>Microtube Rack 1x5 2ml</name>
             <shape>Rectangular</shape>
             <size x="88.0" y="15.0" z="24.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker50ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker50ml</name>
+            <shape>Cylindrical</shape>
+            <size x="40.0" y="40.0" z="55.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker100ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker100ml</name>
+            <shape>Cylindrical</shape>
+            <size x="50.0" y="50.0" z="72.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker150mL</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker150mL</name>
+            <shape>Cylindrical</shape>
+            <size x="60.0" y="60.0" z="85.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker250ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker250ml</name>
+            <shape>Cylindrical</shape>
+            <size x="70.0" y="70.0" z="90.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker400ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker400ml</name>
+            <shape>Cylindrical</shape>
+            <size x="80.0" y="80.0" z="110.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Beaker600ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker600ml</name>
+            <shape>Cylindrical</shape>
+            <size x="90.0" y="90.0" z="125.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>6.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>6.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>10.0</drawHeightAboveBottom>
+            <localName>Beaker1L</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker1L</name>
+            <shape>Cylindrical</shape>
+            <size x="110.0" y="110.0" z="155.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask125ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask125ml</name>
+            <shape>Cylindrical</shape>
+            <size x="67.0" y="67.0" z="114.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask250ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask250ml</name>
+            <shape>Cylindrical</shape>
+            <size x="82.0" y="82.0" z="132.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask500ml</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask500ml</name>
+            <shape>Cylindrical</shape>
+            <size x="101.0" y="101.0" z="176.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask1L</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask1L</name>
+            <shape>Cylindrical</shape>
+            <size x="129.0" y="129.0" z="216.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>3.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>3.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>5.0</drawHeightAboveBottom>
+            <localName>Flask50mL</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Flask50mL</name>
+            <shape>Cylindrical</shape>
+            <size x="51.0" y="51.0" z="78.0"/>
+        </container>
+        <container>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip1</localName>
+                <localPosition x="-44.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2</localName>
+                <localPosition x="-36.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3</localName>
+                <localPosition x="-28.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4</localName>
+                <localPosition x="-20.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5</localName>
+                <localPosition x="-12.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6</localName>
+                <localPosition x="-4.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7</localName>
+                <localPosition x="4.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8</localName>
+                <localPosition x="12.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip9</localName>
+                <localPosition x="20.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip10</localName>
+                <localPosition x="28.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip11</localName>
+                <localPosition x="36.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip12</localName>
+                <localPosition x="44.0" y="-21.0" z="0.0"/>
+                <name>2-20uLTips/Tip12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-1</localName>
+                <localPosition x="-44.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-2</localName>
+                <localPosition x="-36.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-3</localName>
+                <localPosition x="-28.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-4</localName>
+                <localPosition x="-20.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-5</localName>
+                <localPosition x="-12.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-6</localName>
+                <localPosition x="-4.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-7</localName>
+                <localPosition x="4.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-8</localName>
+                <localPosition x="12.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-9</localName>
+                <localPosition x="20.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-10</localName>
+                <localPosition x="28.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-11</localName>
+                <localPosition x="36.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip2-12</localName>
+                <localPosition x="44.0" y="-15.0" z="0.0"/>
+                <name>2-20uLTips/Tip2-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-1</localName>
+                <localPosition x="-44.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-2</localName>
+                <localPosition x="-36.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-3</localName>
+                <localPosition x="-28.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-4</localName>
+                <localPosition x="-20.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-5</localName>
+                <localPosition x="-12.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-6</localName>
+                <localPosition x="-4.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-7</localName>
+                <localPosition x="4.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-8</localName>
+                <localPosition x="12.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-9</localName>
+                <localPosition x="20.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-10</localName>
+                <localPosition x="28.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-11</localName>
+                <localPosition x="36.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip3-12</localName>
+                <localPosition x="44.0" y="-9.0" z="0.0"/>
+                <name>2-20uLTips/Tip3-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-1</localName>
+                <localPosition x="-44.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-2</localName>
+                <localPosition x="-36.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-3</localName>
+                <localPosition x="-28.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-4</localName>
+                <localPosition x="-20.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-5</localName>
+                <localPosition x="-12.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-6</localName>
+                <localPosition x="-4.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-7</localName>
+                <localPosition x="4.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-8</localName>
+                <localPosition x="12.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-9</localName>
+                <localPosition x="20.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-10</localName>
+                <localPosition x="28.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-11</localName>
+                <localPosition x="36.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip4-12</localName>
+                <localPosition x="44.0" y="-3.0" z="0.0"/>
+                <name>2-20uLTips/Tip4-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-1</localName>
+                <localPosition x="-44.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-2</localName>
+                <localPosition x="-36.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-3</localName>
+                <localPosition x="-28.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-4</localName>
+                <localPosition x="-20.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-5</localName>
+                <localPosition x="-12.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-6</localName>
+                <localPosition x="-4.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-7</localName>
+                <localPosition x="4.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-8</localName>
+                <localPosition x="12.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-9</localName>
+                <localPosition x="20.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-10</localName>
+                <localPosition x="28.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-11</localName>
+                <localPosition x="36.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip5-12</localName>
+                <localPosition x="44.0" y="3.0" z="0.0"/>
+                <name>2-20uLTips/Tip5-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-1</localName>
+                <localPosition x="-44.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-2</localName>
+                <localPosition x="-36.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-3</localName>
+                <localPosition x="-28.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-4</localName>
+                <localPosition x="-20.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-5</localName>
+                <localPosition x="-12.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-6</localName>
+                <localPosition x="-4.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-7</localName>
+                <localPosition x="4.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-8</localName>
+                <localPosition x="12.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-9</localName>
+                <localPosition x="20.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-10</localName>
+                <localPosition x="28.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-11</localName>
+                <localPosition x="36.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip6-12</localName>
+                <localPosition x="44.0" y="9.0" z="0.0"/>
+                <name>2-20uLTips/Tip6-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-1</localName>
+                <localPosition x="-44.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-2</localName>
+                <localPosition x="-36.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-3</localName>
+                <localPosition x="-28.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-4</localName>
+                <localPosition x="-20.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-5</localName>
+                <localPosition x="-12.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-6</localName>
+                <localPosition x="-4.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-7</localName>
+                <localPosition x="4.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-8</localName>
+                <localPosition x="12.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-9</localName>
+                <localPosition x="20.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-10</localName>
+                <localPosition x="28.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-11</localName>
+                <localPosition x="36.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip7-12</localName>
+                <localPosition x="44.0" y="15.0" z="0.0"/>
+                <name>2-20uLTips/Tip7-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-1</localName>
+                <localPosition x="-44.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-2</localName>
+                <localPosition x="-36.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-3</localName>
+                <localPosition x="-28.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-4</localName>
+                <localPosition x="-20.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-5</localName>
+                <localPosition x="-12.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-6</localName>
+                <localPosition x="-4.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-7</localName>
+                <localPosition x="4.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-8</localName>
+                <localPosition x="12.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-9</localName>
+                <localPosition x="20.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-10</localName>
+                <localPosition x="28.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-11</localName>
+                <localPosition x="36.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+                <localName>Tip8-12</localName>
+                <localPosition x="44.0" y="21.0" z="0.0"/>
+                <name>2-20uLTips/Tip8-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="60.0"/>
+            </subcontainer>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>50.0</drawHeightAboveBottom>
+            <localName>2-20uLTips</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>2-20uLTips</name>
+            <shape>Rectangular</shape>
+            <size x="110.0" y="50.0" z="60.0"/>
+        </container>
+        <container>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip1</localName>
+                <localPosition x="-44.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2</localName>
+                <localPosition x="-36.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3</localName>
+                <localPosition x="-28.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4</localName>
+                <localPosition x="-20.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5</localName>
+                <localPosition x="-12.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6</localName>
+                <localPosition x="-4.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7</localName>
+                <localPosition x="4.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8</localName>
+                <localPosition x="12.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip9</localName>
+                <localPosition x="20.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip10</localName>
+                <localPosition x="28.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip11</localName>
+                <localPosition x="36.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip12</localName>
+                <localPosition x="44.0" y="-21.0" z="0.0"/>
+                <name>20-200uLTips/Tip12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-1</localName>
+                <localPosition x="-44.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-2</localName>
+                <localPosition x="-36.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-3</localName>
+                <localPosition x="-28.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-4</localName>
+                <localPosition x="-20.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-5</localName>
+                <localPosition x="-12.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-6</localName>
+                <localPosition x="-4.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-7</localName>
+                <localPosition x="4.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-8</localName>
+                <localPosition x="12.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-9</localName>
+                <localPosition x="20.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-10</localName>
+                <localPosition x="28.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-11</localName>
+                <localPosition x="36.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip2-12</localName>
+                <localPosition x="44.0" y="-15.0" z="0.0"/>
+                <name>20-200uLTips/Tip2-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-1</localName>
+                <localPosition x="-44.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-2</localName>
+                <localPosition x="-36.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-3</localName>
+                <localPosition x="-28.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-4</localName>
+                <localPosition x="-20.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-5</localName>
+                <localPosition x="-12.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-6</localName>
+                <localPosition x="-4.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-7</localName>
+                <localPosition x="4.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-8</localName>
+                <localPosition x="12.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-9</localName>
+                <localPosition x="20.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-10</localName>
+                <localPosition x="28.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-11</localName>
+                <localPosition x="36.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip3-12</localName>
+                <localPosition x="44.0" y="-9.0" z="0.0"/>
+                <name>20-200uLTips/Tip3-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-1</localName>
+                <localPosition x="-44.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-2</localName>
+                <localPosition x="-36.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-3</localName>
+                <localPosition x="-28.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-4</localName>
+                <localPosition x="-20.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-5</localName>
+                <localPosition x="-12.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-6</localName>
+                <localPosition x="-4.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-7</localName>
+                <localPosition x="4.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-8</localName>
+                <localPosition x="12.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-9</localName>
+                <localPosition x="20.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-10</localName>
+                <localPosition x="28.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-11</localName>
+                <localPosition x="36.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip4-12</localName>
+                <localPosition x="44.0" y="-3.0" z="0.0"/>
+                <name>20-200uLTips/Tip4-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-1</localName>
+                <localPosition x="-44.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-2</localName>
+                <localPosition x="-36.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-3</localName>
+                <localPosition x="-28.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-4</localName>
+                <localPosition x="-20.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-5</localName>
+                <localPosition x="-12.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-6</localName>
+                <localPosition x="-4.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-7</localName>
+                <localPosition x="4.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-8</localName>
+                <localPosition x="12.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-9</localName>
+                <localPosition x="20.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-10</localName>
+                <localPosition x="28.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-11</localName>
+                <localPosition x="36.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip5-12</localName>
+                <localPosition x="44.0" y="3.0" z="0.0"/>
+                <name>20-200uLTips/Tip5-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-1</localName>
+                <localPosition x="-44.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-2</localName>
+                <localPosition x="-36.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-3</localName>
+                <localPosition x="-28.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-4</localName>
+                <localPosition x="-20.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-5</localName>
+                <localPosition x="-12.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-6</localName>
+                <localPosition x="-4.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-7</localName>
+                <localPosition x="4.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-8</localName>
+                <localPosition x="12.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-9</localName>
+                <localPosition x="20.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-10</localName>
+                <localPosition x="28.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-11</localName>
+                <localPosition x="36.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip6-12</localName>
+                <localPosition x="44.0" y="9.0" z="0.0"/>
+                <name>20-200uLTips/Tip6-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-1</localName>
+                <localPosition x="-44.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-2</localName>
+                <localPosition x="-36.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-3</localName>
+                <localPosition x="-28.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-4</localName>
+                <localPosition x="-20.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-5</localName>
+                <localPosition x="-12.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-6</localName>
+                <localPosition x="-4.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-7</localName>
+                <localPosition x="4.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-8</localName>
+                <localPosition x="12.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-9</localName>
+                <localPosition x="20.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-10</localName>
+                <localPosition x="28.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-11</localName>
+                <localPosition x="36.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip7-12</localName>
+                <localPosition x="44.0" y="15.0" z="0.0"/>
+                <name>20-200uLTips/Tip7-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-1</localName>
+                <localPosition x="-44.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-1</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-2</localName>
+                <localPosition x="-36.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-2</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-3</localName>
+                <localPosition x="-28.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-3</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-4</localName>
+                <localPosition x="-20.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-4</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-5</localName>
+                <localPosition x="-12.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-5</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-6</localName>
+                <localPosition x="-4.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-6</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-7</localName>
+                <localPosition x="4.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-7</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-8</localName>
+                <localPosition x="12.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-8</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-9</localName>
+                <localPosition x="20.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-9</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-10</localName>
+                <localPosition x="28.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-10</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-11</localName>
+                <localPosition x="36.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-11</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <subcontainer>
+                <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+                <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+                <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+                <localName>Tip8-12</localName>
+                <localPosition x="44.0" y="21.0" z="0.0"/>
+                <name>20-200uLTips/Tip8-12</name>
+                <shape>Cylindrical</shape>
+                <size x="5.0" y="5.0" z="80.0"/>
+            </subcontainer>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>70.0</drawHeightAboveBottom>
+            <localName>20-200uLTips</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>20-200uLTips</name>
+            <shape>Rectangular</shape>
+            <size x="110.0" y="50.0" z="80.0"/>
         </container>
     </items>
 </library>

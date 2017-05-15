@@ -1,0 +1,28 @@
+G21 ; Set units to millimeters
+G90 ; Switch to absolute coordinates
+M83 ; Set extruder to relative mode
+G28 ; Home all axes
+G1 Z45.000
+G1 X50.000 Y50.000
+G1 Z10.000
+G1 E-100.000
+G1 Z75.000
+G1 X0.000 Y50.000
+G1 Z75.000
+G1 E101.000
+G1 Z75.000
+G1 X-60.000 Y0.000
+G1 Z30.000
+G1 X-20.000 Y40.000
+G1 Z65.000
+G1 X30.000 Y-50.000
+G1 Z50.000
+G1 Z75.000
+G1 X0.000 Y50.000
+G1 Z10.000
+G1 E-80.000
+G1 Z75.000
+G1 X50.000 Y50.000
+G1 Z45.000
+G1 E80.800
+G28 ; Home all axes
