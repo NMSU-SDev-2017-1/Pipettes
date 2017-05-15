@@ -1,10 +1,10 @@
 # Pipettes
 
-These projects produce a Pipette Process Editor application, which allows users to define pipetting processes using containers and procedures in a graphical user interface. The software can export G-Code which allows most 3D printers to become a pipette robot and perform automated repetitive transport and dispensing of liquids in medical, chemical, and biochemical laboratories.
+These projects produce a **Pipette Process Editor** application, which allows users to define pipetting processes using containers and procedures in a graphical user interface. The software can export G-Code which allows most 3D printers to become a pipette robot and perform automated repetitive transport and dispensing of liquids in medical, chemical, and biochemical laboratories.
 
 ## Getting Started
 
-These instructions will get you a copy of the projects up and running on your local machine for development and testing purposes. See the "Deployment" section for notes on how to deploy the application.
+These instructions will get you a copy of the projects up and running on your local machine for development and testing purposes. See the [Deployment](#deployment) section for notes on how to build and deploy the application.
 
 ### Prerequisites
 
@@ -106,7 +106,7 @@ If you are having problems building the projects, you may be referencing an old 
 - Ensure that the "jdk1_8.0_51" or newer is checked and selected as the default.
 - Click the "OK" button to close the "Preferences" dialog.
 
-## Organization
+### Organization
 
 The software is separated into five different Eclipse Java projects:
 
@@ -132,14 +132,25 @@ This project performs a simple test of the JAXB functionality of the core classe
 
 This project performs a simple test of the core classes to generate G-Code from data models defined as XML. It is not necessary for building the application.
 
+### Running and Debugging the Pipette Process Editor
+
+To run or debug the application:
+- Run Eclipse.
+- Close all projects except for the "afterburner.fx", "Pipettes Core", and "Pipettes UI" projects. These must be open.
+- Select "Run" or "Debug" from the "Run" menu.
+
 ## Deployment
 
+Building and deployment requires that the Eclipse development environment be configured and contain the imported projects and that they can be compiled. To deploy the application:
+
 - Run Eclipse.
-- Close all projects except for the "afterburner.fx", "Pipettes Core", and "Pipettes UI" projects.
+- Close all projects except for the "afterburner.fx", "Pipettes Core", and "Pipettes UI" projects. These must be open.
 - Select the "Pipettes UI" project in the "Package Explorer" tree.
 - Select "Export" from the "File" menu.
 - Select "Runnable JAR file" from the "Java" tree, and click "Next".
 - Click the "Browse" button to select a name and location to be used for the JAR file. It is suggested that the name of the JAR file be "Pipette Process Editor.jar".
 - Click "Finish".
 
-The JAR (Java Archive) file that is created will contain the application and should be executable. On many platforms, you can double-click on the JAR file and the application will run.
+The JAR (Java Archive) file that is created will contain the application and should be executable. You can copy this JAR file to any platform which has a JRE installed and run it. On many platforms, you can double-click on the JAR file and the application will run.
+
+If the supplied device and container libraries are to be included in the application deployment, copy the "devices.xml" and "containers.xml" files from the "Pipettes UI" into the same location as the JAR file.
