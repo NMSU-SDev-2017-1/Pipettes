@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<process>
+    <containers>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker50mlA</localName>
+            <localPosition x="0.0" y="0.0" z="0.0"/>
+            <name>Beaker50mlA</name>
+            <shape>Cylindrical</shape>
+            <size x="40.0" y="40.0" z="55.0"/>
+        </container>
+        <container>
+            <clearanceHeightAboveTop>5.0</clearanceHeightAboveTop>
+            <dispenseHeightAboveTop>5.0</dispenseHeightAboveTop>
+            <drawHeightAboveBottom>3.0</drawHeightAboveBottom>
+            <localName>Beaker50mlB</localName>
+            <localPosition x="0.0" y="100.0" z="0.0"/>
+            <name>Beaker50mlB</name>
+            <shape>Cylindrical</shape>
+            <size x="40.0" y="40.0" z="55.0"/>
+        </container>
+    </containers>
+    <procedures>
+        <dispenseProcedure destination="Beaker50mlA" source="Beaker50mlA" volume="5.0"/>
+        <mixProcedure count="10.0" destination="Beaker50mlB" volume="4.5"/>
+    </procedures>
+</process>

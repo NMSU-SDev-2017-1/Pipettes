@@ -1,0 +1,7 @@
+Container,Operation,Volume
+NewBeakerA,Draw,5.000
+NewBeakerB,Dispense,5.000
+TipDisposal,Dispose Tip,0.000
+2-20uLTips,New Tip,0.000
+NewBeakerB,Draw,4.000
+NewBeakerA,Dispense,4.000
